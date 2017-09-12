@@ -38,13 +38,6 @@
 <!--[if lte IE 8]> <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> <![endif]-->
 <script>
 
-	var KEY = "1PHN8N0nY7YLw5NlYTp9VqSvqOHdgsvR2W8BfAZ8AtY4",
-		workSheetID = 1,
-		listOrCell = "list"; // 'list' or 'cells'
-
-	var URL = "https://spreadsheets.google.com/feeds/"+listOrCell+"/"+KEY+"/"+workSheetID+"/public/basic?alt=json-in-script&callback=?";
-	URL = "http://spreadsheets.google.com/tq?tqx=out:json&callback=?&key=1PHN8N0nY7YLw5NlYTp9VqSvqOHdgsvR2W8BfAZ8AtY4&gid=1095637889&tq=select+B+where+D+contains+";
-
 	$(function() {
 		$("#checkId").click(function() {
 			var val_phone = $("#phone").val();
@@ -52,27 +45,10 @@
 		});
 	});
 
-	function checkID() {
-		$.ajax({
-			url: URL
-		}).done(function(data) {
-			var list = JSON.parse(data.substring(data.indexOf('(')+1, data.indexOf(');'))).table.rows, // 문자열에서 불필요한 부분 제거하고 JSON 형식으로.
-				sum = list.length; // 목록 수.
-			console.log('* SHEET DATA URL - https://goo.gl/Vvge1E'); // 구글 스프레드시트 URL.
-			console.log(data);
-			console.log(list);
-
-		}).fail(function(jqXHR, textStatus, errorThrown) {
-			console.log("code:"+jqXHR.status+"\n"+"message:"+jqXHR.responseText+"\n"+"error:"+errorThrown);
-		});
-	}
-
 	function checkID2(phone) {
 		$.ajax({
 			url: "https://script.google.com/macros/s/AKfycbyw1NFXh2xMUKvPS4RrVVQ3ri9XliCPYRRIIgG_Z3ch2qeFHQ9l/exec",
-			type: "GET",
-			cache: false,
-			dataType: "json"
+			type: "GET"
 		}).done(function(data) {
 			//var list = JSON.parse(data.substring(data.indexOf('(')+1, data.indexOf(');'))).table.rows; // 문자열에서 불필요한 부분 제거하고 JSON 형식으로.
 			console.log(data);
