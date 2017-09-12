@@ -1,85 +1,26 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title> </title>
-	<style type="text/css" media="screen">
-		a {
-			color:black;
-		}
-		#eduAttend {
-			padding:10px;
-			font-size:0.8em;
-		}
-		#eduAttend p {
-			line-height:2em;
-			padding:0; margin:0;
-		}
-	</style>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1">
+	<title>11st.diner</title>
 </head>
 <body>
-<h1>순장교육 출석부</h1>
-<form>
-<div id="eduAttend">
-<p><label>핸드폰번호: <input type="text" id="phone"></label> <button id="checkId">등록확인</button> <span id="studentname"></span></p>
-<p>수 강 과목: <select id="subject">
-	<option value="none">과목을 선택해주세요</option>
-	<option value="2017-2g111">강의1 제목</option>
-	<option value="2017-2g112">강의2 제목</option>
-	</select></p>
-<p><span id="teachername"></span><br />
-<span id="place"></span></p>
-<p><input type="button" value="출석" onclick="sendAttend();"></p>
-</div>
-</form>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!--[if lte IE 8]> <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> <![endif]-->
-<script>
-
-	$(function() {
-		$("#checkId").click(function() {
-			var val_phone = $("#phone").val();
-			checkID2(val_phone);
-		});
-	});
-
-	function checkID2(phone) {
-		$.ajax({
-			url: "https://script.google.com/macros/s/AKfycbyw1NFXh2xMUKvPS4RrVVQ3ri9XliCPYRRIIgG_Z3ch2qeFHQ9l/exec",
-			type: 'GET',
-			dataType: 'jsonp'
-		}).done(function(data) {
-			//var list = JSON.parse(data.substring(data.indexOf('(')+1, data.indexOf(');'))).table.rows; // 문자열에서 불필요한 부분 제거하고 JSON 형식으로.
-			console.log(data);
-			console.log(list);
-		}).fail(function(jqXHR, textStatus, errorThrown) {
-			console.log("code:"+jqXHR.status+"\n"+"message:"+jqXHR.responseText+"\n"+"error:"+errorThrown);
-		});
-	}
-
-	function sendAttend() {
-		var val_phone = $("#phone").val();
-		var val_subject = $("#subject option:selected").val();
-
-		$.ajax({
-			//url:https://maker.ifttt.com/trigger/attend_ccc_edu/with/key/b44lIYPjY4ktzrY3E2LifR',
-			data: {
-				Value1: val_phone,
-				Value2: val_subject
-			},
-			type: "GET",
-			success:function(data) {
-				if(data.result.success==true) 
-					alert('정상적으로 출석이 등록되었습니다.');
-			},
-			error:function(jqXHR, textStatus, errorThrown) {
-				alert('에러가 발생했습니다.'+textStatus);
-			}
-		});
-	}
-</script>
-
+	<main>
+		<h1>11st 식당 추천</h1>
+		<p>결정 장애가 있는 당신을 위해 성무관 주변에 있는 <a href="https://docs.google.com/spreadsheets/d/1PHN8N0nY7YLw5NlYTp9VqSvqOHdgsvR2W8BfAZ8AtY4/edit?usp=sharing" class="count"></a> 식당 중 하나를 추천해 드려요.</p>
+		<output><a></a></output>
+		<button type="button">밥 먹으로 갈까요?</button>
+		<ul>
+			<li><a href="https://goo.gl/forms/GrPjl8tRTgCpoSm22">식당 추가</a></li>
+			<li><a href="https://github.com/naradesign/11st.diner/issues/new">오류 신고</a></li>
+		</ul>
+		<p>Copyright &copy; 2017 Chan-Myeong | Under the <a href="license.txt">MIT</a> license.</p>
+	</main>
+	<div class="loading-container">
+		<div class="loader">Loading...</div>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="script.js"></script>
 </body>
 </html>
