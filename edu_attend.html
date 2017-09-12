@@ -48,7 +48,8 @@
 	function checkID2(phone) {
 		$.ajax({
 			url: "https://script.google.com/macros/s/AKfycbyw1NFXh2xMUKvPS4RrVVQ3ri9XliCPYRRIIgG_Z3ch2qeFHQ9l/exec",
-			type: "GET"
+			type: 'GET',
+			dataType: 'jsonp'
 		}).done(function(data) {
 			//var list = JSON.parse(data.substring(data.indexOf('(')+1, data.indexOf(');'))).table.rows; // 문자열에서 불필요한 부분 제거하고 JSON 형식으로.
 			console.log(data);
