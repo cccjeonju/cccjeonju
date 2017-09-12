@@ -4,7 +4,7 @@ function logResults(json) {
 
 jQuery(function($){
 	$(function() {
-		$("#checkId").click(function() {
+		$('#checkId').click(function() {
 			$.ajax({
 				dataType: 'jsonp',
 				jsonpCallback: 'logResults',
