@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title> </title>
+	<style type="text/css" media="screen">
+		a {
+			color:black;
+		}
+		#eduAttend {
+			padding:10px;
+			font-size:0.8em;
+		}
+		#eduAttend p {
+			line-height:2em;
+			padding:0; margin:0;
+		}
+	</style>
+</head>
+<body>
+<form>
+<div id="eduAttend">
+<p><label>핸드폰번호: <input type="text" id="phone"></label> <button id="checkId">등록확인</button> <span id="studentname"></span></p>
+<p>수 강 과목: <select id="subject">
+	<option value="none">과목을 선택해주세요</option>
+	<option value="2017-2g111">강의1 제목</option>
+	<option value="2017-2g112">강의2 제목</option>
+	</select></p>
+<p><span id="teachername"></span><br />
+<span id="place"></span></p>
+<p><input type="button" value="출석" onclick="sendAttend();"></p>
+</div>
+</form>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!--[if lte IE 8]> <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> <![endif]-->
+<script>
+
+	var KEY = "1PHN8N0nY7YLw5NlYTp9VqSvqOHdgsvR2W8BfAZ8AtY4",
+		workSheetID = 1,
+		listOrCell = "list"; // 'list' or 'cells'
+
+	var URL = "https://spreadsheets.google.com/feeds/"+listOrCell+"/"+KEY+"/"+workSheetID+"/public/basic?alt=json-in-script&callback=?";
+	URL = "http://spreadsheets.google.com/tq?tqx=out:json&callback=?&key=1PHN8N0nY7YLw5NlYTp9VqSvqOHdgsvR2W8BfAZ8AtY4&gid=1095637889&tq=select+B+where+D+contains+";
+
+	$(function() {
+		$("#checkId").click(function() {
+			var val_phone = $("#phone").val();
+			checkID2(val_phone);
+		});
+	});
+
+	function checkID() {
+		$.ajax({
+			url: URL
+		}).done(function(data) {
+			var list = JSON.parse(data.substring(data.indexOf('(')+1, data.indexOf(');'))).table.rows, // 문자열에서 불필요한 부분 제거하고 JSON 형식으로.
+				sum = list.length; // 목록 수.
+			console.log('* SHEET DATA URL - https://goo.gl/Vvge1E'); // 구글 스프레드시트 URL.
+			console.log(data);
+			console.log(list);
+
+		}).fail(function(jqXHR, textStatus, errorThrown) {
+			console.log("code:"+jqXHR.status+"\n"+"message:"+jqXHR.responseText+"\n"+"error:"+errorThrown);
+		});
+	}
+
+	function checkID2(phone) {
+		$.ajax({
+			url: "https://script.google.com/macros/s/AKfycbyw1NFXh2xMUKvPS4RrVVQ3ri9XliCPYRRIIgG_Z3ch2qeFHQ9l/exec",
+			type: "GET",
+			cache: false,
+			dataType: "json"
+		}).done(function(data) {
+			//var list = JSON.parse(data.substring(data.indexOf('(')+1, data.indexOf(');'))).table.rows; // 문자열에서 불필요한 부분 제거하고 JSON 형식으로.
+			console.log(data);
+			console.log(list);
+		}).fail(function(jqXHR, textStatus, errorThrown) {
+			console.log("code:"+jqXHR.status+"\n"+"message:"+jqXHR.responseText+"\n"+"error:"+errorThrown);
+		});
+	}
+
+	function sendAttend() {
+		var val_phone = $("#phone").val();
+		var val_subject = $("#subject option:selected").val();
+
+		$.ajax({
+			//url:https://maker.ifttt.com/trigger/attend_ccc_edu/with/key/b44lIYPjY4ktzrY3E2LifR',
+			data: {
+				Value1: val_phone,
+				Value2: val_subject
+			},
+			type: "GET",
+			success:function(data) {
+				if(data.result.success==true) 
+					alert('정상적으로 출석이 등록되었습니다.');
+			},
+			error:function(jqXHR, textStatus, errorThrown) {
+				alert('에러가 발생했습니다.'+textStatus);
+			}
+		});
+	}
+</script>
+
+</body>
+</html>
