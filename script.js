@@ -34,8 +34,8 @@ jQuery(function($){
 					return;
 				}
 			}
-			$('output').prepend( $('<a>아직 등록이 되지 않았습니다.</a>\n') );
 			$('output>a').text('여기를 눌러 \'등록\'을 먼저해주세요.').attr('href', 'https://goo.gl/ZFfX76');
+			$('output').prepend( $('<a>아직 등록이 되지 않았습니다.</a><br>\n') );
 			//$('output>a').text(list[num].c[1].v).attr('href', list[num].c[2].v); // 식당 출력하고 링크 걸기.
 		};
 		
