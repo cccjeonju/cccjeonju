@@ -13,7 +13,7 @@ jQuery(function($){
 		var list = JSON.parse(data.substring(data.indexOf('(')+1, data.indexOf(');'))).table.rows, // 문자열에서 불필요한 부분 제거하고 JSON 형식으로.
 			sum = list.length; // 목록 수.
 		//console.log('* SHEET DATA URL - https://goo.gl/Vvge1E'); // 구글 스프레드시트 URL.
-		console.log('* 전체 등록 수: ' + sum + '명');
+		console.log('* 전체 강의 수: ' + sum + '개');
 		for (var i = 0; i < sum; i++) { // 전체 강의 목록을 콘솔에 출력. 
 		    console.log(i+1 + '  ' + list[i].c[4].v.toString() + ' / ' + list[i].c[5].v.toString() + ' / ' + list[i].c[6].v.toString());		    
 		    //$('#subject').append( $('<option value="' + list[i].c[4].v.toString() + '">[' + list[i].c[1].v.toString() + '] ' + list[i].c[6].v.toString() + ' / ' + list[i].c[5].v.toString() + '</option>') );
@@ -41,7 +41,7 @@ jQuery(function($){
 			}).done(function (data) {
 				var students = JSON.parse(data.substring(data.indexOf('(')+1, data.indexOf(');'))).table.rows, // 문자열에서 불필요한 부분 제거하고 JSON 형식으로.
 					total = students.length; // 목록 수.
-
+				console.log('* 전체 등록자 수: ' + total + '명');
 				for (var i = 0; i < total; i++) {
 					console.log('PHONE = ' + $('#phone').val());
 					console.log('   ' + i+1 + ' ' + students[i].c[1].v + ' ' + students[i].c[8].v + '님 (' + students[i].c[5].v + ' ' + students[i].c[6].v.toString().substr(-2) + '학번)');
