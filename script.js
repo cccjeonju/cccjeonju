@@ -1,20 +1,24 @@
 jQuery(function($){
+	// 1. 초기 실행되면 loadingbar 효과를 주며 페이지 로딩 (수강과목 로딩까지 끝냄)
+	// 2-1. '등록 확인'을 최초로 누르면 등록부 시트로부터 등록자 명단을 가져온다. 
+	// 2-2. 가져온 명단을 전역변수로 가지고 있으면서 등록자인지 체크하여 화면에 표시한다.
 	$.ajax({
-		url: 'https://docs.google.com/spreadsheets/d/1PHN8N0nY7YLw5NlYTp9VqSvqOHdgsvR2W8BfAZ8AtY4/gviz/tq?gid=1980648270'
+		url: 'https://docs.google.com/spreadsheets/d/1PHN8N0nY7YLw5NlYTp9VqSvqOHdgsvR2W8BfAZ8AtY4/gviz/tq?gid=2098472162'
+		//url: 'https://docs.google.com/spreadsheets/d/1PHN8N0nY7YLw5NlYTp9VqSvqOHdgsvR2W8BfAZ8AtY4/gviz/tq?gid=1095637889'
 	}).done(function (data) {
 		var list = JSON.parse(data.substring(data.indexOf('(')+1, data.indexOf(');'))).table.rows, // 문자열에서 불필요한 부분 제거하고 JSON 형식으로.
-		sum = list.length; // 목록 수.
+			sum = list.length; // 목록 수.
 		//console.log('* SHEET DATA URL - https://goo.gl/Vvge1E'); // 구글 스프레드시트 URL.
 		//console.log(data);
 		//console.log(list);
 		//console.log('* 전체 등록 수: ' + sum + '명');
-		for (var i = 0; i < sum; i++) { // 전체 식당 목록을 콘솔에 출력. 
-		    console.log(i+1 + '  ' + list[i].c[1].v + ' / ' + list[i].c[2].v + ' / ' + list[i].c[3].v);
-		    //$('output>a').text(i+1 + '. ' + list[i].c[1].v + ' - ' + list[i].c[2].v + ' ' + list[i].c[3].v);
+		for (var i = 0; i < sum; i++) { // 전체 강의 목록을 콘솔에 출력. 
+		    console.log(i+1 + '  ' + list[i].c[4].v + ' / ' + list[i].c[5].v);
+		    $('select').append( $('<option value="' + list[i].c[3].v + '">' + list[i].c[4].v + ' / ' + list[i].c[5].v) + '</option>' );
 		}
 		$('.loading-container').fadeOut(); // 로딩바 제거.
 
-		var checkID = function(){ // 등록자 검색
+		var checkID = function() { // 등록자 검색
 			//var num = parseInt(Math.random()*sum); // 난수 생성.
 
 			// 전화번호 형식 체크 정규식 010-1234-5678
