@@ -7,13 +7,12 @@ jQuery(function($){
 		//console.log('* SHEET DATA URL - https://goo.gl/Vvge1E'); // 구글 스프레드시트 URL.
 		//console.log(data);
 		//console.log(list);
-		//console.log('* 식당 수: ' + sum + '곳');
+		//console.log('* 전체 등록 수: ' + sum + '명');
 		for (var i = 0; i < sum; i++) { // 전체 식당 목록을 콘솔에 출력.
-		    console.log(i+1 + '. ' + list[i].c[1].v + ' - ' + list[i].c[2].v + ' ' + list[i].c[3].v);
+		    console.log(i+1 + '. ' + list[i].c[1].v + ' / ' + list[i].c[2].v + ' / ' + list[i].c[3].v);
 		    //$('output>span').text(i+1 + '. ' + list[i].c[1].v + ' - ' + list[i].c[2].v + ' ' + list[i].c[3].v);
 		}
 		$('.loading-container').fadeOut(); // 로딩바 제거.
-		//$('.count').text( sum + '곳' ); // 식당 수 표시.
 		var checkID = function(){ // 
 			//var num = parseInt(Math.random()*sum); // 난수 생성.
 			for (var i = 0; i < sum; i++) {
@@ -24,7 +23,7 @@ jQuery(function($){
 			}
 			//$('output>a').text(list[num].c[1].v).attr('href', list[num].c[2].v); // 식당 출력하고 링크 걸기.
 		};
-		$('#checkId').on('click', checkID); // 
+		$('#checkIdBtn').on('click', checkID); // 
 			     // ㄱㅛㅇㅠㄱ ㅅㅣㄱㅏㄴㅇㅣ ㅇㅏㄴㅣㄹㄱㅕㅇㅇㅜ ㅊㅜㄹㅅㅓㄱ ㅁㅗㅅㅎㅏㄷㅗㄹㅗㄱ ㅎㅏㅁ
 		             //
 		//
