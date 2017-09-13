@@ -23,11 +23,12 @@ jQuery(function($){
 					return;
 				}
 			}
-			$('output>a').text('아직 등록이 되지 않았습니다. 여기를 눌러 \'등록\'을 먼저해주세요.').attr('href', 'https://goo.gl/ZFfX76');
+			$('output>a').text('아직 등록이 되지 않았습니다.<br>여기를 눌러 \'등록\'을 먼저해주세요.').attr('href', 'https://goo.gl/ZFfX76');
 			//$('output>a').text(list[num].c[1].v).attr('href', list[num].c[2].v); // 식당 출력하고 링크 걸기.
 		};
 		
 		// 교육기간 및 시간이 아닐 경우 출석을 하지 못하도록 하는 코드 (조건문)
+		// 정규식이 맞지 않으면 조회하지 않음
 		$('#checkIdBtn').on('click', checkID); // '등록 확인'' 체크
 
 	}).fail(function () {
