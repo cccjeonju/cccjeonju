@@ -18,8 +18,8 @@ jQuery(function($){
 			//var num = parseInt(Math.random()*sum); // 난수 생성.
 
 			// 전화번호 형식 체크 정규식 010-1234-5678
-			var regExp = /^d{2,3}-\d{3,4}-\d{4}$/;
-			
+			var regExp = /^\d{3}-\d{3,4}-\d{4}$/;
+
 			if (!regExp.test( $('#phone').val() )) {
 				alert("010-1234-5678 형식에 맞춰서 핸드폰번호를 넣어주세요.");
 				$('#phone').focus();
