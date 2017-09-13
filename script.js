@@ -13,8 +13,19 @@ jQuery(function($){
 		    //$('output>a').text(i+1 + '. ' + list[i].c[1].v + ' - ' + list[i].c[2].v + ' ' + list[i].c[3].v);
 		}
 		$('.loading-container').fadeOut(); // 로딩바 제거.
+
 		var checkID = function(){ // 등록자 검색
 			//var num = parseInt(Math.random()*sum); // 난수 생성.
+
+			// 전화번호 형식 체크 정규식 010-1234-5678
+			var regExp = /^d{2,3}-\d{3,4}-\d{4}$/;
+			
+			if (!regExp.test( $('#phone').val() )) {
+				alert("010-1234-5678 형식에 맞춰서 핸드폰번호를 넣어주세요.");
+				$('#phone').focus();
+				return false;
+			}
+
 			for (var i = 0; i < sum; i++) {
 				//console.log($('#phone').val());
 				$('output').attr('style', 'display:block');
@@ -30,6 +41,13 @@ jQuery(function($){
 		// 교육기간 및 시간이 아닐 경우 출석을 하지 못하도록 하는 코드 (조건문)
 		// 정규식이 맞지 않으면 조회하지 않음
 		$('#checkIdBtn').on('click', checkID); // '등록 확인'' 체크
+
+		// 출석하기 함수
+		//
+		//
+		//
+		//
+
 
 	}).fail(function () {
 		alert('아이쿠! 데이터 불러오기 실패. 아마도 jQuery CDN 또는 일시적인 구글 API 문제. ㅜㅜ;');
