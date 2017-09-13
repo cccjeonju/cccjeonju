@@ -30,12 +30,12 @@ jQuery(function($){
 				//console.log($('#phone').val());
 				$('output').attr('style', 'display:block');
 				if (list[i].c[3].v == $('#phone').val()) {
-					$('output>a').text(list[i].c[1].v + ' ' + list[i].c[8].v + '님 (' + list[i].c[5].v + ' ' + list[i].c[6].v.toString().substr(-2) + '학번)');
+					$('output>a').text(list[i].c[1].v + ' ' + list[i].c[8].v + '님 ' + list[i].c[5].v + ' ' + list[i].c[6].v.toString().substr(-2) + '학번)\n');
 					return;
 				}
 			}
-			$('output>a').text('아직 등록이 되지 않았습니다.');
-			$('output>a').append('여기를 눌러 \'등록\'을 먼저해주세요.').attr('href', 'https://goo.gl/ZFfX76');
+			$('output').prepend( $('<a>아직 등록이 되지 않았습니다.</a>\n') );
+			$('output>a').text('여기를 눌러 \'등록\'을 먼저해주세요.').attr('href', 'https://goo.gl/ZFfX76');
 			//$('output>a').text(list[num].c[1].v).attr('href', list[num].c[2].v); // 식당 출력하고 링크 걸기.
 		};
 		
