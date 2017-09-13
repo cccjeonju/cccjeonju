@@ -16,9 +16,10 @@ jQuery(function($){
 		var checkID = function(){ // 등록자 검색
 			//var num = parseInt(Math.random()*sum); // 난수 생성.
 			for (var i = 0; i < sum; i++) {
-				console.log($('#phone').val());
+				//console.log($('#phone').val());
+				$('output').attr('display', 'block');
 				if (list[i].c[3].v == $('#phone').val()) {
-					$('output>a').text(list[i].c[1].v);
+					$('output>a').text(list[i].c[1].v + '님 (' + list[i].c[5].v + ' ' + list[i].c[6].v.substr(-2) + '학번)');
 					return;
 				}
 			}
