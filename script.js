@@ -80,11 +80,15 @@ jQuery(function($){
 				return false;
 			}
 
+			console.log('핸드폰 입력 확인');
+
 			var subject_selected = $(':radio[name="subject"]:checked').val();
 			if( !subject_selected ) {
 				alert('수강하는 과목을 선택하세요.');
 				return false;
 			}
+
+			console.log('수강과목 선택 확인');
 
 			$.ajax({
 				url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_ATTEND,
@@ -94,6 +98,7 @@ jQuery(function($){
 				},
 				type: "POST"
 			}).done(function(data){
+				console.log(data);
 				alert('출석이 되었습니다.');
 				$('#submitBtn').prop('disabled', false);
 				$('#phone').empty();
