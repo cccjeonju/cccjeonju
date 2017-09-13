@@ -4,6 +4,8 @@ jQuery(function($){
 		GID_SHEET_REGIST = "1095637889",
 		GID_SHEET_SUBJECT= "2098472162";
 	var KEY_SHEET_ATTEND = "https://script.google.com/macros/s/AKfycbyOpp8Fl9V5DAd_ZjsDSI12z7oQLOLufI3HfipWxiUMvngxeOIq/exec";
+
+	var phoneNumber = "";
 	// --------------------------------------------------
 	// 1. 초기 실행되면 loadingbar 효과를 주며 페이지 로딩 (수강과목 로딩까지 끝냄)
 	// --------------------------------------------------
@@ -28,9 +30,10 @@ jQuery(function($){
 		var checkID = function() { // 등록자 검색
 			//var num = parseInt(Math.random()*sum); // 난수 생성.
 
+			phoneNumber = $('#phone').val();
 			// 전화번호 형식 체크 정규식 010-1234-5678
 			var regExp = /^\d{3}-\d{3,4}-\d{4}$/;
-			if (!regExp.test( $('#phone').val() )) {
+			if (!regExp.test( phoneNumber )) {
 				alert('010-1234-5678 형식에 맞춰서 핸드폰번호를 넣어주세요.');
 				$('#phone').focus();
 				return false;
@@ -42,17 +45,17 @@ jQuery(function($){
 				var students = JSON.parse(data.substring(data.indexOf('(')+1, data.indexOf(');'))).table.rows, // 문자열에서 불필요한 부분 제거하고 JSON 형식으로.
 					total = students.length; // 목록 수.
 				console.log('* 전체 등록자 수: ' + total + '명');
-				console.log('* PHONE = ' + $('#phone').val());
+				console.log('* PHONE = ' + phoneNumber);
 				for (var i = 0; i < total; i++) {
 					console.log(i+1 + ' ' + students[i].c[3].v + ' ' + students[i].c[1].v + ' ' + students[i].c[8].v + '님 (' + students[i].c[5].v + ' ' + students[i].c[6].v.toString().substr(-2) + '학번)');
 					$('output').attr('style', 'display:block');
-					if (students[i].c[3].v == $('#phone').val()) {
+					if (students[i].c[3].v == phoneNumber) {
 						$('output>a').html(students[i].c[3].v + '<br>' + students[i].c[1].v + ' ' + students[i].c[8].v + '님 (' + students[i].c[5].v + ' ' + students[i].c[6].v.toString().substr(-2) + '학번)\n');
 						$('input[name="phoneCheck"]').val(students[i].c[3].v.toString().substr(-4));
 						return;
 					}
 				}
-				$('output>a').html($('#phone').val() + ' 는 아직 등록이 되지 않았습니다.<br>여기를 눌러 \'등록\'을 먼저해주세요.').attr('href', 'https://goo.gl/ZFfX76');
+				$('output>a').html(phoneNumber + ' 는 아직 등록이 되지 않았습니다.<br>여기를 눌러 \'등록\'을 먼저해주세요.').attr('href', 'https://goo.gl/ZFfX76');
 			}).fail(function(){
 				alert('등록자 검색 실패');
 			});
@@ -75,14 +78,14 @@ jQuery(function($){
 		var submitAttend = function() {
 			$('#submitBtn').prop('disabled', true); // 버튼 비활성화
 
-			if( !$('#phone').val() ) {
+			if (!$('#phone').val()) {
 				alert('핸드폰번호를 입력하고 \'등록 확인\' 버튼을 누르세요.');
 				$('#submitBtn').prop('disabled', false); // 버튼 활성화 복귀
 				$('#phone').focus();
 				return false;
 			}
 
-			if( !$('#phoneCheck').val() ) {
+			if ($('#phoneCheck').val() != phoneNumber) {
 				alert('\'등록 확인\' 버튼을 눌러 진행하세요.');
 				$('#submitBtn').prop('disabled', false); // 버튼 활성화 복귀
 				$('#checkId').focus();
@@ -92,7 +95,7 @@ jQuery(function($){
 			console.log('핸드폰 입력 확인');
 
 			var subject_selected = $(':radio[name="subject"]:checked').val();
-			if( !subject_selected ) {
+			if (!subject_selected) {
 				alert('수강하는 과목을 선택하세요.');
 				$('#submitBtn').prop('disabled', false); // 버튼 활성화 복귀
 				return false;
@@ -104,14 +107,14 @@ jQuery(function($){
 			$.ajax({
 				url: KEY_SHEET_ATTEND,
 				data: {
-					phone: $('#phone').val(),
+					phone: phoneNumber,
 					subject: subject_selected
 				}
 			}).done(function(data){
 				//console.log(data);
 				alert('출석이 되었습니다.');
 				$('#submitBtn').prop('disabled', false);
-				$('#phone').empty();
+				$('#phone').val('');
 				$('input:radio[name="subject"]').prop('checked', false);
 			}).fail(function(){
 				alert('출석을 기록하는데 에러가 발생했습니다.');
