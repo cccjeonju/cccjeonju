@@ -1,9 +1,9 @@
 jQuery(function($){
 
 	var KEY_SPREADSHEET = "1PHN8N0nY7YLw5NlYTp9VqSvqOHdgsvR2W8BfAZ8AtY4",
-		GID_SHEET_ATTEND = "1980648270",
 		GID_SHEET_REGIST = "1095637889",
-		GID_SHEET_SUBJECT= "2098472162"
+		GID_SHEET_SUBJECT= "2098472162";
+	var KEY_SHEET_ATTEND = "https://script.google.com/macros/s/AKfycbyOpp8Fl9V5DAd_ZjsDSI12z7oQLOLufI3HfipWxiUMvngxeOIq/exec";
 	// --------------------------------------------------
 	// 1. 초기 실행되면 loadingbar 효과를 주며 페이지 로딩 (수강과목 로딩까지 끝냄)
 	// --------------------------------------------------
@@ -94,13 +94,13 @@ jQuery(function($){
 			console.log(subject_selected);
 
 			$.ajax({
-				url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_ATTEND,
+				url: KEY_SHEET_ATTEND,
 				data: {
 					phone: $('#phone').val(),
 					subject: subject_selected
 				}
 			}).done(function(data){
-				console.log(data);
+				//console.log(data);
 				alert('출석이 되었습니다.');
 				$('#submitBtn').prop('disabled', false);
 				$('#phone').empty();
