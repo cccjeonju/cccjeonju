@@ -85,7 +85,7 @@ jQuery(function($){
 				return false;
 			}
 
-			if ($('#phoneCheck').val() != phoneNumber) {
+			if ($('#phoneCheck').val() != phoneNumber.substr(-4)) {
 				alert('등록하신 게 맞습니까?\n\'등록 확인\' 버튼을 눌러 진행하거나 \'등록\'해주세요.');
 				$('#submitBtn').prop('disabled', false); // 버튼 활성화 복귀
 				$('#phone').focus();
