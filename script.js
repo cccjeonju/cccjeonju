@@ -105,7 +105,7 @@ jQuery(function($){
 			}
 
 			//console.log('수강과목 선택 확인');
-			console.log(subject_selected);
+			//console.log(subject_selected);
 
 			$.ajax({
 				url: KEY_SHEET_ATTEND,
