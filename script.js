@@ -19,7 +19,7 @@ jQuery(function($){
 				//console.log($('#phone').val());
 				$('output').attr('display', 'block');
 				if (list[i].c[3].v == $('#phone').val()) {
-					$('output>a').text(list[i].c[1].v + ' ' + list[i].c[8].v + '님 (' + list[i].c[5].v + ' ' + list[i].c[6].v.substr(-2) + '학번)');
+					$('output>a').text(list[i].c[1].v + ' ' + list[i].c[8].v + '님 (' + list[i].c[5].v + ' ' + list[i].c[6].v.toString().substr(-2) + '학번)');
 					return;
 				}
 			}
