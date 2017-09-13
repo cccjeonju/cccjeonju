@@ -47,7 +47,8 @@ jQuery(function($){
 					console.log(i+1 + ' ' + students[i].c[3].v + ' ' + students[i].c[1].v + ' ' + students[i].c[8].v + '님 (' + students[i].c[5].v + ' ' + students[i].c[6].v.toString().substr(-2) + '학번)');
 					$('output').attr('style', 'display:block');
 					if (students[i].c[3].v == $('#phone').val()) {
-						$('output>a').html(students[i].c[1].v + '<br>' + students[i].c[1].v + ' ' + students[i].c[8].v + '님 (' + students[i].c[5].v + ' ' + students[i].c[6].v.toString().substr(-2) + '학번)\n');
+						$('output>a').html(students[i].c[3].v + '<br>' + students[i].c[1].v + ' ' + students[i].c[8].v + '님 (' + students[i].c[5].v + ' ' + students[i].c[6].v.toString().substr(-2) + '학번)\n');
+						$('input[name="phoneCheck"]').val(students[i].c[3].v.toString().substr(-4));
 						return;
 					}
 				}
@@ -78,6 +79,13 @@ jQuery(function($){
 				alert('핸드폰번호를 입력하고 \'등록 확인\' 버튼을 누르세요.');
 				$('#submitBtn').prop('disabled', false); // 버튼 활성화 복귀
 				$('#phone').focus();
+				return false;
+			}
+
+			if( !$('#phoneCheck').val() ) {
+				alert('\'등록 확인\' 버튼을 눌러 진행하세요.');
+				$('#submitBtn').prop('disabled', false); // 버튼 활성화 복귀
+				$('#checkId').focus();
 				return false;
 			}
 
