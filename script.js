@@ -47,11 +47,11 @@ jQuery(function($){
 					console.log(i+1 + ' ' + students[i].c[3].v + ' ' + students[i].c[1].v + ' ' + students[i].c[8].v + '님 (' + students[i].c[5].v + ' ' + students[i].c[6].v.toString().substr(-2) + '학번)');
 					$('output').attr('style', 'display:block');
 					if (students[i].c[3].v == $('#phone').val()) {
-						$('output>a').text(students[i].c[1].v + ' ' + students[i].c[8].v + '님 (' + students[i].c[5].v + ' ' + students[i].c[6].v.toString().substr(-2) + '학번)\n');
+						$('output>a').html(students[i].c[1].v + '<br>' + students[i].c[1].v + ' ' + students[i].c[8].v + '님 (' + students[i].c[5].v + ' ' + students[i].c[6].v.toString().substr(-2) + '학번)\n');
 						return;
 					}
 				}
-				$('output>a').html($('#phone').val() + '는 아직 등록이 되지 않았습니다.<br>여기를 눌러 \'등록\'을 먼저해주세요.').attr('href', 'https://goo.gl/ZFfX76');
+				$('output>a').html($('#phone').val() + ' 는 아직 등록이 되지 않았습니다.<br>여기를 눌러 \'등록\'을 먼저해주세요.').attr('href', 'https://goo.gl/ZFfX76');
 			}).fail(function(){
 				alert('등록자 검색 실패');
 			});
