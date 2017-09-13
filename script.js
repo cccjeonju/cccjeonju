@@ -17,7 +17,7 @@ jQuery(function($){
 		//console.log('* SHEET DATA URL - https://goo.gl/Vvge1E'); // 구글 스프레드시트 URL.
 		console.log('* 전체 강의 수: ' + sum + '개');
 		for (var i = 0; i < sum; i++) { // 전체 강의 목록을 콘솔에 출력. 
-		    console.log(i+1 + '  ' + list[i].c[5].v + ' / ' + list[i].c[4].v + ' / ' + list[i].c[6].v);
+		    //console.log(i+1 + '  ' + list[i].c[5].v + ' / ' + list[i].c[4].v + ' / ' + list[i].c[6].v);
 		    //$('#subject').append( $('<option value="' + list[i].c[4].v.toString() + '">[' + list[i].c[1].v.toString() + '] ' + list[i].c[6].v.toString() + ' / ' + list[i].c[5].v.toString() + '</option>') );
 		    $('.subject').append( $('<li><label><input type="radio" name="subject" value="' + list[i].c[4].v.toString() + '">[' + list[i].c[1].v.toString() + '] ' + list[i].c[6].v.toString() + ' / ' + list[i].c[5].v.toString() + '</label></li>') );
 		}
@@ -45,9 +45,9 @@ jQuery(function($){
 				var students = JSON.parse(data.substring(data.indexOf('(')+1, data.indexOf(');'))).table.rows, // 문자열에서 불필요한 부분 제거하고 JSON 형식으로.
 					total = students.length; // 목록 수.
 				console.log('* 전체 등록자 수: ' + total + '명');
-				console.log('* PHONE = ' + phoneNumber);
+				//console.log('* PHONE = ' + phoneNumber);
 				for (var i = 0; i < total; i++) {
-					console.log(i+1 + ' ' + students[i].c[3].v + ' ' + students[i].c[1].v + ' ' + students[i].c[8].v + '님 (' + students[i].c[5].v + ' ' + students[i].c[6].v.toString().substr(-2) + '학번)');
+					//console.log(i+1 + ' ' + students[i].c[3].v + ' ' + students[i].c[1].v + ' ' + students[i].c[8].v + '님 (' + students[i].c[5].v + ' ' + students[i].c[6].v.toString().substr(-2) + '학번)');
 					$('output').attr('style', 'display:block');
 					if (students[i].c[3].v == phoneNumber) {
 						$('output>a').html(students[i].c[3].v + '<br>' + students[i].c[1].v + ' ' + students[i].c[8].v + '님 (' + students[i].c[5].v + ' ' + students[i].c[6].v.toString().substr(-2) + '학번)\n');
@@ -85,17 +85,17 @@ jQuery(function($){
 				return false;
 			}
 
-			console.log( $('#phoneCheck').val() );
-			console.log( phoneNumber );
-			
-			if ($('#phoneCheck').val() != phoneNumber.substr(-4)) {
+			//console.log( $('input[name="phoneCheck"]').val() );
+			//console.log( phoneNumber );
+
+			if ($('input[name="phoneCheck"]').val() != phoneNumber.substr(-4)) {
 				alert('등록하신 게 맞습니까?\n\'등록 확인\' 버튼을 눌러 진행하거나 \'등록\'해주세요.');
 				$('#submitBtn').prop('disabled', false); // 버튼 활성화 복귀
 				$('#phone').focus();
 				return false;
 			}
 
-			console.log('핸드폰 입력 확인');
+			//console.log('핸드폰 입력 확인');
 
 			var subject_selected = $(':radio[name="subject"]:checked').val();
 			if (!subject_selected) {
@@ -104,7 +104,7 @@ jQuery(function($){
 				return false;
 			}
 
-			console.log('수강과목 선택 확인');
+			//console.log('수강과목 선택 확인');
 			console.log(subject_selected);
 
 			$.ajax({
