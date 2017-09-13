@@ -13,9 +13,9 @@ jQuery(function($){
 		var list = JSON.parse(data.substring(data.indexOf('(')+1, data.indexOf(');'))).table.rows, // 문자열에서 불필요한 부분 제거하고 JSON 형식으로.
 			sum = list.length; // 목록 수.
 		//console.log('* SHEET DATA URL - https://goo.gl/Vvge1E'); // 구글 스프레드시트 URL.
-		//console.log('* 전체 등록 수: ' + sum + '명');
+		console.log('* 전체 등록 수: ' + sum + '명');
 		for (var i = 0; i < sum; i++) { // 전체 강의 목록을 콘솔에 출력. 
-		    //console.log(i+1 + '  ' + list[i].c[4].v.toString() + ' / ' + list[i].c[5].v.toString() + ' / ' + list[i].c[6].v.toString());		    
+		    console.log(i+1 + '  ' + list[i].c[4].v.toString() + ' / ' + list[i].c[5].v.toString() + ' / ' + list[i].c[6].v.toString());		    
 		    //$('#subject').append( $('<option value="' + list[i].c[4].v.toString() + '">[' + list[i].c[1].v.toString() + '] ' + list[i].c[6].v.toString() + ' / ' + list[i].c[5].v.toString() + '</option>') );
 		    $('.subject').append( $('<li><label><input type="radio" name="subject" value="' + list[i].c[4].v.toString() + '">[' + list[i].c[1].v.toString() + '] ' + list[i].c[6].v.toString() + ' / ' + list[i].c[5].v.toString() + '</label></li>') );
 		}
@@ -39,14 +39,15 @@ jQuery(function($){
 			$.ajax({
 				url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_REGIST
 			}).done(function (data) {
-				var list = JSON.parse(data.substring(data.indexOf('(')+1, data.indexOf(');'))).table.rows, // 문자열에서 불필요한 부분 제거하고 JSON 형식으로.
-					sum = list.length; // 목록 수.
+				var students = JSON.parse(data.substring(data.indexOf('(')+1, data.indexOf(');'))).table.rows, // 문자열에서 불필요한 부분 제거하고 JSON 형식으로.
+					total = students.length; // 목록 수.
 
-				for (var i = 0; i < sum; i++) {
-					//console.log($('#phone').val());
+				for (var i = 0; i < total; i++) {
+					console.log('PHONE = ' + $('#phone').val());
+					console.log('   ' + i+1 + ' ' + students[])
 					$('output').attr('style', 'display:block');
-					if (list[i].c[3].v == $('#phone').val()) {
-						$('output>a').text(list[i].c[1].v + ' ' + list[i].c[8].v + '님 (' + list[i].c[5].v + ' ' + list[i].c[6].v.toString().substr(-2) + '학번)\n');
+					if (students[i].c[3].v == $('#phone').val()) {
+						$('output>a').text(students[i].c[1].v + ' ' + students[i].c[8].v + '님 (' + students[i].c[5].v + ' ' + students[i].c[6].v.toString().substr(-2) + '학번)\n');
 						return;
 					}
 				}
