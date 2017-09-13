@@ -89,14 +89,14 @@ jQuery(function($){
 			}
 
 			console.log('수강과목 선택 확인');
+			console.log(subject_selected);
 
 			$.ajax({
 				url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_ATTEND,
 				data: {
 					phone: $('#phone').val(),
 					subject: subject_selected
-				},
-				type: "POST"
+				}
 			}).done(function(data){
 				console.log(data);
 				alert('출석이 되었습니다.');
