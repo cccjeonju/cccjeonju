@@ -76,6 +76,7 @@ jQuery(function($){
 
 			if( !$('#phone').val() ) {
 				alert('핸드폰번호를 입력하고 \'등록 확인\' 버튼을 누르세요.');
+				$('#submitBtn').prop('disabled', false); // 버튼 활성화 복귀
 				$('#phone').focus();
 				return false;
 			}
@@ -85,6 +86,7 @@ jQuery(function($){
 			var subject_selected = $(':radio[name="subject"]:checked').val();
 			if( !subject_selected ) {
 				alert('수강하는 과목을 선택하세요.');
+				$('#submitBtn').prop('disabled', false); // 버튼 활성화 복귀
 				return false;
 			}
 
@@ -105,6 +107,7 @@ jQuery(function($){
 				$('input:radio[name="subject"]').prop('checked', false);
 			}).fail(function(){
 				alert('출석을 기록하는데 에러가 발생했습니다.');
+				$('#submitBtn').prop('disabled', false); // 버튼 활성화 복귀
 			});
 		};
 
