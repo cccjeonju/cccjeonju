@@ -1,9 +1,14 @@
 jQuery(function($){
+
+	var KEY_SPREADSHEET = "1PHN8N0nY7YLw5NlYTp9VqSvqOHdgsvR2W8BfAZ8AtY4",
+		GID_SHEET_ATTEND = "1980648270",
+		GID_SHEET_REGIST = "1095637889",
+		GID_SHEET_SUBJECT= "2098472162"
 	// --------------------------------------------------
 	// 1. 초기 실행되면 loadingbar 효과를 주며 페이지 로딩 (수강과목 로딩까지 끝냄)
 	// --------------------------------------------------
 	$.ajax({
-		url: 'https://docs.google.com/spreadsheets/d/1PHN8N0nY7YLw5NlYTp9VqSvqOHdgsvR2W8BfAZ8AtY4/gviz/tq?gid=2098472162'
+		url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_SUBJECT
 	}).done(function (data) {
 		var list = JSON.parse(data.substring(data.indexOf('(')+1, data.indexOf(');'))).table.rows, // 문자열에서 불필요한 부분 제거하고 JSON 형식으로.
 			sum = list.length; // 목록 수.
@@ -31,15 +36,24 @@ jQuery(function($){
 				return false;
 			}
 
-			for (var i = 0; i < sum; i++) {
-				//console.log($('#phone').val());
-				$('output').attr('style', 'display:block');
-				if (list[i].c[3].v == $('#phone').val()) {
-					$('output>a').text(list[i].c[1].v + ' ' + list[i].c[8].v + '님 (' + list[i].c[5].v + ' ' + list[i].c[6].v.toString().substr(-2) + '학번)\n');
-					return;
+			$.ajax({
+				url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_REGIST
+			}).done(function (data) {
+				var list = JSON.parse(data.substring(data.indexOf('(')+1, data.indexOf(');'))).table.rows, // 문자열에서 불필요한 부분 제거하고 JSON 형식으로.
+					sum = list.length; // 목록 수.
+
+				for (var i = 0; i < sum; i++) {
+					//console.log($('#phone').val());
+					$('output').attr('style', 'display:block');
+					if (list[i].c[3].v == $('#phone').val()) {
+						$('output>a').text(list[i].c[1].v + ' ' + list[i].c[8].v + '님 (' + list[i].c[5].v + ' ' + list[i].c[6].v.toString().substr(-2) + '학번)\n');
+						return;
+					}
 				}
-			}
-			$('output>a').html('아직 등록이 되지 않았습니다.<br>여기를 눌러 \'등록\'을 먼저해주세요.').attr('href', 'https://goo.gl/ZFfX76');
+				$('output>a').html('아직 등록이 되지 않았습니다.<br>여기를 눌러 \'등록\'을 먼저해주세요.').attr('href', 'https://goo.gl/ZFfX76');
+			}).fail(function(){
+				alert('등록자 검색 실패');
+			});
 		};
 		
 		// 교육기간 및 시간이 아닐 경우 출석을 하지 못하도록 하는 코드 (조건문)
@@ -72,7 +86,7 @@ jQuery(function($){
 			}
 
 			$.ajax({
-				url: 'https://docs.google.com/spreadsheets/d/1PHN8N0nY7YLw5NlYTp9VqSvqOHdgsvR2W8BfAZ8AtY4/gviz/tq?gid=1095637889',
+				url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_ATTEND,
 				data: {
 					phone: $('#phone').val(),
 					subject: subject_selected
