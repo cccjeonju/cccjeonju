@@ -17,7 +17,7 @@ jQuery(function($){
 			//var num = parseInt(Math.random()*sum); // 난수 생성.
 			for (var i = 0; i < sum; i++) {
 				//console.log($('#phone').val());
-				$('output').attr('display', 'block');
+				$('output').attr('style', 'display:block');
 				if (list[i].c[3].v == $('#phone').val()) {
 					$('output>a').text(list[i].c[1].v + ' ' + list[i].c[8].v + '님 (' + list[i].c[5].v + ' ' + list[i].c[6].v.toString().substr(-2) + '학번)');
 					return;
