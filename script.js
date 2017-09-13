@@ -44,7 +44,7 @@ jQuery(function($){
 
 				for (var i = 0; i < total; i++) {
 					console.log('PHONE = ' + $('#phone').val());
-					console.log('   ' + i+1 + ' ' + students[])
+					console.log('   ' + i+1 + ' ' + students[i].c[1].v + ' ' + students[i].c[8].v + '님 (' + students[i].c[5].v + ' ' + students[i].c[6].v.toString().substr(-2) + '학번)');
 					$('output').attr('style', 'display:block');
 					if (students[i].c[3].v == $('#phone').val()) {
 						$('output>a').text(students[i].c[1].v + ' ' + students[i].c[8].v + '님 (' + students[i].c[5].v + ' ' + students[i].c[6].v.toString().substr(-2) + '학번)\n');
