@@ -8,26 +8,27 @@ jQuery(function($){
 		//console.log(data);
 		//console.log(list);
 		//console.log('* 전체 등록 수: ' + sum + '명');
-		for (var i = 0; i < sum; i++) { // 전체 식당 목록을 콘솔에 출력.
-		    console.log(i+1 + '. ' + list[i].c[1].v + ' / ' + list[i].c[2].v + ' / ' + list[i].c[3].v);
-		    //$('output>span').text(i+1 + '. ' + list[i].c[1].v + ' - ' + list[i].c[2].v + ' ' + list[i].c[3].v);
+		for (var i = 0; i < sum; i++) { // 전체 식당 목록을 콘솔에 출력. 
+		    console.log(i+1 + '  ' + list[i].c[1].v + ' / ' + list[i].c[2].v + ' / ' + list[i].c[3].v);
+		    //$('output>a').text(i+1 + '. ' + list[i].c[1].v + ' - ' + list[i].c[2].v + ' ' + list[i].c[3].v);
 		}
 		$('.loading-container').fadeOut(); // 로딩바 제거.
-		var checkID = function(){ // 
+		var checkID = function(){ // 등록자 검색
 			//var num = parseInt(Math.random()*sum); // 난수 생성.
 			for (var i = 0; i < sum; i++) {
+				console.log($('#phone').val());
 				if (list[i].c[3].v == $('#phone').val()) {
-					$('output>span').text(list[i].c[1].v);
+					$('output>a').text(list[i].c[1].v);
 					return;
 				}
 			}
+			$('output>a').text('아직 등록이 되지 않았습니다. 여기를 눌러 \'등록\'을 먼저해주세요.').attr('href', 'https://goo.gl/ZFfX76');
 			//$('output>a').text(list[num].c[1].v).attr('href', list[num].c[2].v); // 식당 출력하고 링크 걸기.
 		};
-		$('#checkIdBtn').on('click', checkID); // 
-			     // ㄱㅛㅇㅠㄱ ㅅㅣㄱㅏㄴㅇㅣ ㅇㅏㄴㅣㄹㄱㅕㅇㅇㅜ ㅊㅜㄹㅅㅓㄱ ㅁㅗㅅㅎㅏㄷㅗㄹㅗㄱ ㅎㅏㅁ
-		             //
-		//
-		//
+		
+		// 교육기간 및 시간이 아닐 경우 출석을 하지 못하도록 하는 코드 (조건문)
+		$('#checkIdBtn').on('click', checkID); // '등록 확인'' 체크
+
 	}).fail(function () {
 		alert('아이쿠! 데이터 불러오기 실패. 아마도 jQuery CDN 또는 일시적인 구글 API 문제. ㅜㅜ;');
 	});
