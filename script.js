@@ -122,6 +122,7 @@ jQuery(function($){
 				$('output>a').text('');
 				$('output').attr('style', 'display:none');
 				$('input:radio[name="subject"]').prop('checked', false);
+				$('body').scrollTop(0);	// 페이지 맨 위로 이동
 			}).fail(function(){
 				alert('출석을 기록하는데 에러가 발생했습니다.');
 				$('#submitBtn').prop('disabled', false); // 버튼 활성화 복귀
