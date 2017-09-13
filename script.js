@@ -120,6 +120,7 @@ jQuery(function($){
 				$('#phone').val('');
 				$('input[name="phoneCheck"]').val('');
 				$('output>a').text('');
+				$('output').attr('style', 'display:none');
 				$('input:radio[name="subject"]').prop('checked', false);
 			}).fail(function(){
 				alert('출석을 기록하는데 에러가 발생했습니다.');
