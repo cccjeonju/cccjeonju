@@ -118,6 +118,8 @@ jQuery(function($){
 				alert('출석이 되었습니다.');
 				$('#submitBtn').prop('disabled', false);
 				$('#phone').val('');
+				$('input[name="phoneCheck"]').val('');
+				$('output>a').text('');
 				$('input:radio[name="subject"]').prop('checked', false);
 			}).fail(function(){
 				alert('출석을 기록하는데 에러가 발생했습니다.');
