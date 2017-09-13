@@ -14,7 +14,7 @@ jQuery(function($){
 		console.log('* 전체 등록 수: ' + sum + '명');
 		for (var i = 0; i < sum; i++) { // 전체 강의 목록을 콘솔에 출력. 
 		    console.log(i+1 + '  ' + list[i].c[4].v + ' / ' + list[i].c[5].v + ' / ' + list[i].c[6].v);
-		    var 
+		    
 		    $('#subject').append( $('<option value="' + list[i].c[4].v + '">' + list[i].c[5].v + ' / ' + list[i].c[6].v + '</option>') );
 		}
 		$('.loading-container').fadeOut(); // 로딩바 제거.
