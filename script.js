@@ -77,7 +77,7 @@ jQuery(function($){
 
 		var submitAttend = function() {
 			$('#submitBtn').prop('disabled', true); // 버튼 비활성화
-			$('.loading-container').fadeOut();
+			$('.loading-container').fadeIn();
 
 			if (!$('#phone').val()) {
 				alert('핸드폰번호를 입력하고 \'등록 확인\' 버튼을 누르세요.');
