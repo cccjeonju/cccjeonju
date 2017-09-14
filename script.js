@@ -77,6 +77,7 @@ jQuery(function($){
 
 		var submitAttend = function() {
 			$('#submitBtn').prop('disabled', true); // 버튼 비활성화
+			$('.loading-container').fadeOut();
 
 			if (!$('#phone').val()) {
 				alert('핸드폰번호를 입력하고 \'등록 확인\' 버튼을 누르세요.');
@@ -123,6 +124,7 @@ jQuery(function($){
 				$('output').attr('style', 'display:none');
 				$('input:radio[name="subject"]').prop('checked', false);
 				$('body').scrollTop(0);	// 페이지 맨 위로 이동
+				$('.loading-container').fadeOut();
 			}).fail(function(){
 				alert('출석을 기록하는데 에러가 발생했습니다.');
 				$('#submitBtn').prop('disabled', false); // 버튼 활성화 복귀
