@@ -20,6 +20,10 @@ a{
 }
 p{ margin:1em 0 0 0; }
 h1{ font-size:1.5em; }
+h2{ 
+	font-size:1.2em; 
+	margin: 0;
+}
 .guide{
 	display: block;
 	border: 1px dashed #ddd;
@@ -31,15 +35,18 @@ h1{ font-size:1.5em; }
 	text-align: left;
 	font-size: 0.9em;
 }
-ul.subject{
+ul{
 	margin: 0;
 	padding: 0;
 }
-ul.subject li{
+ul li{
 	list-style: none;
-	padding: 0.5em 1em;
+	padding: 0 0 0.5em 1em;
 	text-indent: -1em;
 	font-size: 0.9em;
+}
+select{
+	margin-bottom:1em;
 }
 #submitBtn{
 	width: 100%;
