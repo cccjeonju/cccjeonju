@@ -21,7 +21,7 @@ $(function(){
 		console.log('* 전체 강의 수: ' + sum + '개');
 
 		for (var i = 0; i < sum; i++) { // 전체 강의 목록을 콘솔에 출력. 
-		    console.log(i+1 + '  ' + list[i].c[5].v + ' / ' + list[i].c[4].v + ' / ' + list[i].c[6].v);
+		    //console.log(i+1 + '  ' + list[i].c[5].v + ' / ' + list[i].c[4].v + ' / ' + list[i].c[6].v);
 		    $('#subjectCode').append( $('<option value="' + list[i].c[4].v.toString() + '">' + list[i].c[6].v.toString() + ' / ' + list[i].c[5].v.toString() + '</option>\n') );
 		}
 		$('.loading-container').fadeOut(); // 로딩바 제거.
