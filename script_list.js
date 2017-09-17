@@ -74,8 +74,8 @@ $(function(){
 
 							var studentTr = "<tr class=\"\">\n";
 							studentTr += "<td class=\"co1\"><input type=\"checkbox\" name=\"students\" value=\""+user[k].c[0].v + "\">";
-//							studentTr += "<input type=\"hidden\" value=\""+user[k]+"\"></td>\n";
-							studentTr += "</td>\n<td class=\"co2\">"+(++ii)+"</td>\n"; 
+							studentTr += "<input type=\"hidden\" name=\"phones\" value=\""+phoneNumber+"\"></td>\n";
+							studentTr += "<td class=\"co2\">"+(++ii)+"</td>\n"; 
 							studentTr += "<td class=\"co3\">"+user[k].c[1].v+"</td>\n";	// 아름
 							studentTr += "<td class=\"co4\">"+user[k].c[8].v+"</td>\n";	// 호칭
 							studentTr += "<td class=\"co5\">"+user[k].c[2].v.toString().substr(0,1)+"</td>\n";	// 성별
@@ -145,12 +145,15 @@ $(function(){
 
 		//var timestp = Math.floor(new Date().getTime() / 1000);
 
-		$('input[name="students"]').each(function() {
-			if(this.checked) {
+		//$('input[name="students"]').each(function() {
+		for( var l = 0; l < $('input[name="students"]').length; l++) {
+			if( $('input[name="students"]').prop('checked') ) {
 				$.ajax({
 					url: WEB_APP_URL + '?sheet_name=' + SHEET_NAME_CONFIRM,
 					data: {
-						attend_time: this.value,
+						attend_time: $('input[name="students"]').val(),
+						phone: $('#input[name="phones"]').val(),
+						subject: $('#subjectCode option:selected').val(),
 						checker: '이희진'
 					}
 				}).done(function(data){
@@ -160,7 +163,8 @@ $(function(){
 					return;
 				});
 			}
-		});
+		}
+		//});
 		alert('출석 확인이 완료되었습니다.');
 		$('#checkAll').prop('checked', false);
 		$('input[name="students"]').prop('checked',false);
