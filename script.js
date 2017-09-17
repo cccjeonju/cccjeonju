@@ -1,9 +1,9 @@
 jQuery(function($){
 
-	var KEY_SPREADSHEET = "1PHN8N0nY7YLw5NlYTp9VqSvqOHdgsvR2W8BfAZ8AtY4",
-		GID_SHEET_REGIST = "1095637889",
-		GID_SHEET_SUBJECT= "2098472162";
-	var KEY_SHEET_ATTEND = "https://script.google.com/macros/s/AKfycbyOpp8Fl9V5DAd_ZjsDSI12z7oQLOLufI3HfipWxiUMvngxeOIq/exec";
+	var KEY_SPREADSHEET = "1PHN8N0nY7YLw5NlYTp9VqSvqOHdgsvR2W8BfAZ8AtY4",	// Key
+		GID_SHEET_REGIST = "1095637889",//"132886731",		// 등록부
+		GID_SHEET_SUBJECT= "2098472162";	// 개설강의 목록
+	var KEY_SHEET_ATTEND = "https://script.google.com/macros/s/AKfycbyOpp8Fl9V5DAd_ZjsDSI12z7oQLOLufI3HfipWxiUMvngxeOIq/exec";	// 출석부에 기록하기 위한 웹 앱
 
 	var phoneNumber = "";
 	// --------------------------------------------------
@@ -40,22 +40,21 @@ jQuery(function($){
 			}
 
 			$.ajax({
-				url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_REGIST
+				url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_REGIST+'&tq=select+*+where+D+matches+\''+phoneNumber+'\''
 			}).done(function (data) {
 				var students = JSON.parse(data.substring(data.indexOf('(')+1, data.indexOf(');'))).table.rows, // 문자열에서 불필요한 부분 제거하고 JSON 형식으로.
 					total = students.length; // 목록 수.
-				console.log('* 전체 등록자 수: ' + total + '명');
+				//console.log('* 전체 등록자 수: ' + total + '명');
 				//console.log('* PHONE = ' + phoneNumber);
-				for (var i = 0; i < total; i++) {
-					//console.log(i+1 + ' ' + students[i].c[3].v + ' ' + students[i].c[1].v + ' ' + students[i].c[8].v + '님 (' + students[i].c[5].v + ' ' + students[i].c[6].v.toString().substr(-2) + '학번)');
+				if (total<1) {
+					$('output>a').html(phoneNumber + ' 는 아직 등록이 되지 않았습니다.<br>여기를 눌러 \'등록\'을 먼저해주세요.').attr('href', 'https://goo.gl/ZFfX76');
+
+				} else {
+					//console.log(students[0].c[3].v + ' ' + students[0].c[1].v + ' ' + students[0].c[8].v + '님 (' + students[0].c[5].v + ' ' + students[0].c[6].v.toString().substr(-2) + '학번)');
 					$('output').attr('style', 'display:block');
-					if (students[i].c[3].v == phoneNumber) {
-						$('output>a').html(students[i].c[3].v + '<br>' + students[i].c[1].v + ' ' + students[i].c[8].v + '님 (' + students[i].c[5].v + ' ' + students[i].c[6].v.toString().substr(-2) + '학번)\n');
-						$('input[name="phoneCheck"]').val(students[i].c[3].v.toString().substr(-4));
-						return;
-					}
+					$('output>a').html(students[0].c[3].v + '<br>' + students[0].c[1].v + ' ' + students[0].c[8].v + '님 (' + students[0].c[5].v + ' ' + students[0].c[6].v.toString().substr(-2) + '학번)\n');
+					$('input[name="phoneCheck"]').val(students[0].c[3].v.toString().substr(-4));
 				}
-				$('output>a').html(phoneNumber + ' 는 아직 등록이 되지 않았습니다.<br>여기를 눌러 \'등록\'을 먼저해주세요.').attr('href', 'https://goo.gl/ZFfX76');
 			}).fail(function(){
 				alert('등록자 검색 실패');
 			});
