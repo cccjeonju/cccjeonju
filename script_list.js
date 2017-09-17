@@ -154,7 +154,7 @@ $(function(){
 					//console.log(data);
 				}).fail(function(){
 					alert('출석을 기록하는데 에러가 발생했습니다.');
-					break;
+					return;
 				});
 			}
 		});
