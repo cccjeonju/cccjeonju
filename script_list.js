@@ -138,7 +138,7 @@ $(function(){
 			return false;
 		}
 
-		var result = confirm($('input[name="students"]').prop('checked').length + '명에 대하여 출석 확인을 하시겠습니까?');
+		var result = confirm($('input[name="students"]').prop('checked').size() + '명에 대하여 출석 확인을 하시겠습니까?');
 		if ( !result ) {
 			$('#attendBtn').prop('disabled', false); // 버튼 활성화 복귀
 			$('#checkAll').focus();
@@ -153,7 +153,7 @@ $(function(){
 		$('input[name="students"]:checked').each(function() {
 		//for( var l = 0; l < $('input[name="students"]').prop('checked').length; l++) {
 			var index = $('input[name="students"]:checked').index(this);
-			
+
 			$.ajax({
 				type: 'GET',
 				url: WEB_APP_URL + '?sheet_name=' + SHEET_NAME_CONFIRM,
