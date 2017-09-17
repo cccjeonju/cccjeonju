@@ -59,7 +59,10 @@ ul.subject li{
 	font-size: 0.9em;
 }
 .copyright{ list-style:none; }
-.copyright{ float:left; }
+.copyright>li{ 
+	display:inline; 
+	padding:1em;
+}
 select{
 	margin-bottom:1em;
 }

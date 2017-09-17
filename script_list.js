@@ -33,7 +33,6 @@ $(function(){
 			$('#studentList').empty(); // 명단을 초기화해서 모두 지움
 
 			subject_code = $('#subjectCode option:selected').val();
-			console.log(subjectCode);
 
 			$.ajax({
 				url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_ATTEND+'&tq=select+*+where+C+matches+\''+subject_code+'\''
@@ -44,7 +43,7 @@ $(function(){
 				console.log('** 출석 체크한 수: ' + total + '명');
 
 				for (var j = 0; j < total; j++) {
-				    console.log("** " + (j+1) + '  ' + list_attend[j].c[5].v + ' / ' + list_attend[j].c[4].v + ' / ' + list_attend[j].c[6].v);
+				    console.log("** " + (j+1) + '  ' + list_attend[j].c[2].v + ' / ' + list_attend[j].c[1].v);
 
 				    $.ajax({
 				    	url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_REGIST+'&tq=select+*+where+D+matches+\''+phoneNumber+'\''
