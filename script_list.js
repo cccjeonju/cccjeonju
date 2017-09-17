@@ -57,7 +57,7 @@ $(function(){
 				// 2-2. 해당 하는 날짜의 해당 과목 출석 체크한 사람의 정보를 가져옴
 				// --------------------------------------------------
 				for (var j = 0; j < total; j++) {
-				    //console.log("** " + (j+1) + '  ' + list_attend[j].c[2].v + ' / ' + list_attend[j].c[1].v);
+				    console.log("** " + (j+1) + '  ' + list_attend[j].c[2].v + ' / ' + list_attend[j].c[1].v);
 
 				    var phoneNumber = list_attend[j].c[1].v,
 				    	attendTime  = list_attend[j].c[0].f;
@@ -70,11 +70,11 @@ $(function(){
 						console.log('*** 출석체크 한 사람 중 읽어오기 : ' + users + '명 - 2명 이상일 경우는 데이터 유효성 결여상태');
 						
 						for (var k = 0; k < users; k++) {
-					    	//console.log("*** " + (k+1) + '  ' + user[k].c[5].v + ' / ' + user[k].c[4].v + ' / ' + user[k].c[6].v);
+					    	console.log("*** " + (k+1) + '  ' + user[k].c[5].v + ' / ' + user[k].c[4].v + ' / ' + user[k].c[6].v);
 						    //$('.studentList').append( $('<li><label><input type="radio" name="subject" value="' + user[k].c[4].v.toString() + '">[' + user[k].c[1].v.toString() + '] ' + user[k].c[6].v.toString() + ' / ' + user[k].c[5].v.toString() + '</label></li>') );
 
 							var studentTr = "<tr class=\"\">\n";
-							studentTr += "<td class=\"co1\"><input type=\"checkbox\" name=\"students\" value=\""+user[k].c[3].v+"\">"+user[k].c[3].v;
+							studentTr += "<td class=\"co1\"><input type=\"checkbox\" name=\"students\" value=\""+user[k].c[3].v+"\">";
 							studentTr += "<input type=\"hidden\" name=\"attend_time\" value=\""+attendTime+"\">"+attendTime+"</td>\n";
 							studentTr += "<td class=\"co2\">"+(++ii)+"</td>\n"; 
 							studentTr += "<td class=\"co3\">"+user[k].c[1].v+"</td>\n";	// 아름
