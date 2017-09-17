@@ -1,36 +1,38 @@
 jQuery(function($){
 
-	var KEY_SPREADSHEET = "1PHN8N0nY7YLw5NlYTp9VqSvqOHdgsvR2W8BfAZ8AtY4",	// Key
+	var KEY_SPREADSHEET = "1PHN8N0nY7YLw5NlYTp9VqSvqOHdgsvR2W8BfAZ8AtY4",	// Spreadsheet Key
 		GID_SHEET_REGIST = "1095637889",//"132886731",		// 등록부
 		GID_SHEET_SUBJECT= "2098472162";	// 개설강의 목록
 	var KEY_SHEET_ATTEND = "https://script.google.com/macros/s/AKfycbyOpp8Fl9V5DAd_ZjsDSI12z7oQLOLufI3HfipWxiUMvngxeOIq/exec";	// 출석부에 기록하기 위한 웹 앱
 
 	var phoneNumber = "";
 	// --------------------------------------------------
-	// 1. 초기 실행되면 loadingbar 효과를 주며 페이지 로딩 (수강과목 로딩까지 끝냄)
+	// 1-1. 출석체크가 초기 실행되면 개설된 강의 목록을 읽어와야 함
+	// 1-2. 로딩이 끝나면 loadingbar fadeout 효과를 
 	// --------------------------------------------------
 	$.ajax({
 		url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_SUBJECT
 	}).done(function (data) {
 		var list = JSON.parse(data.substring(data.indexOf('(')+1, data.indexOf(');'))).table.rows, // 문자열에서 불필요한 부분 제거하고 JSON 형식으로.
 			sum = list.length; // 목록 수.
-		//console.log('* SHEET DATA URL - https://docs.google.com/spreadsheets/d/1PHN8N0nY7YLw5NlYTp9VqSvqOHdgsvR2W8BfAZ8AtY4/edit#gid=2098472162'); // 구글 스프레드시트 URL.
-		//console.log('* 전체 강의 수: ' + sum + '개');
+
+		//console.log('* SHEET DATA URL - https://docs.google.com/spreadsheets/d/1PHN8N0nY7YLw5NlYTp9VqSvqOHdgsvR2W8BfAZ8AtY4/edit?usp=sharing'); // 구글 스프레드시트 URL.
+		console.log('* 전체 강의 수: ' + sum + '개');
+
 		for (var i = 0; i < sum; i++) { // 전체 강의 목록을 콘솔에 출력. 
 		    //console.log(i+1 + '  ' + list[i].c[5].v + ' / ' + list[i].c[4].v + ' / ' + list[i].c[6].v);
-		    //$('#subject').append( $('<option value="' + list[i].c[4].v.toString() + '">[' + list[i].c[1].v.toString() + '] ' + list[i].c[6].v.toString() + ' / ' + list[i].c[5].v.toString() + '</option>') );
 		    $('.subject').append( $('<li><label><input type="radio" name="subject" value="' + list[i].c[4].v.toString() + '">[' + list[i].c[1].v.toString() + '] ' + list[i].c[6].v.toString() + ' / ' + list[i].c[5].v.toString() + '</label></li>') );
 		}
 		$('.loading-container').fadeOut(); // 로딩바 제거.
 
 		// --------------------------------------------------
-		// 2-1. '등록 확인'을 최초로 누르면 등록부 시트로부터 등록자 명단을 가져온다. 
-		// 2-2. 가져온 명단을 전역변수로 가지고 있으면서 등록자인지 체크하여 화면에 표시한다.
+		// 2-1. '등록 확인'을 최초로 누르면 등록부 시트로부터 해당하는 등록자를 가져와서
+		// 2-2. 기존에 등록된 사람인지 아닌지 표시한다.
 		// --------------------------------------------------
 		var checkID = function() { // 등록자 검색
-			//var num = parseInt(Math.random()*sum); // 난수 생성.
 
 			phoneNumber = $('#phone').val();
+
 			// 전화번호 형식 체크 정규식 010-1234-5678
 			var regExp = /^\d{3}-\d{3,4}-\d{4}$/;
 			if (!regExp.test( phoneNumber )) {
@@ -44,24 +46,30 @@ jQuery(function($){
 			}).done(function (data) {
 				var students = JSON.parse(data.substring(data.indexOf('(')+1, data.indexOf(');'))).table.rows, // 문자열에서 불필요한 부분 제거하고 JSON 형식으로.
 					total = students.length; // 목록 수.
-				console.log('* 전체 등록자 수: ' + total + '명');
-				//console.log('* PHONE = ' + phoneNumber);
+				
+				console.log('* 검색된 등록자 수: ' + total + '명');
+				
 				if (total<1) {
 					$('output>a').html(phoneNumber + ' 는 아직 등록이 되지 않았습니다.<br>여기를 눌러 \'등록\'을 먼저해주세요.').attr('href', 'https://goo.gl/ZFfX76');
 
 				} else {
-					console.log(students[0].c[3].v + ' ' + students[0].c[1].v + ' ' + students[0].c[8].v + '님 (' + students[0].c[5].v + ' ' + students[0].c[6].v.toString().substr(-2) + '학번)');
+					//console.log(students[0].c[3].v + ' ' + students[0].c[1].v + ' ' + students[0].c[8].v + '님 (' + students[0].c[5].v + ' ' + students[0].c[6].v.toString().substr(-2) + '학번)');
 					$('output').attr('style', 'display:block');
 					$('output>a').html(students[0].c[3].v + '<br>' + students[0].c[1].v + ' ' + students[0].c[8].v + '님 (' + students[0].c[5].v + ' ' + students[0].c[6].v.toString().substr(-2) + '학번)\n');
 					$('input[name="phoneCheck"]').val(students[0].c[3].v.toString().substr(-4));
 				}
+				
 			}).fail(function(){
 				alert('등록자 검색 실패');
 			});
 		};
-		
+
+		// ==================================================
+		// 추가해야할 코드
+		// ==================================================
 		// 교육기간 및 시간이 아닐 경우 출석을 하지 못하도록 하는 코드 (조건문)
 		// 정규식이 맞지 않으면 조회하지 않음
+		// ==================================================
 		$('#checkIdBtn').on('click', checkID); // '등록 확인'' 체크
 
 		// --------------------------------------------------
@@ -131,13 +139,6 @@ jQuery(function($){
 		};
 
 		$('#submitBtn').on('click', submitAttend); 
-
-		// --------------------------------------------------
-		// 추가 작업 지시서
-		// --------------------------------------------------
-		// 1. 회비 납부
-		// 2. 출석 확인 (강사용)
-		// --------------------------------------------------
 
 	}).fail(function () {
 		alert('데이터 불러오기 실패. 아마도 jQuery CDN 또는 일시적인 구글 API 문제.');

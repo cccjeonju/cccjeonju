@@ -12,19 +12,55 @@
 		<p class="guide">1. 자신의 강의를 선택하시면 출석한 학생들 명단을 읽어옵니다.<br>
 		2. 실제 출석한 학생의 이름 옆에 있는 박스에 <span style="font-weight:bold;text-decoration:underline;">체크</span> 해주세요.<br>
 		3. 맨 아래에 있는 <span style="font-weight:bold;text-decoration:underline;">출석 확인</span>을 클릭하시면 출석처리가 완료됩니다.<br>
-		4. 회비납부<br></p>
+		4. 출석 확인은 다시 수정하실 수 있습니다.<br>
+		5. 회비납부는 아래와 같이 처리하셔야 합니다.<br></p>
 		
 		<h2> 강의 선택 </h2>
-		<select id="subject">
+		<select id="subjectCode">
 			<option>강의를 선택하세요</option>
-			<option value="JE1-D11">문정아 / 순장? (부제: 순장의 특권과 축복)</option>
+			<option value="JE1-D11" selected>문정아 / 순장? (부제: 순장의 특권과 축복)</option>
+			<option value="JE1-G11">한동현 / 백문일답 예수</option>
 		</select> 
-		<ul class="studentList">
-			<label><input type="checkbox" name="selectall"> 전체선택</label>
-			<li><label><input type="checkbox" name="students" value="010-1234-5678">홍길동 예비순장 (남) 1학년 (기전대학10) | 회비: 0원</label></li>
-			<li><label><input type="checkbox" name="students" value="010-1357-2468">홍당무 순장 (여) 4학년 (한일장신대학교10) | 회비: 0원</label></li>
-		</ul>
-		<p><button type="button" id="confirmBtn">출석 확인</button></p>
+		<table>
+			<thead>
+				<tr class="">
+					<th class="co1"><input type="checkbox" name="selectall"><!--전체선택--></th>
+					<th class="co2"><!--번호--></th>
+					<th class="co3">이름</th>
+					<th class="co4">순장</th>
+					<th class="co5">성별</th>
+					<th class="co6">학년</th>
+					<th class="co7">학교</th>
+					<th class="co8">학번</th>
+					<th class="co9">회비</th>
+				</tr>
+			</thead>
+			<tbody class="studentList">
+				<tr class="">
+					<td class="co1"><input type="checkbox" name="students" value="010-1234-5678"></td>
+					<td class="co2">1</td>
+					<td class="co3">홍길동</td>
+					<td class="co4">예비순장</td>
+					<td class="co5">남</td>
+					<td class="co6">1</td>
+					<td class="co7">기전대학</td>
+					<td class="co8">10</td>
+					<td class="co9">0원</td>
+				</tr>
+				<tr class="">
+					<td class="co1"><input type="checkbox" name="students" value="010-1234-5678"></td>
+					<td class="co2">2</td>
+					<td class="co3">홍당무</td>
+					<td class="co4">순장</td>
+					<td class="co5">여</td>
+					<td class="co6">4</td>
+					<td class="co7">한일장신대</td>
+					<td class="co8">13</td>
+					<td class="co9">10,000원</td>
+				</tr>
+			</tbody>
+		</table>
+		<p><button type="button" id="AttendBtn">출석 확인</button></p>
 
 		<p>Copyright &copy; 2017 Heejin Lee | <a href="https://goo.gl/forms/EwN5b6HKiXI3XQ6v1">오류 신고</a></p>
 	</main>
