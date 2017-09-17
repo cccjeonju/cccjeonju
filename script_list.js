@@ -69,7 +69,7 @@ $(function(){
 						console.log('*** 출석체크 한 사람 중 읽어오기 : ' + users + '명 - 2명 이상일 경우는 데이터 유효성 결여상태');
 						
 						for (var k = 0; k < users; k++) {
-					    	console.log("*** " + (k+1) + '  ' + user[k].c[5].v + ' / ' + user[k].c[4].v + ' / ' + user[k].c[6].v);
+					    	//console.log("*** " + (k+1) + '  ' + user[k].c[5].v + ' / ' + user[k].c[4].v + ' / ' + user[k].c[6].v);
 						    //$('.studentList').append( $('<li><label><input type="radio" name="subject" value="' + user[k].c[4].v.toString() + '">[' + user[k].c[1].v.toString() + '] ' + user[k].c[6].v.toString() + ' / ' + user[k].c[5].v.toString() + '</label></li>') );
 
 							var studentTr = "<tr class=\"\">\n";
@@ -152,7 +152,7 @@ $(function(){
 						checker: '이희진'
 					}
 				}).done(function(data){
-					//console.log(data);
+					console.log(data);
 				}).fail(function(){
 					alert('출석을 기록하는데 에러가 발생했습니다.');
 					return;
