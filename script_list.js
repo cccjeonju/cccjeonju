@@ -43,7 +43,7 @@ $(function(){
 				console.log('** 출석 체크한 수: ' + total + '명');
 
 				if (total < 1) {
-					$('.studentList').append( $('<tr class=""><td colsapn="9">강의를 선택하시면 명단을 불러옵니다.</td></tr>') );
+					$('.studentList').append( $('<tr class=""><td colspan="9">선택한 인원이 없습니다.</td></tr>') );
 					return;
 				}
 				for (var j = 0; j < total; j++) {
