@@ -4,7 +4,7 @@ jQuery(function($){
 		GID_SHEET_REGIST = "1095637889",//"132886731",		// 등록부
 		GID_SHEET_SUBJECT= "2098472162";	// 개설강의 목록
 	var WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyOpp8Fl9V5DAd_ZjsDSI12z7oQLOLufI3HfipWxiUMvngxeOIq/exec",	// 출석부에 기록하기 위한 웹 앱
-		SHEET_NAME_ATTEND = "출석부";
+		SHEET_NAME_ATTEND = "attend";
 
 	// --------------------------------------------------
 	// 1-1. 출석체크가 초기 실행되면 개설된 강의 목록을 읽어와야 함
@@ -118,7 +118,7 @@ jQuery(function($){
 			//console.log(subject_selected);
 
 			$.ajax({
-				url: WEB_APP_URL + '?sheet_name="' + SHEET_NAME_ATTEND + '"',
+				url: WEB_APP_URL + '?sheet_name=' + SHEET_NAME_ATTEND,
 				data: {
 					phone: phoneNumber,
 					subject: subject_selected,

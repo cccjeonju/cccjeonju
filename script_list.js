@@ -148,7 +148,7 @@ $(function(){
 		$('input[name="students"]').each(function() {
 			if(this.checked) {
 				$.ajax({
-					url: WEB_APP_URL + '?sheet_name=\'' + SHEET_NAME_CONFIRM + '\'',
+					url: WEB_APP_URL + '?sheet_name=' + SHEET_NAME_CONFIRM,
 					data: {
 						attend_time: this.value,
 						checker: '이희진'
