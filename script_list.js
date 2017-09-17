@@ -63,7 +63,6 @@ $(function(){
 				    	attendTime  = list_attend[j].c[0].f;
 
 				    $.ajax({
-						global: true,
 						url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_REGIST+'&tq=select+*+where+D+matches+\''+phoneNumber+'\''
 				    }).done(function(data2){
 						var user = JSON.parse(data2.substring(data2.indexOf('(')+1, data2.indexOf(');'))).table.rows, // 문자열에서 불필요한 부분 제거하고 JSON 형식으로.
@@ -75,8 +74,8 @@ $(function(){
 						    //$('.studentList').append( $('<li><label><input type="radio" name="subject" value="' + user[k].c[4].v.toString() + '">[' + user[k].c[1].v.toString() + '] ' + user[k].c[6].v.toString() + ' / ' + user[k].c[5].v.toString() + '</label></li>') );
 
 							var studentTr = "<tr class=\"\">\n";
-							studentTr += "<td class=\"co1\"><input type=\"checkbox\" name=\"students\" value=\""+phoneNumber+"\">";
-							studentTr += "<input type=\"hidden\" name=\"attend_time\" value=\""+attendTime+"\"></td>\n";
+							studentTr += "<td class=\"co1\"><input type=\"checkbox\" name=\"students\" value=\""+user[k].c[3].v+"\">"+user[k].c[3].v;
+							studentTr += "<input type=\"hidden\" name=\"attend_time\" value=\""+attendTime+"\">"+attendTime+"</td>\n";
 							studentTr += "<td class=\"co2\">"+(++ii)+"</td>\n"; 
 							studentTr += "<td class=\"co3\">"+user[k].c[1].v+"</td>\n";	// 아름
 							studentTr += "<td class=\"co4\">"+user[k].c[8].v+"</td>\n";	// 호칭
