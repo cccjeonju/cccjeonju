@@ -151,9 +151,9 @@ $(function(){
 
 		//var timestp = Math.floor(new Date().getTime() / 1000);
 
-		$('input[name="students"]:checked').each(function() {
+		$('input[name="students"]:checked').each(function(aa, elements) {
 		//for( var l = 0; l < $('input[name="students"]').prop('checked').length; l++) {
-			var index = $('input[name="students"]:checked').index(this);
+			var index = $(elements).index('input[name="students"]');
 
 			$.ajax({
 				type: 'GET',
