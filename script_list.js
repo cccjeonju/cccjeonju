@@ -63,7 +63,7 @@ $(function(){
 				    	attendTime  = list_attend[j].c[0].f;
 
 				    $.ajax({
-						async: false,
+						global: true,
 						url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_REGIST+'&tq=select+*+where+D+matches+\''+phoneNumber+'\''
 				    }).done(function(data2){
 						var user = JSON.parse(data2.substring(data2.indexOf('(')+1, data2.indexOf(');'))).table.rows, // 문자열에서 불필요한 부분 제거하고 JSON 형식으로.
