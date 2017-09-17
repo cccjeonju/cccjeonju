@@ -5,7 +5,7 @@ $(function(){
 		GID_SHEET_ATTEND = "1980648270",		// 출석부
 		GID_SHEET_SUBJECT= "2098472162";	// 개설강의 목록
 	var WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyOpp8Fl9V5DAd_ZjsDSI12z7oQLOLufI3HfipWxiUMvngxeOIq/exec",	// 출석부에 기록하기 위한 웹 앱
-		SHEET_NAME_CONFIRM = "attend_check";
+		SHEET_NAME_CONFIRM = "출석확인";
 
 	// --------------------------------------------------
 	// 1-1. 출석체크가 초기 실행되면 개설된 강의 목록을 읽어와야 함
