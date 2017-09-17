@@ -6,7 +6,6 @@ $(function(){
 		GID_SHEET_SUBJECT= "2098472162";	// 개설강의 목록
 	var KEY_SHEET_ATTEND = "https://script.google.com/macros/s/AKfycbyOpp8Fl9V5DAd_ZjsDSI12z7oQLOLufI3HfipWxiUMvngxeOIq/exec";	// 출석부에 기록하기 위한 웹 앱
 
-	var subject_code = "";
 	// --------------------------------------------------
 	// 1-1. 출석체크가 초기 실행되면 개설된 강의 목록을 읽어와야 함
 	// 1-2. 로딩이 끝나면 loadingbar fadeout 효과를 
@@ -32,7 +31,8 @@ $(function(){
 		var changeSubject = function() {
 			$('.studentList').empty(); // 명단을 초기화해서 모두 지움
 
-			subject_code = $('#subjectCode option:selected').val();
+			var subject_code = $('#subjectCode option:selected').val();
+			var ii = 0; // 현재 반의 인원
 
 			$.ajax({
 				url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_ATTEND+'&tq=select+*+where+C+matches+\''+subject_code+'\''
@@ -65,7 +65,7 @@ $(function(){
 
 							var studentTr = "<tr class=\"\">\n";
 							studentTr += "<td class=\"co1\"><input type=\"checkbox\" name=\"students\" value=\""+user[k].c[2].v + "\"></td>\n";
-							studentTr += "<td class=\"co2\">"+(k+1)+"</td>";
+							studentTr += "<td class=\"co2\">"+(++ii)+"</td>"; 
 							studentTr += "<td class=\"co3\">"+user[k].c[1].v+"</td>\n";	// 아름
 							studentTr += "<td class=\"co4\">"+user[k].c[8].v+"</td>\n";	// 호칭
 							studentTr += "<td class=\"co5\">"+user[k].c[2].v.toString().substr(0,1)+"</td>\n";	// 성별
