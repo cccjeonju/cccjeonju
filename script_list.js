@@ -6,7 +6,7 @@ $(function(){
 		GID_SHEET_SUBJECT= "2098472162";	// 개설강의 목록
 	var KEY_SHEET_ATTEND = "https://script.google.com/macros/s/AKfycbyOpp8Fl9V5DAd_ZjsDSI12z7oQLOLufI3HfipWxiUMvngxeOIq/exec";	// 출석부에 기록하기 위한 웹 앱
 
-	var subjectCode = "";
+	var subject_code = "";
 	// --------------------------------------------------
 	// 1-1. 출석체크가 초기 실행되면 개설된 강의 목록을 읽어와야 함
 	// 1-2. 로딩이 끝나면 loadingbar fadeout 효과를 
@@ -31,10 +31,12 @@ $(function(){
 		// --------------------------------------------------
 		var changeSubject = function() {
 			$('#studentList').empty(); // 명단을 초기화해서 모두 지움
-			subjectCode = $('#subjectCode option:seleted').val();
+
+			subject_code = $('#subjectCode option:selected').val();
+			console.log(subjectCode);
 
 			$.ajax({
-				url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_ATTEND+'&tq=select+*+where+C+matches+\''+subjectCode+'\''
+				url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_ATTEND+'&tq=select+*+where+C+matches+\''+subject_code+'\''
 			}).done(function (data1) {
 				var list_attend = JSON.parse(data1.substring(data1.indexOf('(')+1, data1.indexOf(');'))).table.rows, // 문자열에서 불필요한 부분 제거하고 JSON 형식으로.
 					total = list_attend.length; // 목록 수.
