@@ -4,7 +4,8 @@ $(function(){
 		GID_SHEET_REGIST = "1095637889",//"132886731",		// 등록부
 		GID_SHEET_ATTEND = "1980648270",		// 출석부
 		GID_SHEET_SUBJECT= "2098472162";	// 개설강의 목록
-	var KEY_SHEET_ATTEND = "https://script.google.com/macros/s/AKfycbyOpp8Fl9V5DAd_ZjsDSI12z7oQLOLufI3HfipWxiUMvngxeOIq/exec";	// 출석부에 기록하기 위한 웹 앱
+	var WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyOpp8Fl9V5DAd_ZjsDSI12z7oQLOLufI3HfipWxiUMvngxeOIq/exec",	// 출석부에 기록하기 위한 웹 앱
+		SHEET_NAME_ATTEND = "출석확인";
 
 	// --------------------------------------------------
 	// 1-1. 출석체크가 초기 실행되면 개설된 강의 목록을 읽어와야 함
@@ -71,8 +72,9 @@ $(function(){
 						    //$('.studentList').append( $('<li><label><input type="radio" name="subject" value="' + user[k].c[4].v.toString() + '">[' + user[k].c[1].v.toString() + '] ' + user[k].c[6].v.toString() + ' / ' + user[k].c[5].v.toString() + '</label></li>') );
 
 							var studentTr = "<tr class=\"\">\n";
-							studentTr += "<td class=\"co1\"><input type=\"checkbox\" name=\"students\" value=\""+user[k].c[3].v + "\"></td>\n";
-							studentTr += "<td class=\"co2\">"+(++ii)+"</td>"; 
+							studentTr += "<td class=\"co1\"><input type=\"checkbox\" name=\"students\" value=\""+user[k].c[0].v + "\">";
+//							studentTr += "<input type=\"hidden\" value=\""+user[k]+"\"></td>\n";
+							studentTr += "</td>\n<td class=\"co2\">"+(++ii)+"</td>\n"; 
 							studentTr += "<td class=\"co3\">"+user[k].c[1].v+"</td>\n";	// 아름
 							studentTr += "<td class=\"co4\">"+user[k].c[8].v+"</td>\n";	// 호칭
 							studentTr += "<td class=\"co5\">"+user[k].c[2].v.toString().substr(0,1)+"</td>\n";	// 성별
@@ -136,30 +138,33 @@ $(function(){
 			return false;
 		}
 
-		console.log($('input[name="students"]'));
+		//console.log($('input[name="students"]'));
 
-		var timestp = Math.floor(new Date().getTime() / 1000);
-		$.ajax({
-			url: KEY_SHEET_ATTEND,
-			data: {
-				checktime: timestp,
-				checker: '이희진'
+		//var timestp = Math.floor(new Date().getTime() / 1000);
+
+		$('input[name="students"]').each(function() {
+			if(this.checked) {
+				$.ajax({
+					url: WEB_APP_URL + '?sheet_name="' + SHEET_NAME_ATTEND + '"',
+					data: {
+						attend_time: this.value,
+						checker: '이희진'
+					}
+				}).done(function(data){
+					//console.log(data);
+				}).fail(function(){
+					alert('출석을 기록하는데 에러가 발생했습니다.');
+					break;
+				});
 			}
-		}).done(function(data){
-			//console.log(data);
-			alert('출석 확인이 완료되었습니다.');
-			$('#attendBtn').prop('disabled', false);
-			$('#phone').val('');
-			$('input[name="phoneCheck"]').val('');
-			$('output>a').text('');
-			$('output').attr('style', 'display:none');
-			$('input:radio[name="subject"]').prop('checked', false);
-			$('body').scrollTop(0);	// 페이지 맨 위로 이동
-			$('.loading-container').fadeOut();
-		}).fail(function(){
-			alert('출석을 기록하는데 에러가 발생했습니다.');
-			$('#attendBtn').prop('disabled', false); // 버튼 활성화 복귀
 		});
+		alert('출석 확인이 완료되었습니다.');
+		$('#checkAll').prop('checked', false);
+		$('input[name="students"]').prop('checked',false);
+		$('body').scrollTop(0);	// 페이지 맨 위로 이동
+		$('.loading-container').fadeOut();
+		$('#attendBtn').prop('disabled', false); // 버튼 활성화 복귀
+
 	};
 
 	$('#attendBtn').on('click', submitConfirm); 
