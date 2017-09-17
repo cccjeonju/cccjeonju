@@ -129,6 +129,7 @@ $(function(){
 			alert('출석 확인할 명단에 체크하고 \'출석 확인\' 버튼을 누르세요.');
 			$('#attendBtn').prop('disabled', false); // 버튼 활성화 복귀
 			$('#checkAll').focus();
+			$('.loading-container').fadeOut();
 			return false;
 		}
 
@@ -136,6 +137,7 @@ $(function(){
 		if ( !result ) {
 			$('#attendBtn').prop('disabled', false); // 버튼 활성화 복귀
 			$('#checkAll').focus();
+			$('.loading-container').fadeOut();
 			return false;
 		}
 
@@ -146,7 +148,7 @@ $(function(){
 		$('input[name="students"]').each(function() {
 			if(this.checked) {
 				$.ajax({
-					url: WEB_APP_URL + '?sheet_name="' + SHEET_NAME_CONFIRM + '"',
+					url: WEB_APP_URL + '?sheet_name=\'' + encodeURIComponent(SHEET_NAME_CONFIRM) + '\'',
 					data: {
 						attend_time: this.value,
 						checker: '이희진'
