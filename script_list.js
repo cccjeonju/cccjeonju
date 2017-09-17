@@ -63,7 +63,8 @@ $(function(){
 				    	attendTime  = list_attend[j].c[0].f;
 
 				    $.ajax({
-				    	url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_REGIST+'&tq=select+*+where+D+matches+\''+phoneNumber+'\''
+						async: false,
+						url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_REGIST+'&tq=select+*+where+D+matches+\''+phoneNumber+'\''
 				    }).done(function(data2){
 						var user = JSON.parse(data2.substring(data2.indexOf('(')+1, data2.indexOf(');'))).table.rows, // 문자열에서 불필요한 부분 제거하고 JSON 형식으로.
 							users = user.length; // 목록 수.
@@ -158,7 +159,8 @@ $(function(){
 						checker: '이희진'
 					}
 				}).done(function(data){
-					console.log(data);
+					//console.log(data);
+					console.log(l+1 + ' ' + $('input[name="students"]').val() + '님 출석확인 완료');
 				}).fail(function(){
 					alert('출석을 기록하는데 에러가 발생했습니다.');
 					return;
@@ -181,6 +183,5 @@ $(function(){
 	// 추가 작업 지시서
 	// --------------------------------------------------
 	// 1. 회비 납부
-	// 2. 출석 확인 (강사용)
 	// --------------------------------------------------
 });
