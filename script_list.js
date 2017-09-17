@@ -21,7 +21,7 @@ $(function(){
 		console.log('* 전체 강의 수: ' + sum + '개');
 
 		for (var i = 0; i < sum; i++) { // 전체 강의 목록을 콘솔에 출력. 
-		    //console.log(i+1 + '  ' + list[i].c[5].v + ' / ' + list[i].c[4].v + ' / ' + list[i].c[6].v);
+		    console.log(i+1 + '  ' + list[i].c[5].v + ' / ' + list[i].c[4].v + ' / ' + list[i].c[6].v);
 		    $('.subjectCode').append( $('<option value="' + list[i].c[4].v.toString() + '">' + list[i].c[6].v.toString() + ' / ' list[i].c[5].v.toString() + '</option>\n') );
 		}
 		$('.loading-container').fadeOut(); // 로딩바 제거.
@@ -32,7 +32,7 @@ $(function(){
 		var changeSubject = function() {
 			$('#studentList').empty(); // 명단을 초기화해서 모두 지움
 			subjectCode = $('subjectCode option:seleted').val();
-			
+
 			$.ajax({
 				url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_ATTEND+'&tq=select+*+where+C+matches+\''+subjectCode+'\''
 			}).done(function (data1) {
