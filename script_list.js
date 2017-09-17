@@ -138,7 +138,7 @@ $(function(){
 			return false;
 		}
 
-		var result = confirm($('input[name="students"]').prop('checked').size() + '명에 대하여 출석 확인을 하시겠습니까?');
+		var result = confirm($('input[name="students"]:checked').length + '명에 대하여 출석 확인을 하시겠습니까?');
 		if ( !result ) {
 			$('#attendBtn').prop('disabled', false); // 버튼 활성화 복귀
 			$('#checkAll').focus();
