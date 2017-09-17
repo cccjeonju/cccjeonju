@@ -150,26 +150,25 @@ $(function(){
 
 		//var timestp = Math.floor(new Date().getTime() / 1000);
 
-		//$('input[name="students"]').each(function() {
-		for( var l = 0; l < $('input[name="students"]').prop('checked').length; l++) {
-			if( $('input[name="students"]').prop('checked') ) {
-				$.ajax({
-					type: 'GET',
-					url: WEB_APP_URL + '?sheet_name=' + SHEET_NAME_CONFIRM,
-					data: {
-						attend_time: $('input[name="attend_time"]').val(),
-						phone: $('input[name="students"]').val(),
-						subject: $('#subjectCode option:selected').val(),
-						checker: '이희진'
-					},
-					success: function(data3) {
-						console.log(l+1 + ' ' + $('input[name="students"]').val() + '님 출석확인 완료');
-					},
-					error: function() {
-						alert('출석을 기록하는데 에러가 발생했습니다.');
-					}
-				});
-			}
+		$('input[name="students"]:checked').each(function() {
+		//for( var l = 0; l < $('input[name="students"]').prop('checked').length; l++) {
+			var index = $('input[name="students"]':checked).index(this);
+			$.ajax({
+				type: 'GET',
+				url: WEB_APP_URL + '?sheet_name=' + SHEET_NAME_CONFIRM,
+				data: {
+					attend_time: $('input[name="attend_time"]:eq('+index+')').val(),
+					phone: $('input[name="students"]:eq('+index+')').val(),
+					subject: $('#subjectCode option:selected').val(),
+					checker: '이희진'
+				},
+				success: function(data3) {
+					console.log(l+1 + ' ' + $('input[name="students"]').val() + '님 출석확인 완료');
+				},
+				error: function() {
+					alert('출석을 기록하는데 에러가 발생했습니다.');
+				}
+			});
 		}
 		//});
 		alert('출석 확인이 완료되었습니다.');
