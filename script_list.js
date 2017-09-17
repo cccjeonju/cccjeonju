@@ -73,7 +73,7 @@ $(function(){
 						    //$('.studentList').append( $('<li><label><input type="radio" name="subject" value="' + user[k].c[4].v.toString() + '">[' + user[k].c[1].v.toString() + '] ' + user[k].c[6].v.toString() + ' / ' + user[k].c[5].v.toString() + '</label></li>') );
 
 							var studentTr = "<tr class=\"\">\n";
-							studentTr += "<td class=\"co1\"><input type=\"checkbox\" name=\"students\" value=\""+user[k].c[0].v + "\">";
+							studentTr += "<td class=\"co1\"><input type=\"checkbox\" name=\"students\" value=\""+list_attend[j].c[1].v + "\">";
 							studentTr += "<input type=\"hidden\" name=\"phones\" value=\""+phoneNumber+"\"></td>\n";
 							studentTr += "<td class=\"co2\">"+(++ii)+"</td>\n"; 
 							studentTr += "<td class=\"co3\">"+user[k].c[1].v+"</td>\n";	// 아름
