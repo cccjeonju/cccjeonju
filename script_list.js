@@ -31,7 +31,7 @@ $(function(){
 		// --------------------------------------------------
 		var changeSubject = function() {
 			$('#studentList').empty(); // 명단을 초기화해서 모두 지움
-			subjectCode = $('subjectCode option:seleted').val();
+			subjectCode = $('#subjectCode option:seleted').val();
 
 			$.ajax({
 				url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_ATTEND+'&tq=select+*+where+C+matches+\''+subjectCode+'\''
