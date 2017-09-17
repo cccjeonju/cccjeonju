@@ -153,7 +153,7 @@ $(function(){
 					url: WEB_APP_URL + '?sheet_name=' + SHEET_NAME_CONFIRM,
 					data: {
 						attend_time: $('input[name="attend_time"]').val(),
-						phone: $('#input[name="students"]').val(),
+						phone: $('input[name="students"]').val(),
 						subject: $('#subjectCode option:selected').val(),
 						checker: '이희진'
 					}
