@@ -46,13 +46,13 @@ $(function(){
 				    console.log("** " + (j+1) + '  ' + list_attend[j].c[2].v + ' / ' + list_attend[j].c[1].v);
 
 				    phoneNumber = list_attend[j].c[1].v;
-				    
+
 				    $.ajax({
 				    	url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_REGIST+'&tq=select+*+where+D+matches+\''+phoneNumber+'\''
 				    }).done(function(data2){
 						var user = JSON.parse(data2.substring(data2.indexOf('(')+1, data2.indexOf(');'))).table.rows, // 문자열에서 불필요한 부분 제거하고 JSON 형식으로.
 							users = user.length; // 목록 수.
-						console.log('*** 출석체크 한 사람 중 읽어오기' + users + '명');
+						console.log('*** 출석체크 한 사람 중 읽어오기 : ' + users + '명 - 2명 이상일 경우는 데이터 유효성 결여상태');
 						
 						for (var k = 0; k < users; k++) {
 					    	console.log("*** " + (k+1) + '  ' + user[k].c[5].v + ' / ' + user[k].c[4].v + ' / ' + user[k].c[6].v);
@@ -60,14 +60,14 @@ $(function(){
 
 							var studentTr = "<tr class=\"\">\n";
 							studentTr += "<td class=\"co1\"><input type=\"checkbox\" name=\"students\" value=\""+user[k].c[2].v + "\"></td>\n";
-							studentTr += "<td class=\"co2\">"+(i+1)+"</td>";
+							studentTr += "<td class=\"co2\">"+(k+1)+"</td>";
 							studentTr += "<td class=\"co3\">"+user[k].c[1].v+"</td>\n";	// 아름
 							studentTr += "<td class=\"co4\">"+user[k].c[8].v+"</td>\n";	// 호칭
-							studentTr += "<td class=\"co5\">"+user[k].c[2].v.toString().substr(1)+"</td>\n";	// 성별
-							studentTr += "<td class=\"co6\">"+user[k].c[4].v.toString().substr(1)+"</td>\n";	// 학년
-							studentTr += "<td class=\"co7\">"+user[k].c[5].v.toString().substr(5)+"</td>\n";	// 소속
+							studentTr += "<td class=\"co5\">"+user[k].c[2].v.toString().substr(1,1)+"</td>\n";	// 성별
+							studentTr += "<td class=\"co6\">"+user[k].c[4].v.toString().substr(1,1)+"</td>\n";	// 학년
+							studentTr += "<td class=\"co7\">"+user[k].c[5].v.toString().substr(1,5)+"</td>\n";	// 소속
 							studentTr += "<td class=\"co8\">"+user[k].c[6].v.toString().substr(-2)+"</td>\n";	// 학번
-							studentTr += "<td class=\"co9\">"+user[k].c[1].v+"원</td>\n";	// 회비 *******************
+							studentTr += "<td class=\"co9\">"+user[k].c[1].v+" 원</td>\n";	// 회비 *******************
 							studentTr += "</tr>\n";
 
 							$('.studentList').append( studentTr );

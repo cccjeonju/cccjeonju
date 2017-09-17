@@ -61,11 +61,11 @@ ul.subject li{
 .copyright{ 
 	list-style:none; 
 	padding:0;
-	margin:0;
+	margin:1em 0;
 }
 .copyright>li{ 
 	display:inline; 
-	padding:1em;
+	padding:0.5em;
 }
 select{
 	margin-bottom:1em;
