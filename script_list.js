@@ -47,7 +47,8 @@ $(function(){
 					return;
 				}
 				for (var j = 0; j < total; j++) {
-				    console.log("** " + (j+1) + '  ' + list_attend[j].c[2].v + ' / ' + list_attend[j].c[1].v);
+				    //console.log("** " + (j+1) + '  ' + list_attend[j].c[2].v + ' / ' + list_attend[j].c[1].v);
+				    $('.loading-container').fadeIn();
 
 				    phoneNumber = list_attend[j].c[1].v;
 
@@ -67,9 +68,9 @@ $(function(){
 							studentTr += "<td class=\"co2\">"+(k+1)+"</td>";
 							studentTr += "<td class=\"co3\">"+user[k].c[1].v+"</td>\n";	// 아름
 							studentTr += "<td class=\"co4\">"+user[k].c[8].v+"</td>\n";	// 호칭
-							studentTr += "<td class=\"co5\">"+user[k].c[2].v.toString().substr(1,1)+"</td>\n";	// 성별
-							studentTr += "<td class=\"co6\">"+user[k].c[4].v.toString().substr(1,1)+"</td>\n";	// 학년
-							studentTr += "<td class=\"co7\">"+user[k].c[5].v.toString().substr(1,5)+"</td>\n";	// 소속
+							studentTr += "<td class=\"co5\">"+user[k].c[2].v.toString().substr(0,1)+"</td>\n";	// 성별
+							studentTr += "<td class=\"co6\">"+user[k].c[4].v.toString().substr(0,1)+"</td>\n";	// 학년
+							studentTr += "<td class=\"co7\">"+user[k].c[5].v.toString().substr(0,5)+"</td>\n";	// 소속
 							studentTr += "<td class=\"co8\">"+user[k].c[6].v.toString().substr(-2)+"</td>\n";	// 학번
 							studentTr += "<td class=\"co9\">"+user[k].c[1].v+" 원</td>\n";	// 회비 *******************
 							studentTr += "</tr>\n";
@@ -81,6 +82,7 @@ $(function(){
 				    	alert("출석한 사용자의 정보를 읽어오는데 실패했습니다.");
 				    });
 				}
+				$('.loading-container').fadeOut();
 
 				// --------------------------------------------------
 				// 2-1. '등록 확인'을 최초로 누르면 등록부 시트로부터 등록자 명단을 가져온다. 
