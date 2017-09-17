@@ -67,7 +67,7 @@ $(function(){
 						console.log('*** 출석체크 한 사람 중 읽어오기 : ' + users + '명 - 2명 이상일 경우는 데이터 유효성 결여상태');
 						
 						for (var k = 0; k < users; k++) {
-					    	console.log("*** " + (k+1) + '  ' + user[k].c[5].v + ' / ' + user[k].c[4].v + ' / ' + user[k].c[6].v);
+					    	//console.log("*** " + (k+1) + '  ' + user[k].c[5].v + ' / ' + user[k].c[4].v + ' / ' + user[k].c[6].v);
 						    //$('.studentList').append( $('<li><label><input type="radio" name="subject" value="' + user[k].c[4].v.toString() + '">[' + user[k].c[1].v.toString() + '] ' + user[k].c[6].v.toString() + ' / ' + user[k].c[5].v.toString() + '</label></li>') );
 
 							var studentTr = "<tr class=\"\">\n";
@@ -104,8 +104,8 @@ $(function(){
 
 	// 전체선택 소스
 	$('#checkAll').click(function(){
-		if ( $('#checkAll').prop('checked') ) $('input[name="students"]').prop('checked', true);
-		else $('input[name="students"]').prop('checked',false);
+		if ( $('#checkAll').prop('checked') ) $('#students').prop('checked', true);
+		else $('#students').prop('checked',false);
 	});
 
 	// --------------------------------------------------
