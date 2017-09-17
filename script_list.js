@@ -152,7 +152,7 @@ $(function(){
 
 		$('input[name="students"]:checked').each(function() {
 		//for( var l = 0; l < $('input[name="students"]').prop('checked').length; l++) {
-			var index = $('input[name="students"]':checked).index(this);
+			var index = $('input[name="students"]:checked').index(this);
 			$.ajax({
 				type: 'GET',
 				url: WEB_APP_URL + '?sheet_name=' + SHEET_NAME_CONFIRM,
