@@ -7,6 +7,7 @@ $(function(){
 	var WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyOpp8Fl9V5DAd_ZjsDSI12z7oQLOLufI3HfipWxiUMvngxeOIq/exec",	// 출석부에 기록하기 위한 웹 앱
 		SHEET_NAME_CONFIRM = "출석확인";
 
+	var attendTime[] = "";
 	// --------------------------------------------------
 	// 1-1. 출석체크가 초기 실행되면 개설된 강의 목록을 읽어와야 함
 	// 1-2. 로딩이 끝나면 loadingbar fadeout 효과를 
@@ -40,8 +41,6 @@ $(function(){
 				// =============================================
 				// Query 조건문 추가해야함 (오늘 날짜)
 				// =============================================
-				async: false,
-				global: true,
 				url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_ATTEND+'&tq=select+*+where+C+matches+\''+subject_code+'\''
 			}).done(function (data1) {
 				var list_attend = JSON.parse(data1.substring(data1.indexOf('(')+1, data1.indexOf(');'))).table.rows, // 문자열에서 불필요한 부분 제거하고 JSON 형식으로.
@@ -61,13 +60,12 @@ $(function(){
 				for (var j = 0; j < total; j++) {
 				    console.log("** " + (j+1) + '  ' + list_attend[j].c[2].v + ' / ' + list_attend[j].c[1].v);
 
-				    var phoneNumber = list_attend[j].c[1].v,
-				    	attendTime  = list_attend[j].c[0].f;
+				    attendTime[ii]  = list_attend[j].c[0].f;
 
 				    $.ajax({
 				    	async: false,
 				    	global: true,
-						url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_REGIST+'&tq=select+*+where+D+matches+\''+phoneNumber+'\''
+						url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_REGIST+'&tq=select+*+where+D+matches+\''+list_attend[j].c[1].v+'\''
 				    }).done(function(data2){
 						var user = JSON.parse(data2.substring(data2.indexOf('(')+1, data2.indexOf(');'))).table.rows, // 문자열에서 불필요한 부분 제거하고 JSON 형식으로.
 							users = user.length; // 목록 수.
@@ -79,7 +77,7 @@ $(function(){
 
 							var studentTr = "<tr class=\"\">\n";
 							studentTr += "<td class=\"co1\"><input type=\"checkbox\" name=\"students\" value=\""+user[k].c[3].v+"\">";
-							studentTr += "<input type=\"hidden\" name=\"attend_time\" value=\""+attendTime+"\">"+attendTime+"</td>\n";
+							studentTr += "<input type=\"hidden\" name=\"attend_time\" value=\""+attendTime[k]+"\">"+attendTime[k]+"</td>\n";
 							studentTr += "<td class=\"co2\">"+(++ii)+"</td>\n"; 
 							studentTr += "<td class=\"co3\">"+user[k].c[1].v+"</td>\n";	// 아름
 							studentTr += "<td class=\"co4\">"+user[k].c[8].v+"</td>\n";	// 호칭
