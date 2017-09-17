@@ -45,6 +45,8 @@ $(function(){
 				for (var j = 0; j < total; j++) {
 				    console.log("** " + (j+1) + '  ' + list_attend[j].c[2].v + ' / ' + list_attend[j].c[1].v);
 
+				    phoneNumber = list_attend[j].c[1].v;
+				    
 				    $.ajax({
 				    	url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_REGIST+'&tq=select+*+where+D+matches+\''+phoneNumber+'\''
 				    }).done(function(data2){
