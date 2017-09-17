@@ -169,8 +169,8 @@ $(function(){
 					alert('출석을 기록하는데 에러가 발생했습니다.');
 				}
 			});
-		}
-		//});
+		//}
+		});
 		alert('출석 확인이 완료되었습니다.');
 		$('#checkAll').prop('checked', false);
 		$('input[name="students"]').prop('checked',false);
