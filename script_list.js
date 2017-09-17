@@ -77,7 +77,7 @@ $(function(){
 
 							var studentTr = "<tr class=\"\">\n";
 							studentTr += "<td class=\"co1\"><input type=\"checkbox\" name=\"students\" value=\""+user[k].c[3].v+"\">";
-							studentTr += "<input type=\"hidden\" name=\"attend_time\" value=\""+attendTime[k]+"\">"+attendTime[k]+"</td>\n";
+							studentTr += "<input type=\"hidden\" name=\"attend_time\" value=\""+attendTime[ii]+"\">"+attendTime[ii]+"</td>\n";
 							studentTr += "<td class=\"co2\">"+(++ii)+"</td>\n"; 
 							studentTr += "<td class=\"co3\">"+user[k].c[1].v+"</td>\n";	// 아름
 							studentTr += "<td class=\"co4\">"+user[k].c[8].v+"</td>\n";	// 호칭
