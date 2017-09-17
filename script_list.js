@@ -41,7 +41,7 @@ $(function(){
 				// =============================================
 				// Query 조건문 추가해야함 (오늘 날짜)
 				// =============================================
-				type: 'POST',
+				type: 'GET',
 				url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_ATTEND+'&tq=select+*+where+C+matches+\''+subject_code+'\'',
 				success: function (data1) {
 					var list_attend = JSON.parse(data1.substring(data1.indexOf('(')+1, data1.indexOf(');'))).table.rows, // 문자열에서 불필요한 부분 제거하고 JSON 형식으로.
@@ -64,7 +64,7 @@ $(function(){
 					    attendTime[ii]  = list_attend[j].c[0].f;
 
 					    $.ajax({
-					    	type: 'POST',
+					    	type: 'GET',
 							url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_REGIST+'&tq=select+*+where+D+matches+\''+list_attend[j].c[1].v+'\'',
 							success: function(data2) {				    
 								var user = JSON.parse(data2.substring(data2.indexOf('(')+1, data2.indexOf(');'))).table.rows, // 문자열에서 불필요한 부분 제거하고 JSON 형식으로.
@@ -154,7 +154,7 @@ $(function(){
 		for( var l = 0; l < $('input[name="students"]').prop('checked').length; l++) {
 			if( $('input[name="students"]').prop('checked') ) {
 				$.ajax({
-					type: 'POST',
+					type: 'GET',
 					url: WEB_APP_URL + '?sheet_name=' + SHEET_NAME_CONFIRM,
 					data: {
 						attend_time: $('input[name="attend_time"]').val(),
