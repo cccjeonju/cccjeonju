@@ -2,7 +2,7 @@ $(function(){
 
 	var KEY_SPREADSHEET = "1PHN8N0nY7YLw5NlYTp9VqSvqOHdgsvR2W8BfAZ8AtY4",	// Spreadsheet Key
 		GID_SHEET_REGIST = "1095637889",//"132886731",		// 등록부
-		GID_SHEET_ATTED = "1980648270",		// 출석부
+		GID_SHEET_ATTEND = "1980648270",		// 출석부
 		GID_SHEET_SUBJECT= "2098472162";	// 개설강의 목록
 	var KEY_SHEET_ATTEND = "https://script.google.com/macros/s/AKfycbyOpp8Fl9V5DAd_ZjsDSI12z7oQLOLufI3HfipWxiUMvngxeOIq/exec";	// 출석부에 기록하기 위한 웹 앱
 

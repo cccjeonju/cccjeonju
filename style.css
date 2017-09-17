@@ -48,16 +48,18 @@ table td{
 	text-align: left;
 	font-size: 0.9em;
 }
-ul{
+ul.subject{
 	margin: 0;
 	padding: 0;
 }
-ul li{
+ul.subject li{
 	list-style: none;
 	padding: 0 0 0.5em 1em;
 	text-indent: -1em;
 	font-size: 0.9em;
 }
+.copyright{ list-style:none; }
+.copyright{ float:left; }
 select{
 	margin-bottom:1em;
 }
