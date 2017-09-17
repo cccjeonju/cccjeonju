@@ -71,7 +71,7 @@ $(function(){
 						    //$('.studentList').append( $('<li><label><input type="radio" name="subject" value="' + user[k].c[4].v.toString() + '">[' + user[k].c[1].v.toString() + '] ' + user[k].c[6].v.toString() + ' / ' + user[k].c[5].v.toString() + '</label></li>') );
 
 							var studentTr = "<tr class=\"\">\n";
-							studentTr += "<td class=\"co1\"><input type=\"checkbox\" id=\"students\" value=\""+user[k].c[3].v + "\"></td>\n";
+							studentTr += "<td class=\"co1\"><input type=\"checkbox\" name=\"students\" value=\""+user[k].c[3].v + "\"></td>\n";
 							studentTr += "<td class=\"co2\">"+(++ii)+"</td>"; 
 							studentTr += "<td class=\"co3\">"+user[k].c[1].v+"</td>\n";	// 아름
 							studentTr += "<td class=\"co4\">"+user[k].c[8].v+"</td>\n";	// 호칭
@@ -104,8 +104,8 @@ $(function(){
 
 	// 전체선택 소스
 	$('#checkAll').click(function(){
-		if ( $('#checkAll').prop('checked') ) $('#students').prop('checked', true);
-		else $('#students').prop('checked',false);
+		if ( $('#checkAll').prop('checked') ) $('input[name="students"]').prop('checked', true);
+		else $('input[name="students"]').prop('checked',false);
 	});
 
 	// --------------------------------------------------
@@ -122,21 +122,21 @@ $(function(){
 		$('#attendBtn').prop('disabled', true); // 버튼 비활성화
 		$('.loading-container').fadeIn();
 
-		if ($('#students:checked').length < 1) {
+		if ($('input[name="students"]:checked').length < 1) {
 			alert('출석 확인할 명단에 체크하고 \'출석 확인\' 버튼을 누르세요.');
 			$('#attendBtn').prop('disabled', false); // 버튼 활성화 복귀
 			$('#checkAll').focus();
 			return false;
 		}
 
-		var result = confirm($('#students').length + '명에 대하여 출석 확인을 하시겠습니까?');
+		var result = confirm($('input[name="students"]').length + '명에 대하여 출석 확인을 하시겠습니까?');
 		if ( !result ) {
 			$('#attendBtn').prop('disabled', false); // 버튼 활성화 복귀
 			$('#checkAll').focus();
 			return false;
 		}
 
-		console.log(students);
+		console.log($('input[name="students"]'));
 
 		var timestp = Math.floor(new Date().getTime() / 1000);
 		$.ajax({
