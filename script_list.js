@@ -30,7 +30,7 @@ $(function(){
 		// 2-1. 과목을 선택했을 때 - 출석부 시트에서 오늘(특정) 날짜가 있고, 선택된 과목의 레코드들을 읽어옴
 		// --------------------------------------------------
 		var changeSubject = function() {
-			$('#studentList').empty(); // 명단을 초기화해서 모두 지움
+			$('.studentList').empty(); // 명단을 초기화해서 모두 지움
 
 			subject_code = $('#subjectCode option:selected').val();
 
@@ -42,6 +42,12 @@ $(function(){
 				//console.log('* SHEET DATA URL - https://docs.google.com/spreadsheets/d/1PHN8N0nY7YLw5NlYTp9VqSvqOHdgsvR2W8BfAZ8AtY4/edit#gid=2098472162'); // 구글 스프레드시트 URL.
 				console.log('** 출석 체크한 수: ' + total + '명');
 
+				if (total < 1) {
+					$('.studentList').append(				<tr class="">
+					<td colsapn="9">강의를 선택하시면 명단을 불러옵니다.</td>
+				</tr>
+				return;
+				}
 				for (var j = 0; j < total; j++) {
 				    console.log("** " + (j+1) + '  ' + list_attend[j].c[2].v + ' / ' + list_attend[j].c[1].v);
 

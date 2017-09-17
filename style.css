@@ -37,7 +37,7 @@ table td{
 	padding:0.2em;
 	text-align:center
 }
-.guide{
+p.guide{
 	display: block;
 	border: 1px dashed #ddd;
 	line-height: 24px;
@@ -58,12 +58,12 @@ ul.subject li{
 	text-indent: -1em;
 	font-size: 0.9em;
 }
-.copyright{ 
+ul.copyright{ 
 	list-style:none; 
 	padding:0;
 	margin:1em 0;
 }
-.copyright>li{ 
+ul.copyright>li{ 
 	display:inline; 
 	padding:0.5em;
 }
@@ -79,6 +79,7 @@ select{
 	font-size: 1.8em;
 	font-weight: 700;
 }
+
 .mark{ background: #ff0; }
 .loading-container{
 	position: fixed;
