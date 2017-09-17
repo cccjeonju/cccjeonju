@@ -122,14 +122,14 @@ $(function(){
 		$('#attendBtn').prop('disabled', true); // 버튼 비활성화
 		$('.loading-container').fadeIn();
 
-		if ($('#students:checked').length()<1) {
+		if ($('#students:checked').length < 1) {
 			alert('출석 확인할 명단에 체크하고 \'출석 확인\' 버튼을 누르세요.');
 			$('#attendBtn').prop('disabled', false); // 버튼 활성화 복귀
 			$('#checkAll').focus();
 			return false;
 		}
 
-		var result = confirm($('#students').length() + '명에 대하여 출석 확인을 하시겠습니까?');
+		var result = confirm($('#students').length + '명에 대하여 출석 확인을 하시겠습니까?');
 		if ( !result ) {
 			$('#attendBtn').prop('disabled', false); // 버튼 활성화 복귀
 			$('#checkAll').focus();
