@@ -70,7 +70,7 @@ ul.copyright>li{
 select{
 	margin-bottom:1em;
 }
-#submitBtn, #AttendBtn{
+#submitBtn, #attendBtn{
 	width: 100%;
 	height: 48px;
 	border: 1px solid #ddd;
