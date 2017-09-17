@@ -40,6 +40,8 @@ $(function(){
 				// =============================================
 				// Query 조건문 추가해야함 (오늘 날짜)
 				// =============================================
+				async: false,
+				global: true,
 				url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_ATTEND+'&tq=select+*+where+C+matches+\''+subject_code+'\''
 			}).done(function (data1) {
 				var list_attend = JSON.parse(data1.substring(data1.indexOf('(')+1, data1.indexOf(');'))).table.rows, // 문자열에서 불필요한 부분 제거하고 JSON 형식으로.
@@ -63,6 +65,8 @@ $(function(){
 				    	attendTime  = list_attend[j].c[0].f;
 
 				    $.ajax({
+				    	async: false,
+				    	global: true,
 						url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_REGIST+'&tq=select+*+where+D+matches+\''+phoneNumber+'\''
 				    }).done(function(data2){
 						var user = JSON.parse(data2.substring(data2.indexOf('(')+1, data2.indexOf(');'))).table.rows, // 문자열에서 불필요한 부분 제거하고 JSON 형식으로.
