@@ -32,8 +32,8 @@ $(function(){
 			//				 .c[8] = 보조자 email
 		    //console.log(i+1 + '  ' + subject_list[i].c[5].v + ' / ' + subject_list[i].c[4].v + ' / ' + subject_list[i].c[6].v);
 		    $('#subjectCode').append( $('<option value="' + subject_list[i].c[4].v.toString() + '">' + subject_list[i].c[6].v.toString() + ' / ' + subject_list[i].c[5].v.toString() + '</option>\n') );
-		    $('#teacher').value(subject_list[i].c[7].v.toString());
-		    $('#assist').value(subject_list[i].c[8].v.toString())
+		    $('#teacher').val(subject_list[i].c[7].v.toString());
+		    $('#assist').val(subject_list[i].c[8].v.toString())
 		}
 		$('.loading-container').fadeOut(); // 로딩바 제거.
 
@@ -255,7 +255,7 @@ var handleClientLoad = function() {
 	  function makeApiCall() {
 	    if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
 	      var profile = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile();
-	      var p = document.createElement('span');
+	      var p = document.createElement('p');
 	      var name = profile.getName();
 	      var email = profile.getEmail();
 	      p.setAttribute('class', 'welcome');
