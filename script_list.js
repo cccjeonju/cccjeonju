@@ -11,7 +11,7 @@ $(function(){
 
 	var attendTime = [];
 
-	var subject_list;
+	var subject_list = new Object();
 		// subject_list[].c[4] = 강의코드
 		//				 .c[5] = 강의자명
 		//				 .c[6] = 강의자 email
