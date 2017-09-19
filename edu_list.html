@@ -29,7 +29,6 @@
         //scope: 'additional_scope'
       });
       attachSignin(document.getElementById('customBtn'));
-      attachSignout(document.getElementById('customBtn'));
     });
   };
 
@@ -37,15 +36,7 @@
     auth2.attachClickHandler(element, {},
         function(googleUser) {
           document.getElementById('username').innerText = googleUser.getBasicProfile().getName() + "님";
-        }, function(error) {
-          alert(JSON.stringify(error, undefined, 2));
-        });
-  }
-
-  function attachSignout(element) {
-    auth2.attachClickHandler(element, {},
-        function(googleUser) {
-          element.innerText = "로그아웃";
+          document.getElementById('btnLogin').innerText = "로그아웃";
         }, function(error) {
           alert(JSON.stringify(error, undefined, 2));
         });
