@@ -191,7 +191,8 @@ $(function(){
 	// --------------------------------------------------
 
 	if(gapi.auth2.getAuthInstance().isSignedIn.get()) {
-		$('#attendBtn').prop('disabled', false).prop('display','block');
+		//$('#attendBtn').prop('disabled', false).prop('display','block');
+		alert("!!@!@#");
 	}
 });
 
