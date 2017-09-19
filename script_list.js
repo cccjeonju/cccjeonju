@@ -252,5 +252,6 @@ $(function(){
   }
 
   if( profile ) {
-  	console.log(profile.getName());
+  	console.log(profile);
+  	console.log(gapi);
   }
