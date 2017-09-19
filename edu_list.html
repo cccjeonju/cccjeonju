@@ -3,7 +3,6 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="initial-scale=1">
-    <meta name="google-signin-scope" content="profile email">
     <meta name="google-signin-client_id" content="62990643006-squj2admavms41d94p4gkn3ef256dfn9.apps.googleusercontent.com">
 	<title>전주CCC 순장교육 출석부 (강사용)</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
@@ -11,29 +10,7 @@
 <body>
 	<main>
 		<h1>전주CCC 순장교육 출석부</h1>
-		<h2>(강사용)</h2>
-    <div class="my-signin2"></div>
-    <script>
-		function onSuccess(googleUser) {
-    	  console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
-    	  $('#attendBtn').css('display', 'block');
-    	  $('#attendBtn').prop('disabled', false);
-	    }
-	    function onFailure(error) {
-	      console.log(error);
-	    }
-	    function renderButton() {
-	      gapi.signin2.render('my-signin2', {
-	        'scope': 'profile email',
-	        'width': 240,
-	        'height': 50,
-	        'longtitle': true,
-	        'theme': 'dark',
-	        'onsuccess': onSuccess,
-	        'onfailure': onFailure
-	      });
-	    }
-    </script>
+		<div class="loginDiv"><div class="my-signin2"></div></div>
 		<p class="guide">1. 자신의 강의를 선택하시면 출석한 학생들 명단을 읽어옵니다.<br>
 		2. 실제 출석한 학생의 이름 옆에 있는 박스에 <span style="font-weight:bold;text-decoration:underline;">체크</span> 해주세요.<br>
 		3. 맨 아래에 있는 <span style="font-weight:bold;text-decoration:underline;">출석 확인</span>을 클릭하시면 출석처리가 완료됩니다.<br>
@@ -80,5 +57,24 @@
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="script_list.js"></script>
 	<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+    <script>
+		function onSuccess(googleUser) {
+    	  console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+	    }
+	    function onFailure(error) {
+	      console.log(error);
+	    }
+	    function renderButton() {
+	      gapi.signin2.render('my-signin2', {
+	        'scope': 'profile email',
+	        'width': 240,
+	        'height': 50,
+	        'longtitle': true,
+	        'theme': 'dark',
+	        'onsuccess': onSuccess,
+	        'onfailure': onFailure
+	      });
+	    }
+    </script>
 </body>
 </html>
