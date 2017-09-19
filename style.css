@@ -53,7 +53,7 @@ p.guide{
 	font-size: 0.9em;
 	font-weight: bold;
 }
-span.icon {
+img.icon {
   background: url('https://developers.google.com/identity/sign-in/g-normal.png') transparent 5px 50% no-repeat;
   display: inline-block;
   vertical-align: middle;

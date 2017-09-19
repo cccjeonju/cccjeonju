@@ -9,11 +9,9 @@
 <body>
 	<main>
 		<h1>전주CCC 순장교육 출석부</h1>
-  <!-- In the callback, you would hide the gSignInWrapper element on a
-  successful sign in -->
   <div id="gSignInWrapper">
-    <button id="authorize-button" style="display: none;"><span id="icon"></span>로그인</button>
-    <button id="signout-button" style="display: none;"><span id="icon"></span>로그아웃</button>
+    <button id="authorize-button" style="display: none;"><img id="icon"> 로그인</button>
+    <button id="signout-button" style="display: none;"><img id="icon"> 로그아웃</button>
   </div>
 		<p class="guide">1. 자신의 강의를 선택하시면 출석한 학생들 명단을 읽어옵니다.<br>
 		2. 실제 출석한 학생의 이름 옆에 있는 박스에 <span style="font-weight:bold;text-decoration:underline;">체크</span> 해주세요.<br>
@@ -22,7 +20,7 @@
 		5. 회비납부는 아래와 같이 처리하셔야 합니다.<br></p>
 		
 		<h2> 강의 선택 </h2>
-		<input type="date" id="date"> <input type="hidden" id="checker"> <input type="hidden" id="email">
+		<input type="date" id="now_date"> <input type="hidden" id="checker"> <input type="hidden" id="email">
 		<select id="subjectCode">
 			<option>강의를 선택하세요</option>
 		</select>

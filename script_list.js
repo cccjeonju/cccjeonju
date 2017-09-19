@@ -258,3 +258,5 @@ var handleClientLoad = function() {
 	  }
 	});
 }
+
+document.getElementById('now_date').valueAsDate = new Date();
