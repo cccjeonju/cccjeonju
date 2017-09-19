@@ -122,9 +122,6 @@ jQuery(function($){
 				data: {
 					phone: phoneNumber,
 					subject: subject_selected,
-					checktime: '',
-					checker: '',
-					remark:''
 				}
 			}).done(function(data){
 				//console.log(data);
