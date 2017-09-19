@@ -53,13 +53,6 @@ p.guide{
 	font-size: 0.9em;
 	font-weight: bold;
 }
-img.icon {
-  background: url('https://developers.google.com/identity/sign-in/g-normal.png') transparent 50% no-repeat;
-  display: inline-block;
-  vertical-align: middle;
-  width: 32px;
-  height: 32px;
-}
 ul.subject{
 	margin: 0;
 	padding: 0;
@@ -84,14 +77,15 @@ select{
 }
 #authorize-button, #signout-button {
   display: inline-block;
-  background: white;
+  background: url('https://developers.google.com/identity/sign-in/g-normal.png') transparent 0 50% no-repeat;
   color: #444;
-  width: 100px;
+  height: 32px;
   border-radius: 5px;
   border: thin solid #888;
   box-shadow: 1px 1px 1px grey;
   white-space: nowrap;
   text-align:center;
+  vertical-align:middle;
 }
 #submitBtn, #attendBtn{
 	width: 100%;
