@@ -59,15 +59,14 @@
 
 	  // Load the API and make an API call.  Display the results on the screen.
       function makeApiCall() {
-        gapi.client.people.people.get({
-          'resourceName': 'people/me',
-          'requestMask.includeField': 'person.names'
-        }).then(function(resp) {
+        if (gapi.auth2.isSignedIn.get()) {
+        	var profile = auth2.currentUser.get().getBasicProfile();
           var p = document.createElement('span');
-          var name = resp.result.names[0].givenName;
-          p.appendChild(document.createTextNode('환영합니다, '+name+'님 '));
+          var name = profile.getName();
+          var email = profile.getEmail();
+          p.appendChild(document.createTextNode('환영합니다, '+name+'님 ('+email+') '));
           document.getElementById('content').prependTo(p);
-        });
+        }
       }
     });
   }
