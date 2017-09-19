@@ -71,7 +71,7 @@ ul.copyright>li{
 select{
 	margin-bottom:1em;
 }
-#customBtn {
+#authorize-button, #signout-button {
   display: inline-block;
   background: white;
   color: #444;
