@@ -189,16 +189,7 @@ $(function(){
 	// --------------------------------------------------
 	// 1. 회비 납부
 	// --------------------------------------------------
-	var str = "";
-	for(key in gapi) {
-		str += key+"="+gapi[key]+"\n";
-	}
-	console.log(str);
 
-	//if(gapi.auth2.getAuthInstance().isSignedIn.get()) {
-		//$('#attendBtn').prop('disabled', false).prop('display','block');
-	//	alert("!!@!@#");
-	//}
 });
 
   var clientId = '62990643006-squj2admavms41d94p4gkn3ef256dfn9.apps.googleusercontent.com';
@@ -234,6 +225,7 @@ $(function(){
         } else {
           authorizeButton.style.display = 'inline-block';
           signoutButton.style.display = 'none';
+          gapi.auth2.getAuthInstance().currentUser.length = 0;
           document.getElementById('gSignInWrapper').removeChild(document.getElementById('gSignInWrapper').firstChild);
         }
       }
@@ -258,3 +250,8 @@ $(function(){
       }
     });
   }
+
+	if(gapi.auth2.getAuthInstance().isSignedIn.get()) {
+		//$('#attendBtn').prop('disabled', false).prop('display','block');
+		alert("!#$");
+	}
