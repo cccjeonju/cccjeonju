@@ -7,15 +7,11 @@ $(function(){
 	var WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyOpp8Fl9V5DAd_ZjsDSI12z7oQLOLufI3HfipWxiUMvngxeOIq/exec",	// 출석부에 기록하기 위한 웹 앱
 		SHEET_NAME_CONFIRM = "출석확인";
 
-	var admin_email = "cccjeonju@gmail.com";
+	var admin_email = "cccjeonju@gmail.com",
+		manage_email = "hiyen2001@gmail.com";
 
-	var attendTime = [];
+	var attendTime = new Array();
 
-	var subject_list = new Object();
-		// subject_list[].c[4] = 강의코드
-		//				 .c[5] = 강의자명
-		//				 .c[6] = 강의자 email
-		//				 .c[7] = 보조자 email
 	// --------------------------------------------------
 	// 1-1. 출석체크가 초기 실행되면 개설된 강의 목록을 읽어와야 함
 	// 1-2. 로딩이 끝나면 loadingbar fadeout 효과를 
@@ -23,15 +19,21 @@ $(function(){
 	$.ajax({
 		url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_SUBJECT
 	}).done(function (data) {
-			subject_list = JSON.parse(data.substring(data.indexOf('(')+1, data.indexOf(');'))).table.rows, // 문자열에서 불필요한 부분 제거하고 JSON 형식으로.
+			var subject_list = JSON.parse(data.substring(data.indexOf('(')+1, data.indexOf(');'))).table.rows, // 문자열에서 불필요한 부분 제거하고 JSON 형식으로.
 			sum = subject_list.length; // 목록 수.
 
 		//console.log('* SHEET DATA URL - https://docs.google.com/spreadsheets/d/1PHN8N0nY7YLw5NlYTp9VqSvqOHdgsvR2W8BfAZ8AtY4/edit?usp=sharing'); // 구글 스프레드시트 URL.
 		console.log('* 전체 강의 수: ' + sum + '개');
 
 		for (var i = 0; i < sum; i++) { // 전체 강의 목록을 콘솔에 출력. 
+			// subject_list[].c[4] = 강의코드
+			//				 .c[6] = 강의자명
+			//				 .c[7] = 강의자 email
+			//				 .c[8] = 보조자 email
 		    //console.log(i+1 + '  ' + subject_list[i].c[5].v + ' / ' + subject_list[i].c[4].v + ' / ' + subject_list[i].c[6].v);
 		    $('#subjectCode').append( $('<option value="' + subject_list[i].c[4].v.toString() + '">' + subject_list[i].c[6].v.toString() + ' / ' + subject_list[i].c[5].v.toString() + '</option>\n') );
+		    $('#teacher').value(subject_list[i].c[7].v.toString());
+		    $('#assist').value(subject_list[i].c[8].v.toString())
 		}
 		$('.loading-container').fadeOut(); // 로딩바 제거.
 
@@ -109,7 +111,7 @@ $(function(){
 					$('.loading-container').fadeOut();
 
 					// 출석 확인 버튼 생성
-					if ( $('#email').val() == subject_list[index].c[6].v || $('#email').val() == subject_list[index].c[7].v || $('#email').val() == admin_email ) {
+					if ( $('#email').val() == $('#teacher').val() || $('#email').val() == $('#assist').val() || $('#email').val() == manage_email || $('#email').val() == admin_email ) {
 						$('#attendBtn').prop('disabled', false).css('display','block');
 					}
 				},
