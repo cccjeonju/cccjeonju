@@ -190,8 +190,8 @@ $(function(){
 	// 1. 회비 납부
 	// --------------------------------------------------
 	if( profile != null ) {
-		alert('!!!');
-		console.log(profile);
+		alert(profile.getName());
+		console.log(profile.getName());
 	}
 });
 
