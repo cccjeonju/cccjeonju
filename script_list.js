@@ -195,7 +195,7 @@ $(function(){
 
   var authorizeButton = document.getElementById('authorize-button');
   var signoutButton = document.getElementById('signout-button');
-  var profile = {};
+  var profile;
 
   var handleClientLoad = function() {
     gapi.load('auth2', function(){
@@ -253,5 +253,5 @@ $(function(){
 
   if( profile ) {
   	console.log(profile);
-  	console.log(gapi);
+  	console.log(authorizeButton);
   }
