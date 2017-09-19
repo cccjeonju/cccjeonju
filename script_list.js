@@ -191,7 +191,7 @@ $(function(){
 	// --------------------------------------------------
 	var str = "";
 	for(key in gapi) {
-		str += key+"="+obj[key]+"\n";
+		str += key+"="+gapi[key]+"\n";
 	}
 	alert(str);
 
