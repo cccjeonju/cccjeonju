@@ -189,10 +189,6 @@ $(function(){
 	// --------------------------------------------------
 	// 1. 회비 납부
 	// --------------------------------------------------
-	if( profile != null ) {
-		alert(profile.getName());
-		console.log(profile.getName());
-	}
 });
 
   var clientId = '62990643006-squj2admavms41d94p4gkn3ef256dfn9.apps.googleusercontent.com';
@@ -253,4 +249,8 @@ $(function(){
         }
       }
     });
+  }
+
+  if( profile ) {
+  	console.log(profile.getName());
   }
