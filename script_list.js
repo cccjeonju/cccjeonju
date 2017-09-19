@@ -190,7 +190,9 @@ $(function(){
 	// 1. 회비 납부
 	// --------------------------------------------------
 
-	alert(gapi);
+	if(gapi.auth2.getAuthInstance().isSignedIn.get()) {
+		$('#attendBtn').prop('disabled', false).prop('display','block');
+	}
 });
 
   var clientId = '62990643006-squj2admavms41d94p4gkn3ef256dfn9.apps.googleusercontent.com';
