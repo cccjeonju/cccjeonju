@@ -9,7 +9,14 @@
 <body>
 	<main>
 		<h1>전주CCC 순장교육 출석부</h1>
-<div id="my-signin2"></div>
+  <!-- In the callback, you would hide the gSignInWrapper element on a
+  successful sign in -->
+  <div id="gSignInWrapper">
+    <div class="customGPlusSignIn">
+      <span class="buttonText">Login</span>
+    </div>
+  </div>
+  <div id="name"></div>
 <script>
   var googleUser = {};
   var renderButton = function() {
