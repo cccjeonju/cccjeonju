@@ -224,8 +224,7 @@ var handleClientLoad = function() {
 	    } else {
 	      authorizeButton.style.display = 'inline-block';
 	      signoutButton.style.display = 'none';
-	      gapi.auth2.getAuthInstance().currentUser.length = 0;
-	      document.getElementById('gSignInWrapper').removeChild(document.getElementById('gSignInWrapper').firstChild);
+	      removeCall();
 	    }
 	  }
 	  function handleAuthClick(event) {
@@ -246,12 +245,16 @@ var handleClientLoad = function() {
 	      p.setAttribute('class', 'welcome');
 	      p.appendChild(document.createTextNode(name+'님 ('+email+') '));
 	      document.getElementById('gSignInWrapper').prepend(p);
-
-	      GoogleAuth = gapi.auth2.getAuthInstance();
+	      document.getElementbyId('email').value = email;
+	      document.getElementbyId('checker').value = name;	
 	    }
+	  }
+
+	  function removeCall() {
+	      gapi.auth2.getAuthInstance().currentUser.length = 0;
+	      document.getElementById('gSignInWrapper').removeChild(document.getElementById('gSignInWrapper').firstChild);
+	      document.getElementbyId('email').value = "";
+	      document.getElementbyId('checker').value = "";	  	
 	  }
 	});
 }
-
-console.log(GoogleAuth);
-
