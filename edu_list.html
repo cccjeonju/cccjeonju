@@ -29,6 +29,7 @@
         //scope: 'additional_scope'
       });
       attachSignin(document.getElementById('customBtn'));
+      attachSignout(document.getElementById('customBtn'));
     });
   };
 
@@ -40,6 +41,23 @@
           alert(JSON.stringify(error, undefined, 2));
         });
   }
+
+  function attachSignout(element) {
+    auth2.attachClickHandler(element, {},
+        function(googleUser) {
+          element.innerText = "로그아웃";
+        }, function(error) {
+          alert(JSON.stringify(error, undefined, 2));
+        });
+  }
+
+  function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+    });
+  }
+
 </script>
 		<p class="guide">1. 자신의 강의를 선택하시면 출석한 학생들 명단을 읽어옵니다.<br>
 		2. 실제 출석한 학생의 이름 옆에 있는 박스에 <span style="font-weight:bold;text-decoration:underline;">체크</span> 해주세요.<br>
