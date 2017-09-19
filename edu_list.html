@@ -37,7 +37,7 @@
         function(googleUser) {
           document.getElementById('username').innerText = googleUser.getBasicProfile().getName() + "님";
           document.getElementsByClassName('buttonText')[0].innerText = "로그아웃";
-          document.getElementById('customGPlusSignIn').className = "";
+          document.getElementById('customBtn').className = "";
         }, function(error) {
           alert(JSON.stringify(error, undefined, 2));
         });
