@@ -50,7 +50,7 @@ $(function(){
 			$('.studentList').empty(); // 명단을 초기화해서 모두 지움
 
 			var subject_code = $('#subjectCode option:selected').val();
-			var index = $('#subjectCode').index($('#subjectCode option:selected'));
+			var index = $('#subjectCode option').index($('#subjectCode option:selected'));
 			var ii = 0; // 현재 반의 인원
 
 			$.ajax({

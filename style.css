@@ -52,6 +52,7 @@ p.guide{
 .welcome{
 	font-size: 0.9em;
 	font-weight: bold;
+	display: inline-block;
 }
 ul.subject{
 	margin: 0;
