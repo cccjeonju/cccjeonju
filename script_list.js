@@ -189,7 +189,7 @@ $(function(){
 	// --------------------------------------------------
 	// 1. 회비 납부
 	// --------------------------------------------------
-
+	if( profile ) alert('!!!');
 });
 
   var clientId = '62990643006-squj2admavms41d94p4gkn3ef256dfn9.apps.googleusercontent.com';
@@ -234,6 +234,7 @@ $(function(){
       }
       function handleSignoutClick(event) {
         gapi.auth2.getAuthInstance().signOut();
+        gapi.auth2.getAuthInstance().disconnect();
       }
 
 	  // Load the API and make an API call.  Display the results on the screen.
@@ -250,8 +251,3 @@ $(function(){
       }
     });
   }
-
-	if(gapi.auth2.getAuthInstance().isSignedIn.get()) {
-		//$('#attendBtn').prop('disabled', false).prop('display','block');
-		alert("!#$");
-	}
