@@ -245,7 +245,7 @@ var handleClientLoad = function() {
 	      p.setAttribute('class', 'welcome');
 	      p.appendChild(document.createTextNode(name+'님 ('+email+') '));
 	      document.getElementById('gSignInWrapper').prepend(p);
-	      document.getElementbyId('email').value = email;
+	      document.getElementbyId('checker_email').value = email;
 	      document.getElementbyId('checker').value = name;	
 	    }
 	  }
@@ -253,7 +253,7 @@ var handleClientLoad = function() {
 	  function removeCall() {
 	      gapi.auth2.getAuthInstance().currentUser.length = 0;
 	      document.getElementById('gSignInWrapper').removeChild(document.getElementById('gSignInWrapper').firstChild);
-	      document.getElementbyId('email').value = "";
+	      document.getElementbyId('checker_email').value = "";
 	      document.getElementbyId('checker').value = "";	  	
 	  }
 	});
