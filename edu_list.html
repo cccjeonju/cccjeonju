@@ -88,19 +88,11 @@
     setSigninStatus();
   }
 </script>
-
-<button id="sign-in-or-out-button"
-        style="margin-left: 25px">Sign In/Authorize</button>
-<button id="revoke-access-button"
-        style="display: none; margin-left: 25px">Revoke access</button>
-
-<div id="auth-status" style="display: inline; padding-left: 25px"></div><hr>
-
+<button id="sign-in-or-out-button" style="margin-left: 25px">Sign In/Authorize</button>
+<button id="revoke-access-button" style="display: none; margin-left: 25px">Revoke access</button>
+<div id="auth-status" style="display: inline; padding-left: 25px"></div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script async defer src="https://apis.google.com/js/api.js" 
-        onload="this.onload=function(){};handleClientLoad()" 
-        onreadystatechange="if (this.readyState === 'complete') this.onload()">
-</script>
+<script async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};handleClientLoad()" onreadystatechange="if (this.readyState === 'complete') this.onload()"></script>
 		<p class="guide">1. 자신의 강의를 선택하시면 출석한 학생들 명단을 읽어옵니다.<br>
 		2. 실제 출석한 학생의 이름 옆에 있는 박스에 <span style="font-weight:bold;text-decoration:underline;">체크</span> 해주세요.<br>
 		3. 맨 아래에 있는 <span style="font-weight:bold;text-decoration:underline;">출석 확인</span>을 클릭하시면 출석처리가 완료됩니다.<br>
