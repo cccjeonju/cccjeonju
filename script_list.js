@@ -12,6 +12,8 @@ $(function(){
 
 	var attendTime = new Array();
 
+	var checkerList = new Array();
+
 	// --------------------------------------------------
 	// 1-1. 출석체크가 초기 실행되면 개설된 강의 목록을 읽어와야 함
 	// 1-2. 로딩이 끝나면 loadingbar fadeout 효과를 
@@ -32,8 +34,11 @@ $(function(){
 			//				 .c[8] = 보조자 email
 		    //console.log(i+1 + '  ' + subject_list[i].c[5].v + ' / ' + subject_list[i].c[4].v + ' / ' + subject_list[i].c[6].v);
 		    $('#subjectCode').append( $('<option value="' + subject_list[i].c[4].v.toString() + '">' + subject_list[i].c[6].v.toString() + ' / ' + subject_list[i].c[5].v.toString() + '</option>\n') );
-		    $('#teacher').val(subject_list[i].c[7].v.toString());
-		    $('#assist').val(subject_list[i].c[8].v.toString())
+		    checkerList[i] = new Object();
+		    checkerList[i].code = subject_list[i].c[4].v;
+		    checkerList[i].name = subject_list[i].c[6].v;
+		    if(subject_list[i].c[7] != null) checkerList[i].email= subject_list[i].c[7].v;
+		    if(subject_list[i].c[8] != null) checkerList[i].assist = subject_list[i].c[8].v;
 		}
 		$('.loading-container').fadeOut(); // 로딩바 제거.
 
@@ -111,7 +116,7 @@ $(function(){
 					$('.loading-container').fadeOut();
 
 					// 출석 확인 버튼 생성
-					if ( $('#email').val() == $('#teacher').val() || $('#email').val() == $('#assist').val() || $('#email').val() == manage_email || $('#email').val() == admin_email ) {
+					if ( $('#email').val() == checkerList[index].email || $('#email').val() == checkerList[index].assist || $('#email').val() == manage_email || $('#email').val() == admin_email ) {
 						$('#attendBtn').prop('disabled', false).css('display','block');
 					}
 				},
