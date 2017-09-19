@@ -13,8 +13,7 @@
   successful sign in -->
   <div id="gSignInWrapper">
 	<span id="username"></span>
-    <div id="customBtn" class="customGPlusSignIn">
-      <span class="buttonText">로그인해주세요</span>
+    <button id="customBtn" class="customGPlusSignIn">로그인해주세요</button>
     </div>
   </div>
 <script>
@@ -37,7 +36,7 @@
         function(googleUser) {
           document.getElementById('username').innerText = googleUser.getBasicProfile().getName() + "님";
           document.getElementsByClassName('buttonText')[0].innerText = "로그아웃";
-          //document.getElementById('customBtn').className = "";
+          document.getElementById('customBtn').inner = "";
         }, function(error) {
           alert(JSON.stringify(error, undefined, 2));
         });
@@ -95,6 +94,6 @@
 	</div>
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="script_list.js"></script>
-    <script src="https://apis.google.com/js/platform.js?onload=startLogin" async defer></script>
+    <script src="https://apis.google.com/js/platform.js" async defer onload="this.onload=function(){};handleClientLoad()" onreadystatechange="if (this.readyState === 'complete') this.onload()"></script>
 </body>
 </html>

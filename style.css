@@ -80,17 +80,7 @@ select{
   border: thin solid #888;
   box-shadow: 1px 1px 1px grey;
   white-space: nowrap;
-}
-#customBtn:hover {
-  cursor: pointer;
-}
-span.buttonText {
-  display: inline-block;
-  vertical-align: middle;
-  padding-left: 35px;
-  padding-right: 35px;
-  font-size: 14px;
-  font-weight: bold;
+  text-align:center;
 }
 #submitBtn, #attendBtn{
 	width: 100%;
