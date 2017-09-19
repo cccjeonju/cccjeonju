@@ -12,42 +12,66 @@
   <!-- In the callback, you would hide the gSignInWrapper element on a
   successful sign in -->
   <div id="gSignInWrapper">
-	<span id="username"></span>
-    <button id="customBtn" class="customGPlusSignIn">로그인해주세요</button>
-    </div>
+    <button id="authorize-button" style="display: none;">로그인</button>
+    <button id="signout-button" style="display: none;">로그아웃</button>
   </div>
 <script>
-  var googleUser = {};
-  var startLogin = function() {
+  var clientId = '62990643006-squj2admavms41d94p4gkn3ef256dfn9.apps.googleusercontent.com';
+
+  var authorizeButton = document.getElementById('authorize-button');
+  var signoutButton = document.getElementById('signout-button');
+
+  var handleClientLoad = function() {
     gapi.load('auth2', function(){
       // Retrieve the singleton for the GoogleAuth library and set up the client.
       auth2 = gapi.auth2.init({
-        client_id: '62990643006-squj2admavms41d94p4gkn3ef256dfn9.apps.googleusercontent.com',
+        client_id: clientId,
         cookiepolicy: 'single_host_origin',
         // Request scopes in addition to 'profile' and 'email'
         //scope: 'additional_scope'
+      }).then( function () {
+      	// Listen for sign-in state changes.
+      	gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+
+      	// Handle the initial sign-in state.
+      	updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+
+      	authorizeButton.onclick = handleAuthClick;
+        signoutButton.onclick = handleSignoutClick;
       });
-      attachSignin(document.getElementById('customBtn'));
-    });
-  };
+      
+      function updateSigninStatus(isSignedIn) {
+        if (isSignedIn) {
+          authorizeButton.style.display = 'none';
+          signoutButton.style.display = 'block';
+          makeApiCall();
+        } else {
+          authorizeButton.style.display = 'block';
+          signoutButton.style.display = 'none';
+        }
+      }
+      function handleAuthClick(event) {
+        gapi.auth2.getAuthInstance().signIn();
+      }
+      function handleSignoutClick(event) {
+        gapi.auth2.getAuthInstance().signOut();
+      }
 
-  function attachSignin(element) {
-    auth2.attachClickHandler(element, {},
-        function(googleUser) {
-          document.getElementById('username').innerText = googleUser.getBasicProfile().getName() + "님";
-          document.getElementsByClassName('buttonText')[0].innerText = "로그아웃";
-          document.getElementById('customBtn').inner = "";
-        }, function(error) {
-          alert(JSON.stringify(error, undefined, 2));
+	  // Load the API and make an API call.  Display the results on the screen.
+      function makeApiCall() {
+        gapi.client.people.people.get({
+          'resourceName': 'people/me',
+          'requestMask.includeField': 'person.names'
+        }).then(function(resp) {
+          var p = document.createElement('span');
+          var name = resp.result.names[0].givenName;
+          p.appendChild(document.createTextNode('환영합니다, '+name+'님 '));
+          document.getElementById('content').prependTo(p);
         });
-  }
-
-  function signOut() {
-    var auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function () {
-      console.log('User signed out.');
+      }
     });
   }
+
 </script>
 		<p class="guide">1. 자신의 강의를 선택하시면 출석한 학생들 명단을 읽어옵니다.<br>
 		2. 실제 출석한 학생의 이름 옆에 있는 박스에 <span style="font-weight:bold;text-decoration:underline;">체크</span> 해주세요.<br>
