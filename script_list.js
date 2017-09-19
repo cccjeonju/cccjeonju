@@ -190,6 +190,8 @@ $(function(){
 	// 1. 회비 납부
 	// --------------------------------------------------
 
+	alert(gapi);
+});
 
   var clientId = '62990643006-squj2admavms41d94p4gkn3ef256dfn9.apps.googleusercontent.com';
 
@@ -248,4 +250,3 @@ $(function(){
       }
     });
   }
-});
