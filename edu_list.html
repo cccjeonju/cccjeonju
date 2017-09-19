@@ -3,6 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="initial-scale=1">
+	<meta name="google-signin-scope" content="profile email">
     <meta name="google-signin-client_id" content="62990643006-squj2admavms41d94p4gkn3ef256dfn9.apps.googleusercontent.com">
 	<title>전주CCC 순장교육 출석부 (강사용)</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
@@ -13,6 +14,7 @@
 		<div class="gSignInWrapper">
 			<div id="name"></div>
 			<div class="my-signin2"></div>
+			<a href="#" onclick="signOut();">Sign out</a>
 		</div>
     <script>
 		function onSuccess(googleUser) {
@@ -21,6 +23,12 @@
 	    function onFailure(error) {
 	      console.log(error);
 	    }
+		function signOut() {
+		  var auth2 = gapi.auth2.getAuthInstance();
+		  auth2.signOut().then(function () {
+		    console.log('User signed out.');
+		  });
+		}
 	    function renderButton() {
 	      gapi.signin2.render('my-signin2', {
 	        'scope': 'profile email',
