@@ -49,6 +49,17 @@ p.guide{
 	text-align: left;
 	font-size: 0.8em;
 }
+.welcome{
+	font-size: 0.9em;
+	font-weight: bold;
+}
+span.icon {
+  background: url('https://developers.google.com/identity/sign-in/g-normal.png') transparent 5px 50% no-repeat;
+  display: inline-block;
+  vertical-align: middle;
+  width: 32px;
+  height: 32px;
+}
 ul.subject{
 	margin: 0;
 	padding: 0;

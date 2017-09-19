@@ -219,10 +219,10 @@ $(function(){
       function updateSigninStatus(isSignedIn) {
         if (isSignedIn) {
           authorizeButton.style.display = 'none';
-          signoutButton.style.display = 'block';
+          signoutButton.style.display = 'inline-block';
           makeApiCall();
         } else {
-          authorizeButton.style.display = 'block';
+          authorizeButton.style.display = 'inline-block';
           signoutButton.style.display = 'none';
           document.getElementById('gSignInWrapper').removeChild(document.getElementById('gSignInWrapper').firstChild);
         }
@@ -241,8 +241,8 @@ $(function(){
           var p = document.createElement('span');
           var name = profile.getName();
           var email = profile.getEmail();
-          p.setAttribute('id', 'welcome');
-          p.appendChild(document.createTextNode('환영합니다, '+name+'님 ('+email+') '));
+          p.setAttribute('class', 'welcome');
+          p.appendChild(document.createTextNode(name+'님 ('+email+') '));
           document.getElementById('gSignInWrapper').prepend(p);
         }
       }
