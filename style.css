@@ -71,6 +71,26 @@ ul.copyright>li{
 select{
 	margin-bottom:1em;
 }
+#sign-in-or-out-button{
+	border:0;
+	border-radius:2px;
+	color:#039BE5;
+	cursor:pointer;
+	display:inline-block;
+	font:500 14px/20px Roboto,sans-serif;
+	height:36px;
+	margin:0;
+	min-width:36px;
+	outline:0;
+	overflow:hidden;
+	text-align:center;
+	text-decoration:none;
+	text-overflow:ellipsis;
+	text-transform:uppercase;
+	transition:background-color .2s,box-shadow .2s;
+	vertical-align:middle;
+	white-space:nowrap;
+}
 #submitBtn, #attendBtn{
 	width: 100%;
 	height: 48px;
