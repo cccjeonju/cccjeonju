@@ -253,3 +253,5 @@ var handleClientLoad = function() {
 	});
 }
 
+if(GoogleAuth.isSignedIn) alert(GoogleAuth.currentUser.get().getBasicProfile().getName());
+
