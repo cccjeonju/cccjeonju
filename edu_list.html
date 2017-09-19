@@ -60,7 +60,7 @@
 	  // Load the API and make an API call.  Display the results on the screen.
       function makeApiCall() {
         if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
-        	var profile = auth2.currentUser.get().getBasicProfile();
+        	var profile = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile();
           var p = document.createElement('span');
           var name = profile.getName();
           var email = profile.getEmail();
