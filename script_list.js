@@ -193,7 +193,7 @@ $(function(){
 	for(key in gapi) {
 		str += key+"="+gapi[key]+"\n";
 	}
-	alert(str);
+	console.log(str);
 
 	//if(gapi.auth2.getAuthInstance().isSignedIn.get()) {
 		//$('#attendBtn').prop('disabled', false).prop('display','block');
