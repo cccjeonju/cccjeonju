@@ -190,8 +190,8 @@ $(function(){
 	// 1. 회비 납부
 	// --------------------------------------------------
 	var str = "";
-	for(key in gapi.auth2) {
-		str += key+"="+gapi.auth2[key]+"\n";
+	for(key in gapi) {
+		str += key+"="+gapi[key]+"\n";
 	}
 	console.log(str);
 
