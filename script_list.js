@@ -241,7 +241,7 @@ $(function(){
           var p = document.createElement('span');
           var name = profile.getName();
           var email = profile.getEmail();
-          p.css('id', 'welcome');
+          p.setAttribute('id', 'welcome');
           p.appendChild(document.createTextNode('환영합니다, '+name+'님 ('+email+') '));
           document.getElementById('gSignInWrapper').prepend(p);
         }
