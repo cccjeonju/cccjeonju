@@ -36,8 +36,8 @@
     auth2.attachClickHandler(element, {},
         function(googleUser) {
           document.getElementById('username').innerText = googleUser.getBasicProfile().getName() + "님";
-          document.getElementByClassName('buttonText').className = "";
-          document.getElementByClassName('buttonText').innerText = "로그아웃";
+          document.getElementsByClassName('buttonText')[0].className = "";
+          document.getElementsByClassName('buttonText')[0].innerText = "로그아웃";
         }, function(error) {
           alert(JSON.stringify(error, undefined, 2));
         });
