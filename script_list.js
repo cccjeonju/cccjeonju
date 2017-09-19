@@ -50,7 +50,7 @@ $(function(){
 			$('.studentList').empty(); // 명단을 초기화해서 모두 지움
 
 			var subject_code = $('#subjectCode option:selected').val();
-			var index = $('#subjectCode').index(this);
+			var index = $('#subjectCode').index($('#subjectCode option:selected'));
 			var ii = 0; // 현재 반의 인원
 
 			$.ajax({
@@ -63,7 +63,7 @@ $(function(){
 					var list_attend = JSON.parse(data1.substring(data1.indexOf('(')+1, data1.indexOf(');'))).table.rows, // 문자열에서 불필요한 부분 제거하고 JSON 형식으로.
 						total = list_attend.length; // 목록 수.
 					//console.log('* SHEET DATA URL - https://docs.google.com/spreadsheets/d/1PHN8N0nY7YLw5NlYTp9VqSvqOHdgsvR2W8BfAZ8AtY4/edit#gid=2098472162'); // 구글 스프레드시트 URL.
-					console.log('** 출석 체크한 수: ' + total + '명');
+					//console.log('** 출석 체크한 학생 수: ' + total + '명');
 
 					if (total < 1) {
 						$('.studentList').append( $('<tr class=""><td colspan="9" class="blankTr">선택한 인원이 없습니다.</td></tr>') );
@@ -75,7 +75,7 @@ $(function(){
 					// 2-2. 해당 하는 날짜의 해당 과목 출석 체크한 사람의 정보를 가져옴
 					// --------------------------------------------------
 					for (var j = 0; j < total; j++) {
-					    console.log("** " + (j+1) + '  ' + list_attend[j].c[2].v + ' / ' + list_attend[j].c[1].v);
+					    //console.log("** " + (j+1) + '  ' + list_attend[j].c[2].v + ' / ' + list_attend[j].c[1].v);
 
 					    attendTime[ii]  = list_attend[j].c[0].f;
 
@@ -86,10 +86,10 @@ $(function(){
 							success: function(data2) {				    
 								var user = JSON.parse(data2.substring(data2.indexOf('(')+1, data2.indexOf(');'))).table.rows, // 문자열에서 불필요한 부분 제거하고 JSON 형식으로.
 									users = user.length; // 목록 수.
-								console.log('*** 출석체크 한 사람 중 읽어오기 : ' + users + '명 - 2명 이상일 경우는 데이터 유효성 결여상태');
+								//console.log('*** 출석체크 한 사람 중 읽어오기 : ' + users + '명 - 2명 이상일 경우는 데이터 유효성 결여상태');
 								
 								for (var k = 0; k < users; k++) {
-							    	console.log("*** " + (k+1) + '  ' + user[k].c[5].v + ' / ' + user[k].c[4].v + ' / ' + user[k].c[6].v);
+							    	//console.log("*** " + (k+1) + '  ' + user[k].c[5].v + ' / ' + user[k].c[4].v + ' / ' + user[k].c[6].v);
 								    //$('.studentList').append( $('<li><label><input type="radio" name="subject" value="' + user[k].c[4].v.toString() + '">[' + user[k].c[1].v.toString() + '] ' + user[k].c[6].v.toString() + ' / ' + user[k].c[5].v.toString() + '</label></li>') );
 
 									var studentTr = "<tr class=\"\">\n";
@@ -118,7 +118,10 @@ $(function(){
 					// 출석 확인 버튼 생성
 					if ( $('#email').val() == checkerList[index].email || $('#email').val() == checkerList[index].assist || $('#email').val() == manage_email || $('#email').val() == admin_email ) {
 						$('#attendBtn').prop('disabled', false).css('display','block');
+					} else {
+						$('#attendBtn').prop('disabled', true).css('display','none');
 					}
+
 				},
 				error: function () {
 					alert('출석 명단을 읽어오는데 문제가 발생했습니다.');
