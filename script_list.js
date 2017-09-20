@@ -131,7 +131,7 @@ $(function(){
 									if( checkTime[ii] == '' ) {
 										studentTr += "<input type=\"checkbox\" name=\"students\" value=\""+user[k].c[3].v+"\">";
 									} else {
-										studentTr += "<button type=\"button\" id=\"cancelBtn\">취소</button>";
+										studentTr += "<button type=\"button\" id=\"cancelBtn\" name=\"cancel-button\">취소</button>";
 									}
 									studentTr += "</td><td class=\"co2\">"+(++ii)+"</td>\n"; 
 									studentTr += "<td class=\"co3\">"+user[k].c[1].v+"</td>\n";	// 이름
@@ -158,10 +158,12 @@ $(function(){
 						$('#attendBtn').prop('disabled', false).css('display','block');
 						$('#checkAll').prop('disabled', false).css('display','block');
 						$('input[name="students"]').prop('disabled', false).css('display', 'block');
+						$('input[name="cancel-button"]').prop('disabled', false).css('display', 'block');
 					} else {
 						$('#attendBtn').prop('disabled', true).css('display','none');
 						$('#checkAll').prop('disabled', true).css('display','none');
 						$('input[name="students"]').prop('disabled', true).css('display', 'none');
+						$('input[name="cancel-button"]').prop('disabled', true).css('display', 'none');
 					}
 
 				},
@@ -188,7 +190,7 @@ $(function(){
 		$('#now_date').valueAsDate = new Date();
 		//document.getElementById('now_date').valueAsDate = new Date();
 	}
-	
+
 	// --------------------------------------------------
 	// 3-1. '출석확인' 처리
 	// --------------------------------------------------
