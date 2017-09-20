@@ -96,7 +96,7 @@ $(function(){
 					    //				c[4] = checktime (check time for teacher)
 					    //				c[5] = checker (teacher's email)
 
-					    attendTime[ii] = list_attend[j].c[1].f,
+					    attendTime[ii] = list_attend[j].c[4].f,
 					    	 noRow[ii] = list_attend[j].c[0].f;
 
 					    $.ajax({
