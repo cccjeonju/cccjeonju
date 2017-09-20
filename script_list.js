@@ -54,12 +54,24 @@ $(function(){
 			var index = $('#subjectCode option').index($('#subjectCode option:selected'))-1;
 			var ii = 0; // 현재 반의 인원
 
+			var today;
+			// 관리자일 경우 날짜를 조정할 수 있도록 함
+			if ($('#email').val() == manage_email || $('#email').val() == admin_email ) {
+				today = $('#now_date').val();
+			} else {
+				var now = new Date();
+				var year= now.getFullYear();
+				var mon = (now.getMonth()+1)>9 ? ''+(now.getMonth()+1) : '0'+(now.getMonth()+1);
+				var day = now.getDate()>9 ? ''+now.getDate() : '0'+now.getDate();
+					today = year + '-' + mon + '-' + day;
+			}
+
 			$.ajax({
 				// =============================================
 				// Query 조건문 추가해야함 (오늘 날짜)
 				// =============================================
 				type: 'GET',
-				url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_ATTEND+'&tq=select+*+where+D+matches+\''+subject_code+'\'',
+				url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_ATTEND+'&tq=select+*+where+E+matches+\''+today+'\'+and+D+matches+\''+subject_code+'\'',
 				success: function (data1) {
 					var list_attend = JSON.parse(data1.substring(data1.indexOf('(')+1, data1.indexOf(');'))).table.rows, // 문자열에서 불필요한 부분 제거하고 JSON 형식으로.
 						total = list_attend.length; // 목록 수.
