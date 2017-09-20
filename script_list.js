@@ -118,6 +118,8 @@ $(function(){
 					// 출석 확인 버튼 생성
 					if ( $('#email').val() == checkerList[index].email || $('#email').val() == checkerList[index].assist || $('#email').val() == manage_email || $('#email').val() == admin_email ) {
 						$('#attendBtn').prop('disabled', false).css('display','block');
+						$('#checkAll').prop('disabled', false).css('display','block');
+						$('input[name="students"]').prop('disabled', false).css('display', 'block');
 					} else {
 						$('#attendBtn').prop('disabled', true).css('display','none');
 						$('#checkAll').prop('disabled', true).css('display','none');
@@ -134,7 +136,7 @@ $(function(){
 		$('#subjectCode').on('change', changeSubject); // 과목 바꾸면 리스트 갱신
 
 	}).fail(function () {
-				alert('데이터 불러오기 실패. 아마도 jQuery CDN 또는 일시적인 구글 API 문제.');
+		alert('데이터 불러오기 실패. 아마도 jQuery CDN 또는 일시적인 구글 API 문제.');
 	});
 
 	// 전체선택 소스
@@ -272,7 +274,10 @@ var handleClientLoad = function() {
 	      p.appendChild(document.createTextNode(name+'님 ('+email+') '));
 	      document.getElementById('gSignInWrapper').prepend(p);
 	      document.getElementById('email').value = email;
-	      document.getElementById('checker').value = name;	
+	      document.getElementById('checker').value = name;
+	      document.getElementById('checkAll').disabled = false;
+	      document.getElementById('checkAll').display = 'block';
+
 	    }
 	  }
 
@@ -280,7 +285,9 @@ var handleClientLoad = function() {
 	      gapi.auth2.getAuthInstance().currentUser.length = 0;
 	      document.getElementById('gSignInWrapper').removeChild(document.getElementById('gSignInWrapper').firstChild);
 	      document.getElementById('email').value = "";
-	      document.getElementById('checker').value = "";	  	
+	      document.getElementById('checker').value = "";
+	      document.getElementById('checkAll').disabled = true;
+	      document.getElementById('checkAll').display = 'none';
 	  }
 	});
 }
