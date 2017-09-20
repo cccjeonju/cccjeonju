@@ -11,6 +11,7 @@ $(function(){
 		manage_email = "hiyen2001@gmail.com";
 
 	var attendTime = new Array(),
+		checkTime = new Array(),
 		noRow = new Array();
 
 	var checkerList = new Array();
@@ -98,6 +99,7 @@ $(function(){
 
 					    attendTime[ii] = list_attend[j].c[4].f,
 					    	 noRow[ii] = list_attend[j].c[0].f;
+					   	checkTime[ii] = (list_attend[j].c[1].f != null) ? list_attend[j].c[1].f : '';
 
 					    $.ajax({
 					    	type: 'GET',
@@ -124,10 +126,14 @@ $(function(){
 								    //			9] = 11/9 subject, [10]=11/16, [11]=11/23
 
 									var studentTr = "<tr class=\"\">\n";
-									studentTr += "<td class=\"co1\"><input type=\"checkbox\" name=\"students\" value=\""+user[k].c[3].v+"\">";
-									studentTr += "<input type=\"hidden\" name=\"no\" value=\""+noRow[ii]+"\">\n";
-									studentTr += "<input type=\"hidden\" name=\"attend_time\" value=\""+attendTime[ii]+"\"></td>\n";
-									studentTr += "<td class=\"co2\">"+(++ii)+"</td>\n"; 
+									studentTr += "<td class=\"co1\"><input type=\"hidden\" name=\"no\" value=\""+noRow[ii]+"\">\n";
+									studentTr += "<input type=\"hidden\" name=\"attend_time\" value=\""+attendTime[ii]+"\">\n";
+									if( checkTime[ii] == '' ) {
+										studentTr += "<input type=\"checkbox\" name=\"students\" value=\""+user[k].c[3].v+"\">";
+									} else {
+										studentTr += "<button type=\"button\" id=\"submitCancel\">취소</button>";
+									}
+									studentTr += "</td><td class=\"co2\">"+(++ii)+"</td>\n"; 
 									studentTr += "<td class=\"co3\">"+user[k].c[1].v+"</td>\n";	// 이름
 									studentTr += "<td class=\"co4\">"+user[k].c[8].v+"</td>\n";	// 호칭
 									studentTr += "<td class=\"co5\">"+user[k].c[2].v.toString().substr(0,1)+"</td>\n";	// 성별
