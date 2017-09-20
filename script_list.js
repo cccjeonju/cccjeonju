@@ -275,9 +275,12 @@ var handleClientLoad = function() {
 	      document.getElementById('gSignInWrapper').prepend(p);
 	      document.getElementById('email').value = email;
 	      document.getElementById('checker').value = name;
-	      document.getElementById('checkAll').disabled = false;
 	      document.getElementById('checkAll').display = 'block';
-
+	      document.getElementById('checkAll').disabled = false;
+	      for(var i=0; i<document.getElementsByName('students').length; i++) {
+	      	document.getElementsByName('students').display = 'block';
+	      	document.getElementsByName('students').disabled = false;
+		  }
 	    }
 	  }
 
@@ -286,8 +289,12 @@ var handleClientLoad = function() {
 	      document.getElementById('gSignInWrapper').removeChild(document.getElementById('gSignInWrapper').firstChild);
 	      document.getElementById('email').value = "";
 	      document.getElementById('checker').value = "";
-	      document.getElementById('checkAll').disabled = true;
 	      document.getElementById('checkAll').display = 'none';
+	      document.getElementById('checkAll').disabled = true;
+	      for(var i=0; i<document.getElementsByName('students').length; i++) {
+	      	document.getElementsByName('students').display = 'none';
+	      	document.getElementsByName('students').disabled = true;
+		  }
 	  }
 	});
 }
