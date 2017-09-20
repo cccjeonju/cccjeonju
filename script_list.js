@@ -120,6 +120,8 @@ $(function(){
 						$('#attendBtn').prop('disabled', false).css('display','block');
 					} else {
 						$('#attendBtn').prop('disabled', true).css('display','none');
+						$('#checkAll').prop('disabled', true).css('display','none');
+						$('input[name="students"]').prop('disabled', true).css('display', 'none');
 					}
 
 				},
