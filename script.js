@@ -23,7 +23,7 @@ jQuery(function($){
 
 		for (var i = 0; i < sum; i++) { // 전체 강의 목록을 콘솔에 출력. 
 		    //console.log(i+1 + '  ' + list[i].c[5].v + ' / ' + list[i].c[4].v + ' / ' + list[i].c[6].v);
-		    $('.subject').append( $('<li><label><input type="radio" name="subject" value="' + list[i].c[4].v.toString() + '">[' + list[i].c[1].v.toString() + '] ' + list[i].c[6].v.toString() + ' / ' + list[i].c[5].v.toString() + '</label></li>') );
+		    $('.subject').append( $('<li><label><input type="radio" name="subject" value="' + list[i].c[4].v.toString() + '">[' + list[i].c[1].v.toString() + '] ' + list[i].c[2].v.toString() + "학년 " + list[i].c[6].v.toString() + ' / ' + list[i].c[5].v.toString() + '</label></li>') );
 		}
 		$('.loading-container').fadeOut(); // 로딩바 제거.
 
@@ -57,7 +57,7 @@ jQuery(function($){
 				} else {
 					//console.log(students[0].c[3].v + ' ' + students[0].c[1].v + ' ' + students[0].c[8].v + '님 (' + students[0].c[5].v + ' ' + students[0].c[6].v.toString().substr(-2) + '학번)');
 					$('output').attr('style', 'display:block');
-					$('output>a').html(students[0].c[3].v + '<br>' + students[0].c[1].v + ' ' + students[0].c[8].v + '님 (' + students[0].c[5].v + ' ' + students[0].c[6].v.toString().substr(-2) + '학번)\n');
+					$('output>a').html(students[0].c[3].v + '<br>' + students[0].c[1].v + ' ' + students[0].c[8].v + '님 (' + students[0].c[5].v + ' ' + students[0].c[6].v.toString().substr(-2) + '학번) ' + students[0].c[4].v.toString().substr(0,1) + '학년\n');
 					$('input[name="phoneCheck"]').val(students[0].c[3].v.toString().substr(-4));
 				}
 
