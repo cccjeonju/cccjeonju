@@ -120,6 +120,9 @@ jQuery(function($){
 			$.ajax({
 				url: WEB_APP_URL + '?sheet_name=' + SHEET_NAME_ATTEND,
 				data: {
+					no: 0,
+					attendTime: '',
+					checker: '',
 					phone: phoneNumber,
 					subject: subject_selected,
 				}
