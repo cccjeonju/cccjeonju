@@ -99,7 +99,7 @@ $(function(){
 
 					    attendTime[ii] = list_attend[j].c[4].f,
 					    	 noRow[ii] = list_attend[j].c[0].f;
-					   	checkTime[ii] = (list_attend[j].c[1].f != null) ? list_attend[j].c[1].f : '';
+					   	checkTime[ii] = (list_attend[j].c[1] != null) ? list_attend[j].c[1].f : '';
 
 					    $.ajax({
 					    	type: 'GET',
@@ -131,7 +131,7 @@ $(function(){
 									if( checkTime[ii] == '' ) {
 										studentTr += "<input type=\"checkbox\" name=\"students\" value=\""+user[k].c[3].v+"\">";
 									} else {
-										studentTr += "<button type=\"button\" id=\"submitCancel\">취소</button>";
+										studentTr += "<button type=\"button\" id=\"cancelBtn\">취소</button>";
 									}
 									studentTr += "</td><td class=\"co2\">"+(++ii)+"</td>\n"; 
 									studentTr += "<td class=\"co3\">"+user[k].c[1].v+"</td>\n";	// 이름
@@ -248,6 +248,14 @@ $(function(){
 	};
 
 	$('#attendBtn').on('click', submitConfirm); 
+
+	// --------------------------------------------------
+	// 4-1. 출석 취소 기능
+	// --------------------------------------------------
+	var submitConfirm = function() {
+		alert(!);
+	}
+	$('#cancelBtn').on('click', submitCancel); 
 
 	// --------------------------------------------------
 	// 추가 작업 지시서
