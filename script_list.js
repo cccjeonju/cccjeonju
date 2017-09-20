@@ -183,6 +183,12 @@ $(function(){
 		else $('input[name="students"]').prop('checked',false);
 	});
 
+	if ($('#email').val() == manage_email || $('#email').val() == admin_email ) {
+		$('#checker').before('<input type="date" id="now_date">');
+		$('#now_date').valueAsDate = new Date();
+		//document.getElementById('now_date').valueAsDate = new Date();
+	}
+	
 	// --------------------------------------------------
 	// 3-1. '출석확인' 처리
 	// --------------------------------------------------
@@ -343,5 +349,3 @@ var handleClientLoad = function() {
 	  }
 	});
 }
-
-document.getElementById('now_date').valueAsDate = new Date();
