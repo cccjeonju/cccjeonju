@@ -252,7 +252,7 @@ $(function(){
 	// --------------------------------------------------
 	// 4-1. 출석 취소 기능
 	// --------------------------------------------------
-	var submitConfirm = function() {
+	var submitCancel = function() {
 		alert('!');
 	}
 	$('#cancelBtn').on('click', submitCancel); 
