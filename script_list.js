@@ -5,12 +5,13 @@ $(function(){
 		GID_SHEET_ATTEND = "1980648270",		// 출석부
 		GID_SHEET_SUBJECT= "2098472162";	// 개설강의 목록
 	var WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyOpp8Fl9V5DAd_ZjsDSI12z7oQLOLufI3HfipWxiUMvngxeOIq/exec",	// 출석부에 기록하기 위한 웹 앱
-		SHEET_NAME_CONFIRM = "출석확인";
+		SHEET_NAME_CONFIRM = "출석부1";
 
 	var admin_email = "cccjeonju@gmail.com",
 		manage_email = "hiyen2001@gmail.com";
 
-	var attendTime = new Array();
+	var attendTime = new Array(),
+		noRow = new Array();
 
 	var checkerList = new Array();
 
@@ -76,27 +77,46 @@ $(function(){
 					// --------------------------------------------------
 					for (var j = 0; j < total; j++) {
 					    //console.log("** " + (j+1) + '  ' + list_attend[j].c[2].v + ' / ' + list_attend[j].c[1].v);
+					    //list_attend[].c[0] = no (row number)
+					    //				c[1] = timestamp (attend time for student)
+					    //				c[2] = phone (student's)
+					    //				c[3] = subject (code)
+					    //				c[4] = checktime (check time for teacher)
+					    //				c[5] = checker (teacher's email)
 
-					    attendTime[ii]  = list_attend[j].c[0].f;
+					    attendTime[ii] = list_attend[j].c[1].f,
+					    	 noRow[ii] = list_attend[j].c[0].f;
 
 					    $.ajax({
 					    	type: 'GET',
 					    	async: false,
-							url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_REGIST+'&tq=select+*+where+D+matches+\''+list_attend[j].c[1].v+'\'',
+							url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_REGIST+'&tq=select+*+where+D+matches+\''+list_attend[j].c[2].v+'\'', // phone number로 user 정보 가져오기
 							success: function(data2) {				    
 								var user = JSON.parse(data2.substring(data2.indexOf('(')+1, data2.indexOf(');'))).table.rows, // 문자열에서 불필요한 부분 제거하고 JSON 형식으로.
 									users = user.length; // 목록 수.
 								//console.log('*** 출석체크 한 사람 중 읽어오기 : ' + users + '명 - 2명 이상일 경우는 데이터 유효성 결여상태');
-								
+
+								// users=1 이어야 하지만 데이터 무결성을 위하여 반복문 사용
 								for (var k = 0; k < users; k++) {
 							    	//console.log("*** " + (k+1) + '  ' + user[k].c[5].v + ' / ' + user[k].c[4].v + ' / ' + user[k].c[6].v);
 								    //$('.studentList').append( $('<li><label><input type="radio" name="subject" value="' + user[k].c[4].v.toString() + '">[' + user[k].c[1].v.toString() + '] ' + user[k].c[6].v.toString() + ' / ' + user[k].c[5].v.toString() + '</label></li>') );
+								    // user[].c[0] = timestamp
+								    //			1] = name (student's)
+								    //			2] = sex
+								    //			3] = phone
+								    //			4] = grade
+								    //			5] = campus name
+								    //			6] = starting year
+								    //			7] = register
+								    //			8] = title (soonjang)
+								    //			9] = 11/9 subject, [10]=11/16, [11]=11/23
 
 									var studentTr = "<tr class=\"\">\n";
 									studentTr += "<td class=\"co1\"><input type=\"checkbox\" name=\"students\" value=\""+user[k].c[3].v+"\">";
+									studentTr += "<input type=\"hidden\" name=\"no\" value=\""+noRow[ii]+"\">\n";
 									studentTr += "<input type=\"hidden\" name=\"attend_time\" value=\""+attendTime[ii]+"\"></td>\n";
 									studentTr += "<td class=\"co2\">"+(++ii)+"</td>\n"; 
-									studentTr += "<td class=\"co3\">"+user[k].c[1].v+"</td>\n";	// 아름
+									studentTr += "<td class=\"co3\">"+user[k].c[1].v+"</td>\n";	// 이름
 									studentTr += "<td class=\"co4\">"+user[k].c[8].v+"</td>\n";	// 호칭
 									studentTr += "<td class=\"co5\">"+user[k].c[2].v.toString().substr(0,1)+"</td>\n";	// 성별
 									studentTr += "<td class=\"co6\">"+user[k].c[4].v.toString().substr(0,1)+"</td>\n";	// 학년
@@ -177,29 +197,28 @@ $(function(){
 
 		//console.log($('input[name="students"]'));
 
-		//var timestp = Math.floor(new Date().getTime() / 1000);
-
 		$('input[name="students"]:checked').each(function(aa, elements) {
-		//for( var l = 0; l < $('input[name="students"]').prop('checked').length; l++) {
+		//for( var aa = 0; aa < $('input[name="students"]').prop('checked').length; aa++) {
 			var index = $(elements).index('input[name="students"]');
 
 			$.ajax({
 				type: 'GET',
 				url: WEB_APP_URL + '?sheet_name=' + SHEET_NAME_CONFIRM,
 				data: {
-					attend_time: $('input[name="attend_time"]:eq('+index+')').val(),
+					no: $('input[name="no"]:eq('+index+')').val(),
+					attendTime: $('input[name="attend_time"]:eq('+index+')').val(),
 					phone: $('input[name="students"]:eq('+index+')').val(),
 					subject: $('#subjectCode option:selected').val(),
-					checker: '이희진'
+					checker: $('#email').val()
 				},
 				success: function(data3) {
-					console.log(l+1 + ' ' + $('input[name="students"]').val() + '님 출석확인 완료');
+					console.log(aa+1 + ' ' + $('input[name="students"]').val() + '님 출석확인 완료');
 				},
 				error: function() {
 					alert('출석을 기록하는데 에러가 발생했습니다.');
 				}
 			});
-		//}
+		//} //for( var aa
 		});
 		alert('출석 확인이 완료되었습니다.');
 		$('#checkAll').prop('checked', false);
@@ -275,10 +294,10 @@ var handleClientLoad = function() {
 	      document.getElementById('gSignInWrapper').prepend(p);
 	      document.getElementById('email').value = email;
 	      document.getElementById('checker').value = name;
-	      document.getElementById('checkAll').display = 'block';
+	      document.getElementById('checkAll').style.display = 'block';
 	      document.getElementById('checkAll').disabled = false;
 	      for(var i=0; i<document.getElementsByName('students').length; i++) {
-	      	document.getElementsByName('students').display = 'block';
+	      	document.getElementsByName('students').style.display = 'block';
 	      	document.getElementsByName('students').disabled = false;
 		  }
 	    }
@@ -289,10 +308,10 @@ var handleClientLoad = function() {
 	      document.getElementById('gSignInWrapper').removeChild(document.getElementById('gSignInWrapper').firstChild);
 	      document.getElementById('email').value = "";
 	      document.getElementById('checker').value = "";
-	      document.getElementById('checkAll').display = 'none';
+	      document.getElementById('checkAll').style.display = 'none';
 	      document.getElementById('checkAll').disabled = true;
 	      for(var i=0; i<document.getElementsByName('students').length; i++) {
-	      	document.getElementsByName('students').display = 'none';
+	      	document.getElementsByName('students').style.display = 'none';
 	      	document.getElementsByName('students').disabled = true;
 		  }
 	  }
