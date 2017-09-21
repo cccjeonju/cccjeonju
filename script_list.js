@@ -101,7 +101,7 @@ $(function(){
 
 					    attendTime[ii] = list_attend[j].c[4].f,
 					    	 noRow[ii] = list_attend[j].c[0].f;
-					   	 checkTime[ii] = (list_attend[j].c[1] != null) ? list_attend[j].c[1].f : '';
+					   	 checkTime[ii] =(list_attend[j].c[1] != null) ? list_attend[j].c[1].f : '';
 					   	  feeToday[ii] = list_attend[j].c[6].f;
 
 					    $.ajax({
@@ -136,7 +136,7 @@ $(function(){
 									} else {
 										studentTr += "<button type=\"button\" id=\"cancelBtn\" name=\"cancel-button\">취소</button>";
 									}
-									studentTr += "</td><td class=\"co2\">"+(++ii)+"</td>\n"; 
+									studentTr += "</td><td class=\"co2\">"+ii+"</td>\n"; 
 									studentTr += "<td class=\"co3\">"+user[k].c[1].v+"</td>\n";	// 이름
 									studentTr += "<td class=\"co4\">"+user[k].c[8].v+"</td>\n";	// 호칭
 									studentTr += "<td class=\"co5\">"+user[k].c[2].v.toString().substr(0,1)+"</td>\n";	// 성별
@@ -145,7 +145,7 @@ $(function(){
 									studentTr += "<td class=\"co8\">"+user[k].c[6].v.toString().substr(-2)+"</td>\n";	// 학번
 									studentTr += "<td class=\"co9\"><input type=\"text\" name=\"fee\" size=\"7\" value=\""+feeToday[ii]+"\">원</td>\n";	// 회비
 									studentTr += "</tr>\n";
-
+									ii++;
 									$('.studentList').append( studentTr );
 								}
 							},
