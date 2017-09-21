@@ -132,6 +132,7 @@ jQuery(function($){
 					checker: '',
 					phone: phoneNumber,
 					subject: subject_selected,
+					fee: $('#fee').val()
 				}
 			}).done(function(data){
 				//console.log(data);
