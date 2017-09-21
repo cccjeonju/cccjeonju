@@ -143,7 +143,7 @@ $(function(){
 									studentTr += "<td class=\"co6\">"+user[k].c[4].v.toString().substr(0,1)+"</td>\n";	// 학년
 									studentTr += "<td class=\"co7\">"+user[k].c[5].v.toString().substr(0,5)+"</td>\n";	// 소속
 									studentTr += "<td class=\"co8\">"+user[k].c[6].v.toString().substr(-2)+"</td>\n";	// 학번
-									studentTr += "<td class=\"co9\"><input type=\"text\" value=\"fee\" size=\"10\" value=\""+feeToday[ii]+"\">원</td>\n";	// 회비 *******************
+									studentTr += "<td class=\"co9\"><input type=\"text\" name=\"fee\" size=\"10\" value=\""+feeToday[ii]+"\">원</td>\n";	// 회비
 									studentTr += "</tr>\n";
 
 									$('.studentList').append( studentTr );
@@ -237,6 +237,7 @@ $(function(){
 					no: $('input[name="no"]:eq('+index+')').val(),
 					attendTime: $('input[name="attend_time"]:eq('+index+')').val(),
 					phone: $('input[name="students"]:eq('+index+')').val(),
+					fee: $('input[name="fee"]:eq'+index+')').val(),
 					subject: $('#subjectCode option:selected').val(),
 					checker: $('#email').val()
 				},
