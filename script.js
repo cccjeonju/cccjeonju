@@ -124,6 +124,9 @@ jQuery(function($){
 			//console.log('수강과목 선택 확인');
 			//console.log(subject_selected);
 
+			var fee = $('#fee').val();
+			if (fee == '' || fee == null) fee = 0;
+			
 			$.ajax({
 				url: WEB_APP_URL + '?sheet_name=' + SHEET_NAME_ATTEND,
 				data: {
@@ -132,7 +135,7 @@ jQuery(function($){
 					checker: '',
 					phone: phoneNumber,
 					subject: subject_selected,
-					fee: $('#fee').val()
+					fee: fee
 				}
 			}).done(function(data){
 				//console.log(data);
