@@ -143,7 +143,8 @@ jQuery(function($){
 					fee: fee
 				}
 			}).done(function(data){
-				//console.log(data);
+				var msg = $('input[name="student_name"]').val() + '/' + $('input[name="phoneCheck"]').val('') + '/' + phoneNumber + '/' + subject_selected + '/' + fee;
+				console.log(msg);
 				alert($('input[name="student_name"]').val()+'님 출석이 되었습니다.');
 				$('#submitBtn').prop('disabled', false);
 				$('#phone').val('');
