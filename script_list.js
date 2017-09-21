@@ -36,8 +36,15 @@ $(function(){
 			//				 .c[7] = 강의자 email
 			//				 .c[8] = 보조자 email
 		    //console.log(i+1 + '  ' + subject_list[i].c[5].v + ' / ' + subject_list[i].c[4].v + ' / ' + subject_list[i].c[6].v);
-		    var opt = 
-		    $('#subjectCode').append( $('<option value="' + subject_list[i].c[4].v.toString() + '">'+ subject_list[i].c[6].v.toString() + ' / ' + subject_list[i].c[5].v.toString() + '</option>\n') );
+		    var opt = '<option value="' + subject_list[i].c[4].v.toString() + '">';
+		    if( subject_list[i].c[2] != null ) { 
+		    	opt += '[필수] ' + subject_list[i].c[2].v + '학년 ';
+		    } else {
+		    	opt += '[선택] ';
+		    }
+		    opt += subject_list[i].c[6].v.toString() + ' / ' + subject_list[i].c[5].v.toString() + '</option>\n';
+		    $('#subjectCode').append( $(opt) );
+		    
 		    checkerList[i] = new Object();
 		    checkerList[i].code = subject_list[i].c[4].v;
 		    checkerList[i].name = subject_list[i].c[6].v;
