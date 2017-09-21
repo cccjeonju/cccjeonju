@@ -38,7 +38,7 @@ $(function(){
 		    //console.log(i+1 + '  ' + subject_list[i].c[5].v + ' / ' + subject_list[i].c[4].v + ' / ' + subject_list[i].c[6].v);
 		    var opt = '<option value="' + subject_list[i].c[4].v.toString() + '">';
 		    	opt += '[' + subject_list[i].c[1].v + '] '
-		    if( subject_list[i].c[2] != null ) { opt += subject_list[i].c[2].v + '학년 '; }
+		    if( subject_list[i].c[2] != null ) { opt += subject_list[i].c[2].v + ' ' + subject_list[i].c[1].v + ' '; }
 		    opt += subject_list[i].c[6].v.toString() + ' / ' + subject_list[i].c[5].v.toString() + '</option>\n';
 		    $('#subjectCode').append( $(opt) );
 
