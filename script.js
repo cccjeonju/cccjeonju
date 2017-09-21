@@ -23,7 +23,15 @@ jQuery(function($){
 
 		for (var i = 0; i < sum; i++) { // 전체 강의 목록을 콘솔에 출력. 
 		    //console.log(i+1 + '  ' + list[i].c[5].v + ' / ' + list[i].c[4].v + ' / ' + list[i].c[6].v);
-		    $('.subject').append( $('<li><label><input type="radio" name="subject" value="' + list[i].c[4].v.toString() + '">[' + list[i].c[1].v.toString() + '] ' + list[i].c[2].v.toString() + "학년 " + list[i].c[6].v.toString() + ' / ' + list[i].c[5].v.toString() + '</label></li>') );
+		    var ipt = '<li><label>';
+		    	ipt += '<input type="radio" name="subject" value="' + list[i].c[4].v + '">"';
+		    	ipt += '[' + list[i].c[1].v + '] ';
+		    	//if(list[i].c[1].v == "필수") { ipt += list[i].c[2].v) + "학년 "
+		    	ipt += list[i].c[2].v + '학년 ';
+		    	ipt += list[i].c[6].v + ' / ';
+		    	ipt += list[i].c[5].v;
+		    	ipt += '</label></li>';
+		    $('.subject').append( $(ipt) );
 		}
 		$('.loading-container').fadeOut(); // 로딩바 제거.
 
