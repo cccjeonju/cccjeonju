@@ -136,7 +136,7 @@ $(function(){
 									var studentTr = "<tr class=\"\">\n";
 									studentTr += "<td class=\"co1\"><input type=\"hidden\" name=\"no\" value=\""+noRow[ii]+"\">\n";
 									studentTr += "<input type=\"hidden\" name=\"attend_time\" value=\""+attendTime[ii]+"\">\n";
-									if( checkTime[ii] == '' ) {
+									if( checkTime[ii] == '' || checkTime[ii] == null) {
 										studentTr += "<input type=\"checkbox\" name=\"students\" value=\""+user[k].c[3].v+"\">";
 									} else {
 										studentTr += "<button type=\"button\" id=\"cancelBtn\" name=\"cancel-button\">취소</button>";
