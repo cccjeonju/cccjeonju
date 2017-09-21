@@ -59,13 +59,14 @@ jQuery(function($){
 				console.log('* 검색된 등록자 수: ' + total + '명');
 				
 				if (total<1) {
-					$('output>a').html(phoneNumber + ' 는 아직 등록이 되지 않았습니다.<br>여기를 눌러 \'등록\'을 먼저해주세요.').attr('href', 'https://goo.gl/ZFfX76');
+					$('output>a').html(phoneNumber + ' 는 아직 등록이 되지 않았습니다.<br>여기를 눌러 \'등록\'을 먼저해주세요.').attr('href', 'https://goo.gl/forms/asSLANctriVD1fjg1');
 
 				} else {
 					//console.log(students[0].c[3].v + ' ' + students[0].c[1].v + ' ' + students[0].c[8].v + '님 (' + students[0].c[5].v + ' ' + students[0].c[6].v.toString().substr(-2) + '학번)');
 					$('output').attr('style', 'display:block');
 					$('output>a').html(students[0].c[1].v + ' ' + students[0].c[8].v + '님 ' + students[0].c[3].v + '<br>' + students[0].c[4].v.toString().substr(0,1) + '학년 / ' + students[0].c[5].v + ' ' + students[0].c[6].v.toString().substr(-2) + '학번\n');
 					$('input[name="phoneCheck"]').val(students[0].c[3].v.toString().substr(-4));
+					$('input[name="student_name"]').val(students[0].c[2].v);
 				}
 
 			}).fail(function(){
@@ -139,7 +140,7 @@ jQuery(function($){
 				}
 			}).done(function(data){
 				//console.log(data);
-				alert('출석이 되었습니다.');
+				alert($('')+'님 출석이 되었습니다.');
 				$('#submitBtn').prop('disabled', false);
 				$('#phone').val('');
 				$('#fee').val('');
