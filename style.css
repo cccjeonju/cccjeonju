@@ -50,6 +50,10 @@ p.guide{
 	text-align: left;
 	font-size: 0.7rem;
 }
+span#fee_total {
+	font-weight: bold;
+	text-decoration: underline;
+}
 .welcome{
 	font-size: 0.9rem;
 	font-weight: bold;
