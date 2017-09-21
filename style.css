@@ -54,6 +54,7 @@ span#fee_total {
 	font-weight: bold;
 	text-decoration: underline;
 }
+input#fee {text-align: right;}
 .welcome{
 	font-size: 0.9rem;
 	font-weight: bold;
