@@ -107,7 +107,7 @@ $(function(){
 					    attendTime[ii] = list_attend[j].c[4].f,
 					    	 noRow[ii] = list_attend[j].c[0].f;
 					   	 checkTime[ii] =(list_attend[j].c[1] != null) ? list_attend[j].c[1].f : '';
-					   	  feeToday[ii] =(list_attend[j].c[6] != null) ? list_attend[j].c[6].f : '';
+					   	  feeToday[ii] =(list_attend[j].c[6] != null) ? ( (list_attend[j].c[6].f!=null)?list_attend[i].c[6].f:'0') : '0';
 
 					    $.ajax({
 					    	type: 'GET',
