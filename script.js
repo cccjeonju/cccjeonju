@@ -140,7 +140,7 @@ jQuery(function($){
 				}
 			}).done(function(data){
 				//console.log(data);
-				alert($('')+'님 출석이 되었습니다.');
+				alert($('input[name="student_name"]').val()+'님 출석이 되었습니다.');
 				$('#submitBtn').prop('disabled', false);
 				$('#phone').val('');
 				$('#fee').val('');
