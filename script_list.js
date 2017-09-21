@@ -243,7 +243,7 @@ $(function(){
 					no: $('input[name="no"]:eq('+index+')').val(),
 					attendTime: $('input[name="attend_time"]:eq('+index+')').val(),
 					phone: $('input[name="students"]:eq('+index+')').val(),
-					fee: $('input[name="fee"]:eq'+index+')').val(),
+					fee: $('input[name="fee"]:eq('+index+')').val(),
 					subject: $('#subjectCode option:selected').val(),
 					checker: $('#email').val()
 				},
