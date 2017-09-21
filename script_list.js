@@ -12,6 +12,7 @@ $(function(){
 
 	var attendTime = new Array(),
 		checkTime = new Array(),
+		feeToday = new Array(),
 		noRow = new Array();
 
 	var checkerList = new Array();
@@ -96,10 +97,12 @@ $(function(){
 					    //				c[3] = subject (code)
 					    //				c[4] = checktime (check time for teacher)
 					    //				c[5] = checker (teacher's email)
+					    //				c[6] = fee (student's / just today)
 
 					    attendTime[ii] = list_attend[j].c[4].f,
 					    	 noRow[ii] = list_attend[j].c[0].f;
-					   	checkTime[ii] = (list_attend[j].c[1] != null) ? list_attend[j].c[1].f : '';
+					   	 checkTime[ii] = (list_attend[j].c[1] != null) ? list_attend[j].c[1].f : '';
+					   	  feeToday[ii] = list_attend[j].c[6].f;
 
 					    $.ajax({
 					    	type: 'GET',
@@ -140,7 +143,7 @@ $(function(){
 									studentTr += "<td class=\"co6\">"+user[k].c[4].v.toString().substr(0,1)+"</td>\n";	// 학년
 									studentTr += "<td class=\"co7\">"+user[k].c[5].v.toString().substr(0,5)+"</td>\n";	// 소속
 									studentTr += "<td class=\"co8\">"+user[k].c[6].v.toString().substr(-2)+"</td>\n";	// 학번
-									studentTr += "<td class=\"co9\">"+user[k].c[1].v+" 원</td>\n";	// 회비 *******************
+									studentTr += "<td class=\"co9\"><input type=\"text\" value=\"fee\" size=\"10\" value=\""+feeToday[ii]+"\">원</td>\n";	// 회비 *******************
 									studentTr += "</tr>\n";
 
 									$('.studentList').append( studentTr );

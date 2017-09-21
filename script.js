@@ -126,7 +126,7 @@ jQuery(function($){
 
 			var fee = $('#fee').val();
 			if (fee == '' || fee == null) fee = 0;
-			
+
 			$.ajax({
 				url: WEB_APP_URL + '?sheet_name=' + SHEET_NAME_ATTEND,
 				data: {
@@ -142,6 +142,7 @@ jQuery(function($){
 				alert('출석이 되었습니다.');
 				$('#submitBtn').prop('disabled', false);
 				$('#phone').val('');
+				$('#fee').val('');
 				$('input[name="phoneCheck"]').val('');
 				$('output>a').text('');
 				$('output').attr('style', 'display:none');
