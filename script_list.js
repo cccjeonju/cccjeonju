@@ -136,7 +136,7 @@ $(function(){
 									} else {
 										studentTr += "<button type=\"button\" id=\"cancelBtn\" name=\"cancel-button\">취소</button>";
 									}
-									studentTr += "</td><td class=\"co2\">"+ii+"</td>\n"; 
+									studentTr += "</td><td class=\"co2\">"+(ii+1)+"</td>\n"; 
 									studentTr += "<td class=\"co3\">"+user[k].c[1].v+"</td>\n";	// 이름
 									studentTr += "<td class=\"co4\">"+user[k].c[8].v+"</td>\n";	// 호칭
 									studentTr += "<td class=\"co5\">"+user[k].c[2].v.toString().substr(0,1)+"</td>\n";	// 성별
