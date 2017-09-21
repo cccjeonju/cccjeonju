@@ -27,7 +27,7 @@ jQuery(function($){
 		    	ipt += '<input type="radio" name="subject" value="' + list[i].c[4].v + '">';
 		    	ipt += '[' + list[i].c[1].v + '] ';
 		    	if(list[i].c[2] != null) { 
-		    		ipt += list[i].c[2].v + '학년 ' + list[i].c[3] + ' '; 
+		    		ipt += list[i].c[2].v + '학년 ' + list[i].c[3].v + ' '; 
 		    	}
 		    	ipt += list[i].c[6].v + ' / ';
 		    	ipt += list[i].c[5].v;
