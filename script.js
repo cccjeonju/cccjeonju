@@ -71,7 +71,7 @@ $(function($){
 				alert('동일 아이디 발생! 관리자에게 문의해주시기 바랍니다.');
 			} else {
 				console.log(students[0].c[3].v + ' ' + students[0].c[1].v + ' ' + students[0].c[8].v + '님 (' + students[0].c[5].v + ' ' + students[0].c[6].v.toString().substr(-2) + '학번)');
-				$('output>a').html(students[0].c[1].v + ' ' + students[0].c[8].v + '님 ' + students[0].c[3].v + '<br>' + students[0].c[4].v.toString().substr(0,1) + '학년 / ' + students[0].c[5].v + ' ' + students[0].c[6].v.toString().substr(-2) + '학번\n').attr('href','');
+				$('output>a').html(students[0].c[1].v + ' ' + students[0].c[8].v + '님 ' + students[0].c[3].v + '<br>' + students[0].c[4].v.toString().substr(0,1) + '학년 / ' + students[0].c[5].v + ' ' + students[0].c[6].v.toString().substr(-2) + '학번\n').removeAttr('href');
 				$('input[name="phoneCheck"]').val(students[0].c[3].v.toString().substr(-4));
 				$('input[name="studentName"]').val(students[0].c[1].v);
 			}
