@@ -121,17 +121,6 @@ $(function($){
 			return false;
 		}
 
-		if ($('input[name="phoneCheck"]').val() != phoneNumber.substr(-4)) {
-			alert('등록하신 게 맞습니까?\n"등록 확인" 버튼을 눌러 진행하거나 "등록"해주세요.');
-			$('#submitBtn').prop('disabled', false); // 버튼 활성화 복귀
-			$('#phone').focus();
-			return false;
-		}
-
-		//console.log( $('input[name="phoneCheck"]').val() );
-		//console.log( phoneNumber );
-		//console.log('핸드폰 입력 확인');
-
 		var subject_selected = $(':radio[name="subject"]:checked').val();
 		if (!subject_selected) {
 			alert('수강하는 과목을 선택하세요.');
@@ -141,6 +130,18 @@ $(function($){
 
 		//console.log('수강과목 선택 확인');
 		//console.log(subject_selected);
+
+		if ($('input[name="phoneCheck"]').val() != phoneNumber.substr(-4)) {
+			alert('등록하신 게 맞습니까?\n"등록 확인" 버튼을 눌러 진행하거나 "등록"해주세요.');
+			$('#submitBtn').prop('disabled', false); // 버튼 활성화 복귀
+			$('.loading-container').fadeOut();
+			$('#phone').focus();
+			return false;
+		}
+
+		//console.log( $('input[name="phoneCheck"]').val() );
+		//console.log( phoneNumber );
+		//console.log('핸드폰 입력 확인');
 
 		var fee = $('#fee').val();
 		if (fee == '' || fee == null) fee = 0;
