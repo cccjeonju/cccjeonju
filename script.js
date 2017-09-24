@@ -43,7 +43,7 @@ $(function($){
 	// 2-1. '등록 확인'을 최초로 누르면 등록부 시트로부터 해당하는 등록자를 가져와서
 	// 2-2. 기존에 등록된 사람인지 아닌지 표시한다.
 	// --------------------------------------------------
-	var checkID = function() { // 등록자 검색
+	$('#checkIdBtn').click(function(){ // 등록자 검색
 
 		phoneNumber = $('#phone').val();
 
@@ -65,7 +65,7 @@ $(function($){
 			
 			$('output').attr('style', 'display:block');
 			if (total<1) {
-				$('output>a').html(phoneNumber + ' 는 아직 등록이 되지 않았습니다.<br>여기를 눌러 \'등록\'을 먼저해주세요.').attr('href', 'https://goo.gl/forms/asSLANctriVD1fjg1');
+				$('output>a').html(phoneNumber + ' 는 아직 등록이 되지 않았습니다.<br>여기를 눌러 "등록"을 먼저해주세요.').attr('href', 'https://goo.gl/forms/asSLANctriVD1fjg1');
 
 			} else if (total>1) {
 				alert('동일 아이디 발생! 관리자에게 문의해주시기 바랍니다.');
@@ -79,9 +79,8 @@ $(function($){
 		}).fail(function(){
 			alert('등록자 검색 실패');
 		});
-	};
 
-	$('#checkIdBtn').on('click', checkID); // '등록 확인'' 체크
+	});
 
 
 	// ==================================================
@@ -100,15 +99,17 @@ $(function($){
 	//
 	// 3) 출석부 시트에 등록 (timestamp, phone, subject)
 	//    나머지 column은 spreadsheet 안에서 함수로 가져다 쓸 것 (중복데이터 최소화)
-	var submitAttend = function() {
-		$('#submitBtn').prop('disabled', true); // 버튼 비활성화
+	$('#submitBtn').click(function(){
+
+		//$('#submitBtn').prop('disabled', true); // 버튼 비활성화
+		$('#submitBtn').attr('disabled', true); // 버튼 비활성화
 		$('.loading-container').fadeIn();
 
 		phoneNumber = $('#phone').val();
 
 		if (!phoneNumber) {
 			alert('핸드폰번호를 입력하고 "등록 확인" 버튼을 누르세요.');
-			$('#submitBtn').prop('disabled', false); // 버튼 활성화 복귀
+			$('#submitBtn').removeAttr('disabled') // 버튼 활성화 복귀
 			$('#phone').focus();
 			return false;
 		}
@@ -124,7 +125,7 @@ $(function($){
 		var subject_selected = $(':radio[name="subject"]:checked').val();
 		if (!subject_selected) {
 			alert('수강하는 과목을 선택하세요.');
-			$('#submitBtn').prop('disabled', false); // 버튼 활성화 복귀
+			$('#submitBtn').removeAttr('disabled'); // 버튼 활성화 복귀
 			return false;
 		}
 
@@ -133,7 +134,7 @@ $(function($){
 
 		if ($('input[name="phoneCheck"]').val() != phoneNumber.substr(-4)) {
 			alert('등록하신 게 맞습니까?\n"등록 확인" 버튼을 눌러 진행하거나 "등록"해주세요.');
-			$('#submitBtn').prop('disabled', false); // 버튼 활성화 복귀
+			$('#submitBtn').removeAttr('disabled'); // 버튼 활성화 복귀
 			$('.loading-container').fadeOut();
 			$('#phone').focus();
 			return false;
@@ -166,17 +167,13 @@ $(function($){
 			$('#fee').val('');
 			$('input[name="phoneCheck"]').val('');
 			$('output>a').text('');
-			$('output').attr('style', 'display:none');
-			$('input:radio[name="subject"]').prop('checked', false);
+			$('output').hide();
+			$('input:radio[name="subject"]').removeAttr('checked');
 			$('body').scrollTop(0);	// 페이지 맨 위로 이동
 			$('.loading-container').fadeOut();
 		}).fail(function(){
 			alert('출석을 기록하는데 에러가 발생했습니다.');
-			$('#submitBtn').prop('disabled', false); // 버튼 활성화 복귀
+			$('#submitBtn').removeAttr('disabled'); // 버튼 활성화 복귀
 		});
-	};
-
-	$('#submitBtn').on('click', submitAttend); 
-
-
+	}); 
 });
