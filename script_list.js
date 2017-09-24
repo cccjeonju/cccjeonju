@@ -160,8 +160,10 @@ $(function($){
 		if ($('#email').val() == manage_email || $('#email').val() == admin_email ) {
 			today = $('#now_date').val();
 			$('#now_date').removeAttr('readonly');
+			$('#up_date').css('display','inline-block');
 		} else {
 			$('#now_date').prop('readonly',true);
+			$('#up_date').hide();
 			var now = new Date();
 			var year= now.getFullYear();
 			var mon = (now.getMonth()+1)>9 ? ''+(now.getMonth()+1) : '0'+(now.getMonth()+1);

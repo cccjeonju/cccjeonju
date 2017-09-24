@@ -50,6 +50,9 @@ p.guide{
 	text-align: left;
 	font-size: 0.7rem;
 }
+p.date{
+	font-size:0.9rem;
+}
 span#fee_total {
 	font-weight: bold;
 	text-decoration: underline;
@@ -96,7 +99,7 @@ select{
   vertical-align:middle;
   padding-left:30px;
 }
-#submitBtn, #attendBtn{
+#submitBtn, #attendBtn, #up_date{
 	width: 100%;
 	height: 48px;
 	border: 1px solid #ddd;
@@ -105,6 +108,7 @@ select{
 	font-size: 1.8rem;
 	font-weight: 700;
 }
+#up_date{ display:none; }
 
 .mark{ background: #ff0; }
 .loading-container{
