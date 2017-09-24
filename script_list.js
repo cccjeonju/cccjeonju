@@ -135,18 +135,18 @@ $(function($){
 				    	async: false,
 						url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_REGIST+'&tq=select+*+where+D+matches+\''+item.c[2].v+'\'' // phone number로 user 정보 가져오기
 					}).done(function(data2) {
-						var user = JSON.parse(data2.substring(data2.indexOf('(')+1, data2.indexOf(');'))).table.rows, // 문자열에서 불필요한 부분 제거하고 JSON 형식으로.
-							users = user.length; // 목록 수.
+						var attendee = JSON.parse(data2.substring(data2.indexOf('(')+1, data2.indexOf(');'))).table.rows, // 문자열에서 불필요한 부분 제거하고 JSON 형식으로.
+							attendee_total = attendee.length; // 목록 수.
 						//console.log('*** 출석체크 한 사람 중 읽어오기 : ' + users + '명 - 2명 이상일 경우는 데이터 유효성 결여상태');
 
 						// users=1 이어야 하지만 데이터 무결성을 위하여 반복문 사용
-						if( users >1 ) {
+						if( attendee_total>1 ) {
 							alert('중복된 사용자가 있습니다. 확인하세요.');
 							return;
 						}
-						//console.log('*** '' + (k+1) + '  ' + user[k].c[5].v + ' / ' + user[k].c[4].v + ' / ' + user[k].c[6].v);
-						//$('.studentList').append( $('<li><label><input type="radio" name="subject" value="' + user[k].c[4].v.toString() + '">[' + user[k].c[1].v.toString() + '] ' + user[k].c[6].v.toString() + ' / ' + user[k].c[5].v.toString() + '</label></li>') );
-						// user[].c[0] = timestamp
+						//console.log('*** '' + (k+1) + '  ' + attendee[0].c[5].v + ' / ' + attendee[0].c[4].v + ' / ' + attendee[0].c[6].v);
+						//$('.studentList').append( $('<li><label><input type="radio" name="subject" value="' + attendee[0].c[4].v.toString() + '">[' + attendee[0].c[1].v.toString() + '] ' + attendee[0].c[6].v.toString() + ' / ' + attendee[0].c[5].v.toString() + '</label></li>') );
+						// attendee[].c[0] = timestamp
 						//			1] = name (student's)
 						//			2] = sex
 						//			3] = phone
@@ -156,26 +156,25 @@ $(function($){
 						//			7] = register
 						//			8] = title (soonjang)
 						//			9] = 11/9 subject, [10]=11/16, [11]=11/23
-
 						var studentTr = '<tr class="">\n';
-						studentTr += '<td class="co1"><input type="hidden" name="no" value="'+noRow[ii]+'">\n';
+						studentTr += '<td class="co1"><input type="hidden" name="no" value="'+item.c[0].v+'">\n';
 						studentTr += '<input type="hidden" name="attend_time" value="'+attendTime[ii]+'">\n';
 						if( checkTime[ii] == '' || checkTime[ii] == null) {
-							studentTr += '<input type="checkbox" name="students" value="'+user[k].c[3].v+'">';
+							studentTr += '<input type="checkbox" name="students" value="'+attendee[0].c[3].v+'">';
 						} else {
 							studentTr += '<button type="button" id="cancelBtn" name="cancel-button">취소</button>';
 						}
 						studentTr += '</td><td class="co2">'+(ii+1)+'</td>\n';
-						studentTr += '<td class="co3">'+user[k].c[1].v+'</td>\n';	// 이름
-						studentTr += '<td class="co4">'+user[k].c[8].v+'</td>\n';	// 호칭
-						studentTr += '<td class="co5">'+user[k].c[2].v.toString().substr(0,1)+'</td>\n';	// 성별
-						studentTr += '<td class="co6">'+user[k].c[4].v.toString().substr(0,1)+'</td>\n';	// 학년
-						studentTr += '<td class="co7">'+user[k].c[5].v.toString().substr(0,5)+'</td>\n';	// 소속
-						studentTr += '<td class="co8">'+user[k].c[6].v.toString().substr(-2) +'</td>\n';	// 학번
+						studentTr += '<td class="co3">'+attendee[0].c[1].v+'</td>\n';	// 이름
+						studentTr += '<td class="co4">'+attendee[0].c[8].v+'</td>\n';	// 호칭
+						studentTr += '<td class="co5">'+attendee[0].c[2].v.toString().substr(0,1)+'</td>\n';	// 성별
+						studentTr += '<td class="co6">'+attendee[0].c[4].v.toString().substr(0,1)+'</td>\n';	// 학년
+						studentTr += '<td class="co7">'+attendee[0].c[5].v.toString().substr(0,5)+'</td>\n';	// 소속
+						studentTr += '<td class="co8">'+attendee[0].c[6].v.toString().substr(-2) +'</td>\n';	// 학번
 						studentTr += '<td class="co9"><input type="text" name="fee" class="fee" size="7" value="'+feeToday[ii]+'">원</td>\n';	// 회비
 						studentTr += '</tr>\n';
 						$('.studentList').append( studentTr );
-						
+
 
 						ii++;
 
