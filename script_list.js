@@ -1,4 +1,4 @@
-$(function(){
+$(function($){
 
 	var KEY_SPREADSHEET = "1PHN8N0nY7YLw5NlYTp9VqSvqOHdgsvR2W8BfAZ8AtY4",	// Spreadsheet Key
 		GID_SHEET_REGIST = "132886731"		// 등록부
