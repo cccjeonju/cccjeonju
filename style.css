@@ -99,7 +99,7 @@ select{
   vertical-align:middle;
   padding-left:30px;
 }
-#submitBtn, #attendBtn, #up_date{
+#submitBtn, #attendBtn{
 	width: 100%;
 	height: 48px;
 	border: 1px solid #ddd;
