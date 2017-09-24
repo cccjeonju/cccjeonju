@@ -229,7 +229,7 @@ $(function($){
 						//			8] = title (soonjang)
 						//			9] = 11/9 subject, [10]=11/16, [11]=11/23
 						var studentTr = '<tr class="row' + ii%2 + '">\n';
-						studentTr += '<td class="co1"><input type="hidden" name="no" value="'+item.c[0].v+'">\n';
+						studentTr += '<td><input type="hidden" name="no" value="'+item.c[0].v+'">\n';
 						studentTr += '<input type="hidden" name="attend_time" value="';
 						studentTr += (item.c[1] != null) ? item.c[1].f : item.c[4].f; 
 						studentTr += '">\n';
@@ -238,14 +238,14 @@ $(function($){
 							studentTr += '<br>\n<button type="button" id="cancelBtn" name="cancel-button">취소</button>';
 						}
 						studentTr += '</td>\n';
-						studentTr += '<td class="co2">'+(++ii)+'</td>\n';
-						studentTr += '<td class="co3">'+attendee[0].c[1].v+'</td>\n';	// 이름
-						studentTr += '<td class="co4">'+attendee[0].c[8].v+'</td>\n';	// 호칭
-						studentTr += '<td class="co5">'+attendee[0].c[2].v.toString().substr(0,1)+'</td>\n';	// 성별
-						studentTr += '<td class="co6">'+attendee[0].c[4].v.toString().substr(0,1)+'</td>\n';	// 학년
-						studentTr += '<td class="co7">'+attendee[0].c[5].v.toString().substr(0,5)+'</td>\n';	// 소속
-						studentTr += '<td class="co8">'+attendee[0].c[6].v.toString().substr(-2) +'</td>\n';	// 학번
-						studentTr += '<td class="co9"><input type="text" name="fee" class="fee" size="7" value="';
+						studentTr += '<td>'+(++ii)+'</td>\n';
+						studentTr += '<td>'+attendee[0].c[1].v+'</td>\n';	// 이름
+						studentTr += '<td>'+attendee[0].c[8].v+'</td>\n';	// 호칭
+						studentTr += '<td>'+attendee[0].c[2].v.toString().substr(0,1)+'</td>\n';	// 성별
+						studentTr += '<td>'+attendee[0].c[4].v.toString().substr(0,1)+'</td>\n';	// 학년
+						studentTr += '<td>'+attendee[0].c[5].v.toString().substr(0,5)+'</td>\n';	// 소속
+						studentTr += '<td>'+attendee[0].c[6].v.toString().substr(-2) +'</td>\n';	// 학번
+						studentTr += '<td><input type="text" name="fee" class="fee" size="7" value="';
 						studentTr += (item.c[6] != null) ? item.c[6].f : '0';
 						studentTr += '">원</td>\n';	// 회비
 						studentTr += '</tr>\n';
@@ -329,7 +329,7 @@ $(function($){
 					checker: $('#email').val()
 				},
 				success: function(data3) {
-					console.log(aa+1 + ' ' + $('input[name="students"]').val() + '님 출석확인 완료');
+					console.log(aa+1 + ' ' + $('input[name="students"]:eq('+index+')').val() + '님 출석확인 완료');
 				},
 				error: function() {
 					alert('출석을 기록하는데 에러가 발생했습니다.');
