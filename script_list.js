@@ -144,14 +144,14 @@ $(function($){
 						//			7] = register
 						//			8] = title (soonjang)
 						//			9] = 11/9 subject, [10]=11/16, [11]=11/23
-						var studentTr = '<tr class="">\n';
+						var studentTr = '<tr class="row' + ii%2 + '">\n';
 						studentTr += '<td class="co1"><input type="hidden" name="no" value="'+item.c[0].v+'">\n';
 						studentTr += '<input type="hidden" name="attend_time" value="';
 						studentTr += (item.c[1] != null) ? item.c[1].f : item.c[4].f; 
 						studentTr += '">\n';
 						studentTr += '<input type="checkbox" name="students" value="'+attendee[0].c[3].v+'">';
 						if(item.c[1] != null) { //attendTime에 가록이 있을 때
-							studentTr += '\n<button type="button" id="cancelBtn" name="cancel-button">취소</button>';
+							studentTr += '<br>\n<button type="button" id="cancelBtn" name="cancel-button">취소</button>';
 						}
 						studentTr += '</td>\n';
 						studentTr += '<td class="co2">'+(++ii)+'</td>\n';
@@ -177,7 +177,7 @@ $(function($){
 				// 출석 확인 버튼 생성
 				if ( $('#email').val() == checkerList[index].email || $('#email').val() == checkerList[index].assist || $('#email').val() == manage_email || $('#email').val() == admin_email ) {
 					$('#attendBtn').removeAttr('disabled').show();
-					$('#checkAll').removeAttr('disabled').show();
+					$('#checkAll').removeAttr('disabled').removeAttr('style');
 					$('input[name="students"]').removeAttr('disabled').show();
 					$('input[name="cancel-button"]').removeAttr('disabled').show();
 				} else {
@@ -209,7 +209,7 @@ $(function($){
 		$('.loading-container').fadeIn();
 
 		if ($('input[name="students"]:checked').length < 1) {
-			alert('출석 확인할 명단에 체크하고 \'출석 확인\' 버튼을 누르세요.');
+			alert('출석 확인할 명단에 체크하고 "출석 확인"" 버튼을 누르세요.');
 			$('#attendBtn').removeAttr('disabled'); // 버튼 활성화 복귀
 			$('#checkAll').focus();
 			$('.loading-container').fadeOut();
