@@ -1,3 +1,90 @@
+
+var clientId = '62990643006-squj2admavms41d94p4gkn3ef256dfn9.apps.googleusercontent.com';
+
+var authorizeButton = document.getElementById('authorize-button');
+var signoutButton = document.getElementById('signout-button');
+var GoogleAuth;
+
+var handleClientLoad = function() {
+	gapi.load('auth2', function(){
+	  // Retrieve the singleton for the GoogleAuth library and set up the client.
+	  auth2 = gapi.auth2.init({
+	    client_id: clientId,
+	    cookiepolicy: 'single_host_origin',
+	    // Request scopes in addition to 'profile' and 'email'
+	    //scope: 'additional_scope'
+	}).then( function () {
+	  	// Listen for sign-in state changes.
+	  	gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+
+	  	// Handle the initial sign-in state.
+	  	updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+
+	  	authorizeButton.onclick = handleAuthClick;
+	    signoutButton.onclick = handleSignoutClick;
+
+	});
+	  
+	  function updateSigninStatus(isSignedIn) {
+	    if (isSignedIn) {
+	      authorizeButton.style.display = 'none';
+	      signoutButton.style.display = 'inline-block';
+	      makeApiCall();
+	    } else {
+	      authorizeButton.style.display = 'inline-block';
+	      signoutButton.style.display = 'none';
+	      removeCall();
+	    }
+	  }
+	  function handleAuthClick(event) {
+	    gapi.auth2.getAuthInstance().signIn().then(function(){
+	    	console.log('Login complete.');
+	    	window.location.reload(true);
+	    });
+	  }
+	  function handleSignoutClick(event) {
+	    gapi.auth2.getAuthInstance().signOut().then(function(){
+	    	console.log('User signed out.');
+	    });
+	    gapi.auth2.getAuthInstance().disconnect();
+	  }
+
+	  // Load the API and make an API call.  Display the results on the screen.
+	  function makeApiCall() {
+	    if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
+	      var profile = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile();
+	      var p = document.createElement('p');
+	      var name = profile.getName();
+	      var email = profile.getEmail();
+	      p.setAttribute('class', 'welcome');
+	      p.appendChild(document.createTextNode(name+'님 ('+email+') '));
+	      document.getElementById('gSignInWrapper').prepend(p);
+	      document.getElementById('email').value = email;
+	      document.getElementById('checker').value = name;
+	      document.getElementById('checkAll').style.display = 'block';
+	      document.getElementById('checkAll').disabled = false;
+	      for(var i=0; i<document.getElementsByName('students').length; i++) {
+	      	document.getElementsByName('students').style.display = 'block';
+	      	document.getElementsByName('students').disabled = false;
+		  }
+	    }
+	  }
+
+	  function removeCall() {
+	      gapi.auth2.getAuthInstance().currentUser.length = 0;
+	      document.getElementById('gSignInWrapper').removeChild(document.getElementById('gSignInWrapper').firstChild);
+	      document.getElementById('email').value = "";
+	      document.getElementById('checker').value = "";
+	      document.getElementById('checkAll').style.display = 'none';
+	      document.getElementById('checkAll').disabled = true;
+	      for(var i=0; i<document.getElementsByName('students').length; i++) {
+	      	document.getElementsByName('students').style.display = 'none';
+	      	document.getElementsByName('students').disabled = true;
+		  }
+	  }
+	});
+}
+
 $(function($){
 
 	var KEY_SPREADSHEET = '1PHN8N0nY7YLw5NlYTp9VqSvqOHdgsvR2W8BfAZ8AtY4',	// Spreadsheet Key
@@ -17,13 +104,6 @@ $(function($){
 		if ( $('#checkAll').prop('checked') ) $('input[name="students"]').prop('checked', true);
 		else $('input[name="students"]').prop('checked',false);
 	});
-
-	// 관리자에게는 날짜 선택을 보여줌
-	if ($('#email').val() == manage_email || $('#email').val() == admin_email ) {
-		$('#checker').before('<input type="date" id="now_date">');
-		$('#now_date').valueAsDate = new Date();
-		//document.getElementById('now_date').valueAsDate = new Date();
-	}
 
 	// --------------------------------------------------
 	// 1-1. 출석체크가 초기 실행되면 개설된 강의 목록을 읽어와야 함
@@ -273,89 +353,3 @@ $(function($){
 	// 1. 회비 납부
 	// --------------------------------------------------
 });
-
-var clientId = '62990643006-squj2admavms41d94p4gkn3ef256dfn9.apps.googleusercontent.com';
-
-var authorizeButton = document.getElementById('authorize-button');
-var signoutButton = document.getElementById('signout-button');
-var GoogleAuth;
-
-var handleClientLoad = function() {
-	gapi.load('auth2', function(){
-	  // Retrieve the singleton for the GoogleAuth library and set up the client.
-	  auth2 = gapi.auth2.init({
-	    client_id: clientId,
-	    cookiepolicy: 'single_host_origin',
-	    // Request scopes in addition to 'profile' and 'email'
-	    //scope: 'additional_scope'
-	}).then( function () {
-	  	// Listen for sign-in state changes.
-	  	gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
-
-	  	// Handle the initial sign-in state.
-	  	updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
-
-	  	authorizeButton.onclick = handleAuthClick;
-	    signoutButton.onclick = handleSignoutClick;
-
-	});
-	  
-	  function updateSigninStatus(isSignedIn) {
-	    if (isSignedIn) {
-	      authorizeButton.style.display = 'none';
-	      signoutButton.style.display = 'inline-block';
-	      makeApiCall();
-	    } else {
-	      authorizeButton.style.display = 'inline-block';
-	      signoutButton.style.display = 'none';
-	      removeCall();
-	    }
-	  }
-	  function handleAuthClick(event) {
-	    gapi.auth2.getAuthInstance().signIn().then(function(){
-	    	console.log('Login complete.');
-	    	window.location.reload(true);
-	    });
-	  }
-	  function handleSignoutClick(event) {
-	    gapi.auth2.getAuthInstance().signOut().then(function(){
-	    	console.log('User signed out.');
-	    });
-	    gapi.auth2.getAuthInstance().disconnect();
-	  }
-
-	  // Load the API and make an API call.  Display the results on the screen.
-	  function makeApiCall() {
-	    if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
-	      var profile = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile();
-	      var p = document.createElement('p');
-	      var name = profile.getName();
-	      var email = profile.getEmail();
-	      p.setAttribute('class', 'welcome');
-	      p.appendChild(document.createTextNode(name+'님 ('+email+') '));
-	      document.getElementById('gSignInWrapper').prepend(p);
-	      document.getElementById('email').value = email;
-	      document.getElementById('checker').value = name;
-	      document.getElementById('checkAll').style.display = 'block';
-	      document.getElementById('checkAll').disabled = false;
-	      for(var i=0; i<document.getElementsByName('students').length; i++) {
-	      	document.getElementsByName('students').style.display = 'block';
-	      	document.getElementsByName('students').disabled = false;
-		  }
-	    }
-	  }
-
-	  function removeCall() {
-	      gapi.auth2.getAuthInstance().currentUser.length = 0;
-	      document.getElementById('gSignInWrapper').removeChild(document.getElementById('gSignInWrapper').firstChild);
-	      document.getElementById('email').value = "";
-	      document.getElementById('checker').value = "";
-	      document.getElementById('checkAll').style.display = 'none';
-	      document.getElementById('checkAll').disabled = true;
-	      for(var i=0; i<document.getElementsByName('students').length; i++) {
-	      	document.getElementsByName('students').style.display = 'none';
-	      	document.getElementsByName('students').disabled = true;
-		  }
-	  }
-	});
-}
