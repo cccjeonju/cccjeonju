@@ -159,7 +159,7 @@ $(function($){
 				fee: fee
 			}
 		}).done(function(data){
-			var msg = $('input[name="studentName"]').val() + '/' + $('input[name="phoneCheck"]').val('') + '/' + phoneNumber + '/' + subject_selected + '/' + fee;
+			var msg = $('input[name="studentName"]').val() + '/' + $('input[name="phoneCheck"]').val() + '/' + phoneNumber + '/' + subject_selected + '/' + fee;
 			console.log(msg);
 			alert($('input[name="studentName"]').val()+'님 출석이 되었습니다.');
 
@@ -169,7 +169,7 @@ $(function($){
 			$('input[name="phoneCheck"]').val('');
 			$('output>a').text('');
 			$('output').hide();
-			$('input:radio[name="subject"]').attr('checked', false);
+			$('input:radio[name="subject"]').prop('checked', false);
 			$('body').scrollTop(0);	// 페이지 맨 위로 이동
 			$('.loading-container').fadeOut();
 		}).fail(function(){
