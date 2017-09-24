@@ -73,7 +73,7 @@ $(function($){
 				console.log(students[0].c[3].v + ' ' + students[0].c[1].v + ' ' + students[0].c[8].v + '님 (' + students[0].c[5].v + ' ' + students[0].c[6].v.toString().substr(-2) + '학번)');
 				$('output>a').html(students[0].c[1].v + ' ' + students[0].c[8].v + '님 ' + students[0].c[3].v + '<br>' + students[0].c[4].v.toString().substr(0,1) + '학년 / ' + students[0].c[5].v + ' ' + students[0].c[6].v.toString().substr(-2) + '학번\n').attr('href','');
 				$('input[name="phoneCheck"]').val(students[0].c[3].v.toString().substr(-4));
-				$('input[name="student_name"]').val(students[0].c[1].v);
+				$('input[name="studentName"]').val(students[0].c[1].v);
 			}
 
 		}).fail(function(){
@@ -159,17 +159,17 @@ $(function($){
 				fee: fee
 			}
 		}).done(function(data){
-			var msg = $('input[name="student_name"]').val() + '/' + $('input[name="phoneCheck"]').val('') + '/' + phoneNumber + '/' + subject_selected + '/' + fee;
+			var msg = $('input[name="studentName"]').val() + '/' + $('input[name="phoneCheck"]').val('') + '/' + phoneNumber + '/' + subject_selected + '/' + fee;
 			console.log(msg);
-			alert($('input[name="student_name"]').val()+'님 출석이 되었습니다.');
+			alert($('input[name="studentName"]').val()+'님 출석이 되었습니다.');
 
-			$('#submitBtn').prop('disabled', false);
+			$('#submitBtn').removeAttr('disabled');
 			$('#phone').val('');
 			$('#fee').val('');
 			$('input[name="phoneCheck"]').val('');
 			$('output>a').text('');
 			$('output').hide();
-			$('input:radio[name="subject"]').removeAttr('checked');
+			$('input:radio[name="subject"]').attr('checked', false);
 			$('body').scrollTop(0);	// 페이지 맨 위로 이동
 			$('.loading-container').fadeOut();
 		}).fail(function(){
