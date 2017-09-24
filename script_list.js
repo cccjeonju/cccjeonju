@@ -159,14 +159,16 @@ $(function($){
 		// 관리자일 경우 날짜를 조정할 수 있도록 함
 		if ($('#email').val() == manage_email || $('#email').val() == admin_email ) {
 			today = $('#now_date').val();
+			$('#now_date').removeAttr('readonly');
 		} else {
+			$('#now_date').prop('readonly',true);
 			var now = new Date();
 			var year= now.getFullYear();
 			var mon = (now.getMonth()+1)>9 ? ''+(now.getMonth()+1) : '0'+(now.getMonth()+1);
 			var day = now.getDate()>9 ? ''+now.getDate() : '0'+now.getDate();
 				today = year + '-' + mon + '-' + day;
 		}
-		console.log('today: ' + today);
+		//console.log('today: ' + today);
 
 		$.ajax({
 			// =============================================
