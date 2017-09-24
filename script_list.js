@@ -154,35 +154,28 @@ $(function($){
 		var index = $('#subjectCode option').index($('#subjectCode option:selected'))-1;
 		var ii = 0; // 현재 반의 인원
 
-		var today, yesterday,
-			year, mon, day;
+		var today;
 
 		// 관리자일 경우 날짜를 조정할 수 있도록 함
 		if ($('#email').val() == manage_email || $('#email').val() == admin_email ) {
 			today = $('#now_date').val();
-			var now = new Date(today);
-				year= now.getFullYear();
-				mon = (now.getMonth()+1)>9 ? ''+(now.getMonth()+1) : '0'+(now.getMonth()+1);
-				day = (now.getDate()-1)>9 ? ''+(now.getDate()-1) : '0'+(now.getDate()-1);
-				yesterday = year+'-'+mon+'-'+day;
 		} else {
 			var now = new Date();
-				year= now.getFullYear();
-				mon = (now.getMonth()+1)>9 ? ''+(now.getMonth()+1) : '0'+(now.getMonth()+1);
-				day = now.getDate()>9 ? ''+now.getDate() : '0'+now.getDate();
+			var year= now.getFullYear();
+			var mon = (now.getMonth()+1)>9 ? ''+(now.getMonth()+1) : '0'+(now.getMonth()+1);
+			var day = now.getDate()>9 ? ''+now.getDate() : '0'+now.getDate();
 				today = year + '-' + mon + '-' + day;
-				day = (now.getDate()-1)>9 ? ''+(now.getDate()-1) : '0'+(now.getDate()-1);
-				yesterday = year+'-'+mon+'-'+day;
 		}
-		console.log('today: ' + today + ', yesterday: ' + yesterday);
+		console.log('today: ' + today);
 
 		$.ajax({
 			// =============================================
 			// Query 조건문 추가해야함 (오늘 날짜)
 			// =============================================
 			type: 'GET',
-			url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_ATTEND+'&tq=select+*+where+D+matches+\''+subject_code+'\'and+E+<=+date+\''+today+'\'+E+>=+date+\''+yesterday+'\'',
+			url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_ATTEND+'&tq=select+*+where+D+matches+\''+subject_code+'\'and+E+<=+dateTime+\''+today+' 23:59:59\'+E+>=+dateTime+\''+today+' 00:00:00\'',
 			success: function (data1) {
+				console.log(url);
 				var list_attend = JSON.parse(data1.substring(data1.indexOf('(')+1, data1.indexOf(');'))).table.rows, // 문자열에서 불필요한 부분 제거하고 JSON 형식으로.
 					total_attend = list_attend.length; // 목록 수.
 				//console.log('* SHEET DATA URL - https://docs.google.com/spreadsheets/d/1PHN8N0nY7YLw5NlYTp9VqSvqOHdgsvR2W8BfAZ8AtY4/edit#gid=2098472162'); // 구글 스프레드시트 URL.
