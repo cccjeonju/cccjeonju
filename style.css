@@ -31,14 +31,13 @@ table{
 	border-collapse:collapse;
 	border:1px #EEE solid;
 }
-table thead{
-	background-color:#F8F8F8;
-}
+table thead{ background-color:#eee; }
 table td{
 	padding:0.3rem;
 	text-align:center
 }
 table .blankTr{ height:5rem; }
+table .row1{ background-color:#F8F8F8; }
 p.guide{
 	display: block;
 	border: 1px dashed #ddd;
