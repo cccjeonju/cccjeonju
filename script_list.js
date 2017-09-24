@@ -318,11 +318,16 @@ var handleClientLoad = function() {
 	    }
 	  }
 	  function handleAuthClick(event) {
-	    if(gapi.auth2.getAuthInstance().signIn()) window.location.reload(true);
+	    gapi.auth2.getAuthInstance().signIn().then(function(){
+	    	console.log('Login complete.');
+	    	window.location.reload(true);
+	    });
 	  }
 	  function handleSignoutClick(event) {
-	    gapi.auth2.getAuthInstance().signOut();
-	    if(gapi.auth2.getAuthInstance().disconnect()) window.location.reload(true);
+	    gapi.auth2.getAuthInstance().signOut().then(function(){
+	    	console.log('User signed out.');
+	    });
+	    gapi.auth2.getAuthInstance().disconnect();
 	  }
 
 	  // Load the API and make an API call.  Display the results on the screen.
