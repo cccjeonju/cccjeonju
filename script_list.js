@@ -106,14 +106,6 @@ $(function($){
 		else $('input[name="students"]').prop('checked',false);
 	});
 
-	// 관리자에게는 날짜 선택을 보여줌
-		alert( $('#email').val() );
-			if ($('#email').val() == manage_email || $('#email').val() == admin_email ) {
-
-	//	$('#checker').before('<input type="date" id="now_date">');
-	//	$('#now_date').valueAsDate = new Date();
-	}
-
 	// --------------------------------------------------
 	// 1-1. 출석체크가 초기 실행되면 개설된 강의 목록을 읽어와야 함
 	// 1-2. 로딩이 끝나면 loadingbar fadeout 효과를 
@@ -162,25 +154,34 @@ $(function($){
 		var index = $('#subjectCode option').index($('#subjectCode option:selected'))-1;
 		var ii = 0; // 현재 반의 인원
 
-		var today;
+		var today, yesterday,
+			year, mon, day;
 
 		// 관리자일 경우 날짜를 조정할 수 있도록 함
 		if ($('#email').val() == manage_email || $('#email').val() == admin_email ) {
 			today = $('#now_date').val();
+			var now = new Date(today);
+				year= now.getFullYear();
+				mon = (now.getMonth()+1)>9 ? ''+(now.getMonth()+1) : '0'+(now.getMonth()+1);
+				day = (now.getDate()-1)>9 ? ''+(now.getDate()-1) : '0'+(now.getDate()-1);
+				yesterday = year+'-'+mon+'-'+day;
 		} else {
 			var now = new Date();
-			var year= now.getFullYear();
-			var mon = (now.getMonth()+1)>9 ? ''+(now.getMonth()+1) : '0'+(now.getMonth()+1);
-			var day = now.getDate()>9 ? ''+now.getDate() : '0'+now.getDate();
+				year= now.getFullYear();
+				mon = (now.getMonth()+1)>9 ? ''+(now.getMonth()+1) : '0'+(now.getMonth()+1);
+				day = now.getDate()>9 ? ''+now.getDate() : '0'+now.getDate();
 				today = year + '-' + mon + '-' + day;
+				day = (now.getDate()-1)>9 ? ''+(now.getDate()-1) : '0'+(now.getDate()-1);
+				yesterday = year+'-'+mon+'-'+day;
 		}
+		console.log('today: ' + today + ', yesterday: ' + yesterday);
 
 		$.ajax({
 			// =============================================
 			// Query 조건문 추가해야함 (오늘 날짜)
 			// =============================================
 			type: 'GET',
-			url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_ATTEND+'&tq=select+*+where+D+matches+\''+subject_code+'\'and+E+<=+date+\''+today+'\'',
+			url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_ATTEND+'&tq=select+*+where+D+matches+\''+subject_code+'\'and+E+<=+date+\''+today+'\'+E+>=+date+\''+yesterday+'\'',
 			success: function (data1) {
 				var list_attend = JSON.parse(data1.substring(data1.indexOf('(')+1, data1.indexOf(');'))).table.rows, // 문자열에서 불필요한 부분 제거하고 JSON 형식으로.
 					total_attend = list_attend.length; // 목록 수.
