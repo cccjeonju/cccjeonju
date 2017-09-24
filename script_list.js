@@ -91,7 +91,7 @@ $(function($){
 			// Query 조건문 추가해야함 (오늘 날짜)
 			// =============================================
 			type: 'GET',
-			url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_ATTEND+'&tq=select+*+where+D+matches+\''+subject_code+'\'',//+and+E+matches+\''+today+'\''
+			url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_ATTEND+'&tq=select+*+where+D+matches+\''+subject_code+'\'and+E+<=+date+\''+today+'\'',
 			success: function (data1) {
 				var list_attend = JSON.parse(data1.substring(data1.indexOf('(')+1, data1.indexOf(');'))).table.rows, // 문자열에서 불필요한 부분 제거하고 JSON 형식으로.
 					total_attend = list_attend.length; // 목록 수.
