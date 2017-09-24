@@ -113,8 +113,10 @@ $(function($){
 				// --------------------------------------------------
 				// 2-2. 해당 하는 날짜의 해당 과목 출석 체크한 사람의 정보를 가져옴
 				// --------------------------------------------------
-				for (var j = 0; j < total_attend; j++) {
-					//console.log('** ' + (j+1) + '  ' + list_attend[j].c[2].v + ' / ' + list_attend[j].c[1].v);
+				list_attend.each(function(i, item) {
+					var $item = $(item);
+				//for (var j = 0; j < total_attend; j++) {
+					//console.log('** ' + (j+1) + '  ' + $item.c[2].v + ' / ' + $item.c[1].v);
 					//list_attend[].c[0] = no (row number)
 					//				c[1] = timestamp (attend time for student)
 					//				c[2] = phone (student's)
@@ -123,35 +125,36 @@ $(function($){
 					//				c[5] = checker (teacher's email)
 					//				c[6] = fee (student's / just today)
 					// 현재 유저(출석자)에 대한 정보를 저장
-					phoneAttend[ii] = list_attend[j].c[2].v;
-					noRow[ii] = list_attend[j].c[0].f;
-					attendTime[ii] =(list_attend[j].c[1] != null) ? list_attend[j].c[1].f : list_attend[j].c[4].f;
-					checkTime[ii] =(list_attend[j].c[1] != null) ? list_attend[j].c[1].f : '';
-					feeToday[ii] =(list_attend[j].c[6] != null) ? list_attend[j].c[6].f : '0';
-				}
+					phoneAttend[ii] = $item.c[2].v;
+					noRow[ii] = $item.c[0].f;
+					attendTime[ii] =($item.c[1] != null) ? $item.c[1].f : $item.c[4].f;
+					checkTime[ii] =($item.c[1] != null) ? $item.c[1].f : '';
+					feeToday[ii] =($item.c[6] != null) ? $item.c[6].f : '0';
+				//}
 
-			    $.ajax({
-			    	type: 'GET',
-					url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_REGIST+'&tq=select+*+where+D+matches+\''+list_attend[j].c[2].v+'\'', // phone number로 user 정보 가져오기
-					success: function(data2) {				    
+				    $.ajax({
+				    	type: 'GET',
+				    	cache: false,
+						url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_REGIST+'&tq=select+*+where+D+matches+\''+$item.c[2].v+'\'' // phone number로 user 정보 가져오기
+					}).done(function(data2) {
 						var user = JSON.parse(data2.substring(data2.indexOf('(')+1, data2.indexOf(');'))).table.rows, // 문자열에서 불필요한 부분 제거하고 JSON 형식으로.
 							users = user.length; // 목록 수.
 						//console.log('*** 출석체크 한 사람 중 읽어오기 : ' + users + '명 - 2명 이상일 경우는 데이터 유효성 결여상태');
 
 						// users=1 이어야 하지만 데이터 무결성을 위하여 반복문 사용
 						for (var k = 0; k < users; k++) {
-					    	//console.log('*** '' + (k+1) + '  ' + user[k].c[5].v + ' / ' + user[k].c[4].v + ' / ' + user[k].c[6].v);
-						    //$('.studentList').append( $('<li><label><input type="radio" name="subject" value="' + user[k].c[4].v.toString() + '">[' + user[k].c[1].v.toString() + '] ' + user[k].c[6].v.toString() + ' / ' + user[k].c[5].v.toString() + '</label></li>') );
-						    // user[].c[0] = timestamp
-						    //			1] = name (student's)
-						    //			2] = sex
-						    //			3] = phone
-						    //			4] = grade
-						    //			5] = campus name
-						    //			6] = starting year
-						    //			7] = register
-						    //			8] = title (soonjang)
-						    //			9] = 11/9 subject, [10]=11/16, [11]=11/23
+							//console.log('*** '' + (k+1) + '  ' + user[k].c[5].v + ' / ' + user[k].c[4].v + ' / ' + user[k].c[6].v);
+							//$('.studentList').append( $('<li><label><input type="radio" name="subject" value="' + user[k].c[4].v.toString() + '">[' + user[k].c[1].v.toString() + '] ' + user[k].c[6].v.toString() + ' / ' + user[k].c[5].v.toString() + '</label></li>') );
+							// user[].c[0] = timestamp
+							//			1] = name (student's)
+							//			2] = sex
+							//			3] = phone
+							//			4] = grade
+							//			5] = campus name
+							//			6] = starting year
+							//			7] = register
+							//			8] = title (soonjang)
+							//			9] = 11/9 subject, [10]=11/16, [11]=11/23
 
 							var studentTr = '<tr class="">\n';
 							studentTr += '<td class="co1"><input type="hidden" name="no" value="'+noRow[ii]+'">\n';
@@ -173,11 +176,12 @@ $(function($){
 							ii++;
 							$('.studentList').append( studentTr );
 						}
-					},
-					error: function() {
-			    		alert('출석한 사용자의 정보를 읽어오는데 실패했습니다.');
-			    	}
-			    });
+					}).fail(function() {
+				    		alert('출석한 사용자의 정보를 읽어오는데 실패했습니다.');
+				    });
+				});
+
+
 
 				$('.loading-container').fadeOut();
 
