@@ -63,7 +63,7 @@ $(function($){
 			
 			console.log('* 검색된 등록자 수: ' + total + '명');
 			
-			$('output').attr('style', 'display:block');
+			$('output').show();
 			if (total<1) {
 				$('output>a').html(phoneNumber + ' 는 아직 등록이 되지 않았습니다.<br>여기를 눌러 "등록"을 먼저해주세요.').attr('href', 'https://goo.gl/forms/asSLANctriVD1fjg1');
 
