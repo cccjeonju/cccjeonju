@@ -10,7 +10,8 @@ $(function($){
 	var admin_email = 'cccjeonju@gmail.com',
 		manage_email = 'hiyen2001@gmail.com';
 
-	var attendTime = new Array(),
+	var phoneAttend = new Array(),
+		attendTime = new Array(),
 		checkTime = new Array(),
 		feeToday = new Array(),
 		noRow = new Array();
@@ -122,6 +123,7 @@ $(function($){
 					//				c[5] = checker (teacher's email)
 					//				c[6] = fee (student's / just today)
 					// 현재 유저(출석자)에 대한 정보를 저장
+					phoneAttend[ii] = list_attend[j].c[2].v;
 					noRow[ii] = list_attend[j].c[0].f;
 					attendTime[ii] =(list_attend[j].c[1] != null) ? list_attend[j].c[1].f : list_attend[j].c[4].f;
 					checkTime[ii] =(list_attend[j].c[1] != null) ? list_attend[j].c[1].f : '';
