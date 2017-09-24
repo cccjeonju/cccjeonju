@@ -10,12 +10,6 @@ $(function($){
 	var admin_email = 'cccjeonju@gmail.com',
 		manage_email = 'hiyen2001@gmail.com';
 
-	var phoneAttend = new Array(),
-		attendTime = new Array(),
-		checkTime = new Array(),
-		feeToday = new Array(),
-		noRow = new Array();
-
 	var checkerList = new Array();
 
 	// 전체선택 소스
@@ -122,12 +116,6 @@ $(function($){
 					//				c[4] = checktime (check time for teacher)
 					//				c[5] = checker (teacher's email)
 					//				c[6] = fee (student's / just today)
-					// 현재 유저(출석자)에 대한 정보를 저장
-					phoneAttend[ii] = item.c[2].v;
-					noRow[ii] 		= item.c[0].v;
-					attendTime[ii] 	=(item.c[1] != null) ? item.c[1].v : item.c[4].v;
-					checkTime[ii] 	=(item.c[1] != null) ? item.c[1].v : '';
-					feeToday[ii] 	=(item.c[6] != null) ? item.c[6].v : '0';
 
 				    $.ajax({
 				    	type: 'GET',
@@ -158,25 +146,26 @@ $(function($){
 						//			9] = 11/9 subject, [10]=11/16, [11]=11/23
 						var studentTr = '<tr class="">\n';
 						studentTr += '<td class="co1"><input type="hidden" name="no" value="'+item.c[0].v+'">\n';
-						studentTr += '<input type="hidden" name="attend_time" value="'+attendTime[ii]+'">\n';
-						if( checkTime[ii] == '' || checkTime[ii] == null) {
-							studentTr += '<input type="checkbox" name="students" value="'+attendee[0].c[3].v+'">';
-						} else {
-							studentTr += '<button type="button" id="cancelBtn" name="cancel-button">취소</button>';
+						studentTr += '<input type="hidden" name="attend_time" value="';
+						studentTr += (item.c[1] != null) ? item.c[1].f : item.c[4].f; 
+						studentTr += '">\n';
+						studentTr += '<input type="checkbox" name="students" value="'+attendee[0].c[3].v+'">';
+						if(item.c[1] != null) { //attendTime에 가록이 있을 때
+							studentTr += '\n<button type="button" id="cancelBtn" name="cancel-button">취소</button>';
 						}
-						studentTr += '</td><td class="co2">'+(ii+1)+'</td>\n';
+						studentTr += '</td>\n';
+						studentTr += '<td class="co2">'+(++ii)+'</td>\n';
 						studentTr += '<td class="co3">'+attendee[0].c[1].v+'</td>\n';	// 이름
 						studentTr += '<td class="co4">'+attendee[0].c[8].v+'</td>\n';	// 호칭
 						studentTr += '<td class="co5">'+attendee[0].c[2].v.toString().substr(0,1)+'</td>\n';	// 성별
 						studentTr += '<td class="co6">'+attendee[0].c[4].v.toString().substr(0,1)+'</td>\n';	// 학년
 						studentTr += '<td class="co7">'+attendee[0].c[5].v.toString().substr(0,5)+'</td>\n';	// 소속
 						studentTr += '<td class="co8">'+attendee[0].c[6].v.toString().substr(-2) +'</td>\n';	// 학번
-						studentTr += '<td class="co9"><input type="text" name="fee" class="fee" size="7" value="'+feeToday[ii]+'">원</td>\n';	// 회비
+						studentTr += '<td class="co9"><input type="text" name="fee" class="fee" size="7" value="';
+						studentTr += (item.c[6] != null) ? item.c[6].f : '0';
+						studentTr += '">원</td>\n';	// 회비
 						studentTr += '</tr>\n';
 						$('.studentList').append( studentTr );
-
-
-						ii++;
 
 					}).fail(function() {
 				    		alert('출석한 사용자의 정보를 읽어오는데 실패했습니다.');
