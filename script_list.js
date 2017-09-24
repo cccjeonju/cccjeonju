@@ -114,7 +114,6 @@ $(function($){
 				// 2-2. 해당 하는 날짜의 해당 과목 출석 체크한 사람의 정보를 가져옴
 				// --------------------------------------------------
 				$.each(list_attend, function(i, item) {
-				//for (var j = 0; j < total_attend; j++) {
 					//console.log('** ' + (j+1) + '  ' + item.c[2].v + ' / ' + item.c[1].v);
 					//list_attend[].c[0] = no (row number)
 					//				c[1] = timestamp (attend time for student)
@@ -125,11 +124,10 @@ $(function($){
 					//				c[6] = fee (student's / just today)
 					// 현재 유저(출석자)에 대한 정보를 저장
 					phoneAttend[ii] = item.c[2].v;
-					noRow[ii] = item.c[0].f;
-					attendTime[ii] =(item.c[1] != null) ? item.c[1].f : item.c[4].f;
-					checkTime[ii] =(item.c[1] != null) ? item.c[1].f : '';
-					feeToday[ii] =(item.c[6] != null) ? item.c[6].f : '0';
-				//}
+					noRow[ii] 		= item.c[0].v;
+					attendTime[ii] 	=(item.c[1] != null) ? item.c[1].v : item.c[4].v;
+					checkTime[ii] 	=(item.c[1] != null) ? item.c[1].v : '';
+					feeToday[ii] 	=(item.c[6] != null) ? item.c[6].v : '0';
 
 				    $.ajax({
 				    	type: 'GET',
@@ -172,15 +170,15 @@ $(function($){
 							studentTr += '<td class="co8">'+user[k].c[6].v.toString().substr(-2) +'</td>\n';	// 학번
 							studentTr += '<td class="co9"><input type="text" name="fee" class="fee" size="7" value="'+feeToday[ii]+'">원</td>\n';	// 회비
 							studentTr += '</tr>\n';
-							ii++;
 							$('.studentList').append( studentTr );
 						}
+
+						ii++;
+
 					}).fail(function() {
 				    		alert('출석한 사용자의 정보를 읽어오는데 실패했습니다.');
 				    });
 				});
-
-
 
 				$('.loading-container').fadeOut();
 
