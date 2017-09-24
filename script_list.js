@@ -113,10 +113,9 @@ $(function($){
 				// --------------------------------------------------
 				// 2-2. 해당 하는 날짜의 해당 과목 출석 체크한 사람의 정보를 가져옴
 				// --------------------------------------------------
-				list_attend.each(function(i, item) {
-					var $item = $(item);
+				$.each(list_attend, function(i, item) {
 				//for (var j = 0; j < total_attend; j++) {
-					//console.log('** ' + (j+1) + '  ' + $item.c[2].v + ' / ' + $item.c[1].v);
+					//console.log('** ' + (j+1) + '  ' + item.c[2].v + ' / ' + item.c[1].v);
 					//list_attend[].c[0] = no (row number)
 					//				c[1] = timestamp (attend time for student)
 					//				c[2] = phone (student's)
@@ -125,17 +124,17 @@ $(function($){
 					//				c[5] = checker (teacher's email)
 					//				c[6] = fee (student's / just today)
 					// 현재 유저(출석자)에 대한 정보를 저장
-					phoneAttend[ii] = $item.c[2].v;
-					noRow[ii] = $item.c[0].f;
-					attendTime[ii] =($item.c[1] != null) ? $item.c[1].f : $item.c[4].f;
-					checkTime[ii] =($item.c[1] != null) ? $item.c[1].f : '';
-					feeToday[ii] =($item.c[6] != null) ? $item.c[6].f : '0';
+					phoneAttend[ii] = item.c[2].v;
+					noRow[ii] = item.c[0].f;
+					attendTime[ii] =(item.c[1] != null) ? item.c[1].f : item.c[4].f;
+					checkTime[ii] =(item.c[1] != null) ? item.c[1].f : '';
+					feeToday[ii] =(item.c[6] != null) ? item.c[6].f : '0';
 				//}
 
 				    $.ajax({
 				    	type: 'GET',
 				    	cache: false,
-						url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_REGIST+'&tq=select+*+where+D+matches+\''+$item.c[2].v+'\'' // phone number로 user 정보 가져오기
+						url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_REGIST+'&tq=select+*+where+D+matches+\''+item.c[2].v+'\'' // phone number로 user 정보 가져오기
 					}).done(function(data2) {
 						var user = JSON.parse(data2.substring(data2.indexOf('(')+1, data2.indexOf(');'))).table.rows, // 문자열에서 불필요한 부분 제거하고 JSON 형식으로.
 							users = user.length; // 목록 수.
