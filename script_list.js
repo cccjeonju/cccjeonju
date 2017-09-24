@@ -330,6 +330,7 @@ $(function($){
 				},
 				success: function(data3) {
 					console.log(aa+1 + ' ' + $('input[name="students"]:eq('+index+')').val() + '님 출석확인 완료');
+					changeSubject();
 				},
 				error: function() {
 					alert('출석을 기록하는데 에러가 발생했습니다.');
