@@ -1,3 +1,5 @@
+document.getElementById('now_date').valueAsDate = new Date();
+
 var clientId = '62990643006-squj2admavms41d94p4gkn3ef256dfn9.apps.googleusercontent.com';
 
 var authorizeButton = document.getElementById('authorize-button');
@@ -106,9 +108,9 @@ $(function($){
 
 	// 관리자에게는 날짜 선택을 보여줌
 	if ($('#email').val() == manage_email || $('#email').val() == admin_email ) {
-		$('#checker').before('<input type="date" id="now_date">');
-		$('#now_date').valueAsDate = new Date();
-		//document.getElementById('now_date').valueAsDate = new Date();
+		alert( $('#email').val() );
+	//	$('#checker').before('<input type="date" id="now_date">');
+	//	$('#now_date').valueAsDate = new Date();
 	}
 
 	// --------------------------------------------------
