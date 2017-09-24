@@ -175,7 +175,6 @@ $(function($){
 			type: 'GET',
 			url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_ATTEND+'&tq=select+*+where+D+matches+\''+subject_code+'\'and+E+<=+dateTime+\''+today+' 23:59:59\'+E+>=+dateTime+\''+today+' 00:00:00\'',
 			success: function (data1) {
-				console.log(url);
 				var list_attend = JSON.parse(data1.substring(data1.indexOf('(')+1, data1.indexOf(');'))).table.rows, // 문자열에서 불필요한 부분 제거하고 JSON 형식으로.
 					total_attend = list_attend.length; // 목록 수.
 				//console.log('* SHEET DATA URL - https://docs.google.com/spreadsheets/d/1PHN8N0nY7YLw5NlYTp9VqSvqOHdgsvR2W8BfAZ8AtY4/edit#gid=2098472162'); // 구글 스프레드시트 URL.
