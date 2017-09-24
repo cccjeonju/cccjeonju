@@ -145,7 +145,7 @@ $(function($){
 	// --------------------------------------------------
 	// 2-1. 과목을 선택했을 때 - 출석부 시트에서 오늘(특정) 날짜가 있고, 선택된 과목의 레코드들을 읽어옴
 	// --------------------------------------------------
-	$('#subjectCode').change(function() { // 과목 바꾸면 리스트 갱신
+	var changeSubject = function() { // 과목 바꾸면 리스트 갱신
 
 		$('.loading-container').fadeIn();
 		$('.studentList').empty(); // 명단을 초기화해서 모두 지움
@@ -276,7 +276,10 @@ $(function($){
 				alert('출석 명단을 읽어오는데 문제가 발생했습니다.');
 			}
 		});
-	}); // changeSubject {}
+	}; // changeSubject {}
+
+	$('#subjectCode').on('change', changeSubject);
+	$('#up_date').on('click', changeSubject);
 
 	// --------------------------------------------------
 	// 3-1. '출석확인' 처리
