@@ -1,4 +1,3 @@
-
 var clientId = '62990643006-squj2admavms41d94p4gkn3ef256dfn9.apps.googleusercontent.com';
 
 var authorizeButton = document.getElementById('authorize-button');
@@ -104,6 +103,13 @@ $(function($){
 		if ( $('#checkAll').prop('checked') ) $('input[name="students"]').prop('checked', true);
 		else $('input[name="students"]').prop('checked',false);
 	});
+
+	// 관리자에게는 날짜 선택을 보여줌
+	if ($('#email').val() == manage_email || $('#email').val() == admin_email ) {
+		$('#checker').before('<input type="date" id="now_date">');
+		$('#now_date').valueAsDate = new Date();
+		//document.getElementById('now_date').valueAsDate = new Date();
+	}
 
 	// --------------------------------------------------
 	// 1-1. 출석체크가 초기 실행되면 개설된 강의 목록을 읽어와야 함
