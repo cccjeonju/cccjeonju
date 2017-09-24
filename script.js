@@ -126,6 +126,7 @@ $(function($){
 		if (!subject_selected) {
 			alert('수강하는 과목을 선택하세요.');
 			$('#submitBtn').removeAttr('disabled'); // 버튼 활성화 복귀
+			$('.loading-container').fadeOut();
 			return false;
 		}
 
