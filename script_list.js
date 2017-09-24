@@ -107,8 +107,9 @@ $(function($){
 	});
 
 	// 관리자에게는 날짜 선택을 보여줌
-	if ($('#email').val() == manage_email || $('#email').val() == admin_email ) {
 		alert( $('#email').val() );
+			if ($('#email').val() == manage_email || $('#email').val() == admin_email ) {
+
 	//	$('#checker').before('<input type="date" id="now_date">');
 	//	$('#now_date').valueAsDate = new Date();
 	}
