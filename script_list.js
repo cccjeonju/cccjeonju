@@ -326,8 +326,7 @@ $(function($){
 			var index = $(elements).index('input[name="students"]');
 
 			$.ajax({
-				type: 'GET',
-				async: false,
+				type: 'POST',
 				url: WEB_APP_URL + '?sheet_name=' + SHEET_NAME_CONFIRM,
 				data: {
 					no: $('input[name="no"]:eq('+index+')').val(),
