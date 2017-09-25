@@ -14,7 +14,7 @@ var handleClientLoad = function() {
 	    cookiepolicy: 'single_host_origin',
 	    // Request scopes in addition to 'profile' and 'email'
 	    //scope: 'additional_scope'
-	}).then( function () {
+	  }).then( function () {
 	  	// Listen for sign-in state changes.
 	  	gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
 
@@ -23,9 +23,8 @@ var handleClientLoad = function() {
 
 	  	authorizeButton.onclick = handleAuthClick;
 	    signoutButton.onclick = handleSignoutClick;
+	  });
 
-	});
-	  
 	  function updateSigninStatus(isSignedIn) {
 	    if (isSignedIn) {
 	      authorizeButton.style.display = 'none';
@@ -329,7 +328,7 @@ $(function($){
 					checker: $('#email').val()
 				},
 				success: function(data3) {
-					console.log(aa+1 + ' ' + $('input[name="students"]:eq('+index+')').val() + '님 출석확인 완료');
+					console.log(aa+1 + ' ' + $('input[name="students"]:eq('+ $(elements).val() +')').val() + '님 출석확인 완료');
 					changeSubject();
 				},
 				error: function() {
