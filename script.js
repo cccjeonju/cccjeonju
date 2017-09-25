@@ -84,7 +84,7 @@ $(function($){
 				msg += students[0].c[5].v + ' ';	// campu
 				msg += students[0].c[6].v.toString().substr(-2) + '학번 / 회비: ';
 				msg += students[0].c[13].f + '\n';
-				$('output>a').html().removeAttr('href');
+				$('output>a').html(msg).removeAttr('href');
 				$('input[name="phoneCheck"]').val(students[0].c[3].v.toString().substr(-4));
 				$('input[name="studentName"]').val(students[0].c[1].v);
 				$('#fee_total').text(students[0].c[13].f);
