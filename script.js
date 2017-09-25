@@ -69,8 +69,22 @@ $(function($){
 			} else if (total>1) {
 				alert('동일 아이디 발생! 관리자에게 문의해주시기 바랍니다.');
 			} else {
-				console.log(students[0].c[3].v + ' ' + students[0].c[1].v + ' ' + students[0].c[8].v + ' (' + students[0].c[5].v + ' ' + students[0].c[6].v.toString().substr(-2) + '학번) / ' + students[0].c[4].v.toString().substr(0,1) + '학년 / 등록비: ' + students[0].c[13].f);
-				$('output>a').html(students[0].c[1].v + ' ' + students[0].c[8].v + '님 ' + students[0].c[3].v + '<br>' + students[0].c[4].v.toString().substr(0,1) + '학년 / ' + students[0].c[5].v + ' ' + students[0].c[6].v.toString().substr(-2) + '학번\n').removeAttr('href');
+				var msg = students[0].c[1].v;			// name
+					msg += ' ' + students[0].c[3].v;	// phone
+					msg += ' ' + students[0].c[8].v;	// title (soonjang)
+					msg += ' (' + students[0].c[5].v;	// campus
+					msg += ' ' + students[0].c[6].v.toString().substr(-2) + '학번)';
+					msg += '/ ' + students[0].c[4].v.toString().substr(0,1) + '학년';
+					msg += '/ 등록비: ' + students[0].c[13].f;
+				console.log(msg);
+				msg = students[0].c[1].v + ' ';		// name
+				msg	+= students[0].c[8].v + '님 ';	// title (soonjang)
+				msg += students[0].c[3].v + '<br>';	// phone
+				msg += students[0].c[4].v.toString().substr(0,1) + '학년 / ';
+				msg += students[0].c[5].v + ' ';	// campu
+				msg += students[0].c[6].v.toString().substr(-2) + '학번 / 회비: ';
+				msg += students[0].c[13].f + '\n';
+				$('output>a').html().removeAttr('href');
 				$('input[name="phoneCheck"]').val(students[0].c[3].v.toString().substr(-4));
 				$('input[name="studentName"]').val(students[0].c[1].v);
 				$('#fee_total').text(students[0].c[13].f);
