@@ -74,7 +74,7 @@ $(function($){
 					msg += ' ' + students[0].c[8].v;	// title (soonjang)
 					msg += ' (' + students[0].c[5].v;	// campus
 					msg += ' ' + students[0].c[6].v.toString().substr(-2) + '학번)';
-					msg += '/ ' + students[0].c[4].v.toString().substr(0,1) + '학년';
+					msg += ' ' + students[0].c[4].v.toString().substr(0,1) + '학년';
 					msg += '/ 등록비: ' + students[0].c[13].f;
 				console.log(msg);
 				msg = students[0].c[1].v + ' ';		// name

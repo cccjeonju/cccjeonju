@@ -182,7 +182,7 @@ $(function($){
 				//console.log('** 출석 체크한 학생 수: ' + total_attend + '명');
 
 				if (total_attend < 1) {
-					$('.studentList').append( $('<tr class=""><td colspan="9" class="blankTr">선택한 인원이 없습니다.</td></tr>') );
+					$('.studentList').append( $('<tr><td colspan="9" class="blankTr">선택한 인원이 없습니다.</td></tr>') );
 					$('.loading-container').fadeOut();
 					return;
 				}
@@ -191,7 +191,7 @@ $(function($){
 				// 2-2. 해당 하는 날짜의 해당 과목 출석 체크한 사람의 정보를 가져옴
 				// --------------------------------------------------
 				$.each(list_attend, function(i, item) {
-					//console.log('** ' + (j+1) + '  ' + item.c[2].v + ' / ' + item.c[1].v);
+					//console.log('** ' + (i+1) + '  ' + item.c[2].v + ' / ' + item.c[1].v);
 					//list_attend[].c[0] = no (row number)
 					//				c[1] = timestamp (attend time for student)
 					//				c[2] = phone (student's)
@@ -199,6 +199,9 @@ $(function($){
 					//				c[4] = checktime (check time for teacher)
 					//				c[5] = checker (teacher's email)
 					//				c[6] = fee (student's / just today)
+ 
+					// 한 날에 여러번 같은 핸드폰 번호가 있으면 나타나지 않게 함
+					if( i>0 && list_attend[i-1].c[2].v == list_attend[i].c[2].v ) continue;
 
 				    $.ajax({
 				    	type: 'GET',
@@ -215,6 +218,7 @@ $(function($){
 							alert('중복된 사용자가 있습니다. 확인하세요.');
 							return;
 						}
+
 						//console.log('*** '' + (k+1) + '  ' + attendee[0].c[5].v + ' / ' + attendee[0].c[4].v + ' / ' + attendee[0].c[6].v);
 						//$('.studentList').append( $('<li><label><input type="radio" name="subject" value="' + attendee[0].c[4].v.toString() + '">[' + attendee[0].c[1].v.toString() + '] ' + attendee[0].c[6].v.toString() + ' / ' + attendee[0].c[5].v.toString() + '</label></li>') );
 						// attendee[].c[0] = timestamp
