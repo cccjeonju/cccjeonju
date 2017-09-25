@@ -227,6 +227,8 @@ $(function($){
 						//			7] = register
 						//			8] = title (soonjang)
 						//			9] = 11/9 subject, [10]=11/16, [11]=11/23
+						//			12]= application
+						//			13]= total fee
 						var studentTr = '<tr class="row' + ii%2 + '">\n';
 						studentTr += '<td><input type="hidden" name="no" value="'+item.c[0].v+'">\n';
 						studentTr += '<input type="hidden" name="attend_time" value="';
