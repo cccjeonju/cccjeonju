@@ -201,7 +201,10 @@ $(function($){
 					//				c[6] = fee (student's / just today)
  
 					// 한 날에 여러번 같은 핸드폰 번호가 있으면 나타나지 않게 함
-					if( i>0 && list_attend[i-1].c[2].v == list_attend[i].c[2].v ) return true;
+					if( i>0 && list_attend[i-1].c[2].v == list_attend[i].c[2].v ) {
+						console.log('중복 출석 체크한 사람을 건너뜁니다. ' + list_attend[i].c[2].v);
+						return true;
+					}
 
 				    $.ajax({
 				    	type: 'GET',
