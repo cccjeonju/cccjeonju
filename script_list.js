@@ -292,7 +292,7 @@ $(function($){
 
 				studentTr[++idx_t] = '<tr class="row' + ii%2 + '">\n';
 				studentTr[++idx_t] = '<td colspan="2" style="text-align:right">총 ' + ii + '명</td>\n';
-				studentTr[++idx_t] = '<td colspan="7" style="text-align:right">오늘 회비 ' + Number(feeTotal).toLocalString('en') + '원</td>\n';
+				studentTr[++idx_t] = '<td colspan="7" style="text-align:right">오늘 회비 ' + Number(feeTotal).toLocaleString('en') + '원</td>\n';
 				studentTr[++idx_t] = '</tr>\n';
 				studentTr[++idx_t] = '</tbody>\n';
 				studentTr[++idx_t] = '</table>\n';
