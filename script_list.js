@@ -61,8 +61,6 @@ var handleClientLoad = function() {
 	      document.getElementById('gSignInWrapper').prepend(p);
 	      document.getElementById('email').value = email;
 	      document.getElementById('checker').value = name;
-	      //document.getElementById('checkAll').style.display = 'block';
-	      //document.getElementById('checkAll').disabled = false;
 	      for(var i=0; i<document.getElementsByName('students').length; i++) {
 	      	document.getElementsByName('students').style.display = 'block';
 	      	document.getElementsByName('students').disabled = false;
@@ -75,8 +73,6 @@ var handleClientLoad = function() {
 	      document.getElementById('gSignInWrapper').removeChild(document.getElementById('gSignInWrapper').firstChild);
 	      document.getElementById('email').value = "";
 	      document.getElementById('checker').value = "";
-	      //document.getElementById('checkAll').style.display = 'none';
-	      //document.getElementById('checkAll').disabled = true;
 	      for(var i=0; i<document.getElementsByName('students').length; i++) {
 	      	document.getElementsByName('students').style.display = 'none';
 	      	document.getElementsByName('students').disabled = true;
@@ -99,7 +95,9 @@ $(function($){
 
 	var checkerList = new Array();
 
+	// --------------------------------------------------
 	// 전체선택 소스
+	// --------------------------------------------------
 	$('#checkAll').click(function(){
 		if ( $('#checkAll').prop('checked') ) $('input[name="students"]').prop('checked', true);
 		else $('input[name="students"]').prop('checked',false);
@@ -184,7 +182,7 @@ $(function($){
 
 				if (total_attend < 1) {
 					//$('.studentList').append( $('<tr><td colspan="9" class="blankTr">선택한 인원이 없습니다.</td></tr>') );
-					$('#stTable').html('<p>강의를 선택하시면 명단을 불러옵니다.</p>');
+					$('#stTable').html('<p>해당 강의를 선택한 인원이 없습니다.</p>');
 					$('.loading-container').fadeOut();
 					return;
 				}
@@ -393,7 +391,7 @@ $(function($){
 	// --------------------------------------------------
 	// 4-1. 출석 취소 기능
 	// --------------------------------------------------
-	$('input[name="students"]').click(function() {
+	$(':checkbox').click(function() {
 		// 출석확인 되어 있는 사람이 아닐 경우 아무 일도 일어나지 않음
 		alert(this);
 	});
