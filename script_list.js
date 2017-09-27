@@ -213,7 +213,7 @@ $(function($){
 				// --------------------------------------------------
 				//$.each(list_attend, function(i, item) {
 				for(var i=0; i<total_attend; ++i) {
-					//console.log('** ' + (i+1) + '  ' + list_attend[i].c[2].v + ' / ' + list_attend[i].c[1].v);
+					//console.log('** ' + (i+1) + '  ' + list_attend[i].c[2].v + ' / ' + list_attend[i].c[1].f);
 					//list_attend[].c[0] = no (row number)
 					//				c[1] = timestamp (attend time for student)
 					//				c[2] = phone (student's)
@@ -274,7 +274,7 @@ $(function($){
 						studentTr[++idx_t] = '<td>'+attendee[0].c[2].v.substr(0,1)+'</td>\n';	// 성별
 						studentTr[++idx_t] = '<td>'+attendee[0].c[4].v.substr(0,1)+'</td>\n';	// 학년
 						studentTr[++idx_t] = '<td>'+attendee[0].c[5].v.substr(0,5)+'</td>\n';	// 소속
-						studentTr[++idx_t] = '<td>'+attendee[0].c[6].v.substr(-2) +'</td>\n';	// 학번
+						studentTr[++idx_t] = '<td>'+attendee[0].c[6].f.substr(-2) +'</td>\n';	// 학번
 						studentTr[++idx_t] = '<td><input type="text" name="fee" class="fee" size="7" value="';
 						studentTr[++idx_t] = (attendee[0].c[6] != null) ? attendee[0].c[6].f : '0';
 						studentTr[++idx_t] = '">원</td>\n';	// 회비
