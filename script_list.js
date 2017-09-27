@@ -263,11 +263,11 @@ $(function($){
 						studentTr[++idx_t] = '<input type="hidden" name="attend_time" value="';
 						studentTr[++idx_t] = (attendee[0].c[1] != null) ? attendee[0].c[1].f : attendee[0].c[4].f; 
 						studentTr[++idx_t] = '">\n';
-						studentTr[++idx_t] = '<input type="checkbox" name="students" value="'+attendee[0].c[3].v+'">';
+						studentTr[++idx_t] = '<input type="checkbox" name="students" value="'+attendee[0].c[3].v+'"';
 						if(list_attend[i].c[1] != null) { //attendTime에 가록이 있을 때
-							studentTr[++idx_t] = '<br>\n<button type="button" id="cancelBtn" name="cancel-button">취소</button>';
-						}
-						studentTr[++idx_t] = '</td>\n';
+							studentTr[++idx_t] = ' checked><br>\n<button type="button" id="cancelBtn" name="cancel-button">취소</button';
+						} 
+						studentTr[++idx_t] = '></td>\n';
 						studentTr[++idx_t] = '<td>'+(++ii)+'</td>\n';
 						studentTr[++idx_t] = '<td>'+attendee[0].c[1].v+'</td>\n';	// 이름
 						studentTr[++idx_t] = '<td>'+attendee[0].c[8].v+'</td>\n';	// 호칭
@@ -291,8 +291,8 @@ $(function($){
 				}
 
 				studentTr[++idx_t] = '<tr class="row' + ii%2 + '">\n';
-				studentTr[++idx_t] = '<td colspan="3" style="text-align:center">총 ' + ii + '명</td>\n';
-				studentTr[++idx_t] = '<td colspan="6" style="text-align:right">오늘 회비 ' + Number(feeTotal).toLocaleString('en') + '원</td>\n';
+				studentTr[++idx_t] = '<td colspan="3" style="text-align:center">총 <strong>' + ii + '</strong> 명</td>\n';
+				studentTr[++idx_t] = '<td colspan="6" style="text-align:right">오늘 회비 <strong>' + Number(feeTotal).toLocaleString('en') + '</strong> 원</td>\n';
 				studentTr[++idx_t] = '</tr>\n';
 				studentTr[++idx_t] = '</tbody>\n';
 				studentTr[++idx_t] = '</table>\n';
