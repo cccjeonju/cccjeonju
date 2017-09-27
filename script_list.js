@@ -253,9 +253,12 @@ $(function($){
 						studentTr[++idx_t] = '<input type="hidden" name="attend_time" value="';
 						studentTr[++idx_t] = (list_attend[i].c[1] != null) ? list_attend[i].c[1].f : list_attend[i].c[4].f; 
 						studentTr[++idx_t] = '">\n';
-						studentTr[++idx_t] = '<input type="checkbox" value="'+attendee[0].c[3].v+'" name="students"';
 						if(list_attend[i].c[1] != null) { //attendTime에 가록이 있을 때
-							studentTr[++idx_t] = ' checked';
+							studentTr[++idx_t] = '<input type="hidden" name="whoischecker" value="'+  +'">\n';
+							studentTr[++idx_t] = '<input type="checkbox" value="'+attendee[0].c[3].v+'" name="students" checked';
+						} else {
+							studentTr[++idx_t] = '<input type="hidden" name="whoischecker" value="">\n';
+							studentTr[++idx_t] = '<input type="checkbox" value="'+attendee[0].c[3].v+'" name="students"';
 						}
 						studentTr[++idx_t] = '></td>\n';
 						studentTr[++idx_t] = '<td>'+(++ii)+'</td>\n';
@@ -385,13 +388,16 @@ $(function($){
 	// --------------------------------------------------
 	// 전체선택 소스
 	// --------------------------------------------------
-	$('#checkAll').click(function() {
+	//$('#checkAll').click(function() {
+	var cAll = function() {
 		if ( $('#checkAll').prop('checked') ) {
 			$('input[name="students"]').prop('checked', true);
 		} else {
 			$('input[name="students"]').prop('checked',false);
 		}
-	});
+	//});
+	};
+	$('#checkAll').on('click', cAll);
 
 	// --------------------------------------------------
 	// 4-1. 출석 취소 기능
@@ -399,7 +405,23 @@ $(function($){
 	//$('input[name="students"]').click(function() {
 		// 출석확인 되어 있는 사람이 아닐 경우 아무 일도 일어나지 않음
 		//var n = this.filter(':unchecked')
-	//	alert('!');
+
+		// uncheck 될 때, 기존 출석확인이 되어있는지 검사 input[name="whoischecker"]:eq(index)
+
+		// 기존 출석확인이 아니면 return true;
+
+		// 기존 출석확인자면 취소 루틴 실행
+
+			// 취소할 것인지 묻기
+			// html 요소에서 이름 가져오기
+
+			// $.ajax
+			// no를 기준으로
+			// attendTime -> Timestamp
+			// attendTime = ''
+			// checker = ''
+			// fee 는 그대로
+
 	//});
 
 });
