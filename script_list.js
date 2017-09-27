@@ -147,7 +147,7 @@ $(function($){
 	var changeSubject = function() { // 과목 바꾸면 리스트 갱신
 
 		$('.loading-container').fadeIn();
-		$('.studentList').empty(); // 명단을 초기화해서 모두 지움
+		$('#stTable').empty(); // 명단을 초기화해서 모두 지움
 
 		var subject_code = $('#subjectCode option:selected').val();
 		var index = $('#subjectCode option').index($('#subjectCode option:selected'))-1;
@@ -182,10 +182,30 @@ $(function($){
 				//console.log('** 출석 체크한 학생 수: ' + total_attend + '명');
 
 				if (total_attend < 1) {
-					$('.studentList').append( $('<tr><td colspan="9" class="blankTr">선택한 인원이 없습니다.</td></tr>') );
+					//$('.studentList').append( $('<tr><td colspan="9" class="blankTr">선택한 인원이 없습니다.</td></tr>') );
+					$('#stTable').innerHTML('<p>강의를 선택하시면 명단을 불러옵니다.</p>');
 					$('.loading-container').fadeOut();
 					return;
 				}
+
+				var studentTr = new Array();
+				var idx_t = -1;
+
+				studentTr[++idx_t] = '<table>';
+				studentTr[++idx_t] = '<thead>';
+				studentTr[++idx_t] = '<tr>';
+				studentTr[++idx_t] = '<th><input type="checkbox" id="checkAll" disabled><!--전체선택--></th>';
+				studentTr[++idx_t] = '<th>no</th>';
+				studentTr[++idx_t] = '<th>이름</th>';
+				studentTr[++idx_t] = '<th>순장</th>';
+				studentTr[++idx_t] = '<th>성별</th>';
+				studentTr[++idx_t] = '<th>학년</th>';
+				studentTr[++idx_t] = '<th>학교</th>';
+				studentTr[++idx_t] = '<th>학번</th>';
+				studentTr[++idx_t] = '<th>회비</th>';
+				studentTr[++idx_t] = '</tr>';
+				studentTr[++idx_t] = '</thead>';
+				studentTr[++idx_t] = '<tbody class=#stTable">';
 
 				// --------------------------------------------------
 				// 2-2. 해당 하는 날짜의 해당 과목 출석 체크한 사람의 정보를 가져옴
@@ -223,7 +243,7 @@ $(function($){
 						}
 
 						//console.log('*** '' + (k+1) + '  ' + attendee[0].c[5].v + ' / ' + attendee[0].c[4].v + ' / ' + attendee[0].c[6].v);
-						//$('.studentList').append( $('<li><label><input type="radio" name="subject" value="' + attendee[0].c[4].v.toString() + '">[' + attendee[0].c[1].v.toString() + '] ' + attendee[0].c[6].v.toString() + ' / ' + attendee[0].c[5].v.toString() + '</label></li>') );
+						//$('#stTable').append( $('<li><label><input type="radio" name="subject" value="' + attendee[0].c[4].v.toString() + '">[' + attendee[0].c[1].v.toString() + '] ' + attendee[0].c[6].v.toString() + ' / ' + attendee[0].c[5].v.toString() + '</label></li>') );
 						// attendee[].c[0] = timestamp
 						//			1] = name (student's)
 						//			2] = sex
@@ -236,33 +256,36 @@ $(function($){
 						//			9] = 11/9 subject, [10]=11/16, [11]=11/23
 						//			12]= application
 						//			13]= total fee
-						var studentTr = '<tr class="row' + ii%2 + '">\n';
-						studentTr += '<td><input type="hidden" name="no" value="'+item.c[0].v+'">\n';
-						studentTr += '<input type="hidden" name="attend_time" value="';
+						studentTr[++idx_t] = '<tr class="row' + ii%2 + '">\n';
+						studentTr[++idx_t] = '<td><input type="hidden" name="no" value="'+item.c[0].v+'">\n';
+						studentTr[++idx_t] = '<input type="hidden" name="attend_time" value="';
 						studentTr += (item.c[1] != null) ? item.c[1].f : item.c[4].f; 
-						studentTr += '">\n';
-						studentTr += '<input type="checkbox" name="students" value="'+attendee[0].c[3].v+'">';
+						studentTr[++idx_t] = '">\n';
+						studentTr[++idx_t] = '<input type="checkbox" name="students" value="'+attendee[0].c[3].v+'">';
 						if(item.c[1] != null) { //attendTime에 가록이 있을 때
-							studentTr += '<br>\n<button type="button" id="cancelBtn" name="cancel-button">취소</button>';
+							studentTr[++idx_t] = '<br>\n<button type="button" id="cancelBtn" name="cancel-button">취소</button>';
 						}
-						studentTr += '</td>\n';
-						studentTr += '<td>'+(++ii)+'</td>\n';
-						studentTr += '<td>'+attendee[0].c[1].v+'</td>\n';	// 이름
-						studentTr += '<td>'+attendee[0].c[8].v+'</td>\n';	// 호칭
-						studentTr += '<td>'+attendee[0].c[2].v.toString().substr(0,1)+'</td>\n';	// 성별
-						studentTr += '<td>'+attendee[0].c[4].v.toString().substr(0,1)+'</td>\n';	// 학년
-						studentTr += '<td>'+attendee[0].c[5].v.toString().substr(0,5)+'</td>\n';	// 소속
-						studentTr += '<td>'+attendee[0].c[6].v.toString().substr(-2) +'</td>\n';	// 학번
-						studentTr += '<td><input type="text" name="fee" class="fee" size="7" value="';
-						studentTr += (item.c[6] != null) ? item.c[6].f : '0';
-						studentTr += '">원</td>\n';	// 회비
-						studentTr += '</tr>\n';
-						$('.studentList').append( studentTr );
+						studentTr[++idx_t] = '</td>\n';
+						studentTr[++idx_t] = '<td>'+(++ii)+'</td>\n';
+						studentTr[++idx_t] = '<td>'+attendee[0].c[1].v+'</td>\n';	// 이름
+						studentTr[++idx_t] = '<td>'+attendee[0].c[8].v+'</td>\n';	// 호칭
+						studentTr[++idx_t] = '<td>'+attendee[0].c[2].v.toString().substr(0,1)+'</td>\n';	// 성별
+						studentTr[++idx_t] = '<td>'+attendee[0].c[4].v.toString().substr(0,1)+'</td>\n';	// 학년
+						studentTr[++idx_t] = '<td>'+attendee[0].c[5].v.toString().substr(0,5)+'</td>\n';	// 소속
+						studentTr[++idx_t] = '<td>'+attendee[0].c[6].v.toString().substr(-2) +'</td>\n';	// 학번
+						studentTr[++idx_t] = '<td><input type="text" name="fee" class="fee" size="7" value="';
+						studentTr[++idx_t] = (item.c[6] != null) ? item.c[6].f : '0';
+						studentTr[++idx_t] = '">원</td>\n';	// 회비
+						studentTr[++idx_t] = '</tr>\n';
 
 					}).fail(function() {
-				    		alert('출석한 사용자의 정보를 읽어오는데 실패했습니다.');
+				    	alert('출석한 사용자의 정보를 읽어오는데 실패했습니다.');
 				    });
 				});
+
+				studentTr[++idx_t] = '</tbody>';
+				studentTr[++idx_t] = '</table>';
+				$('#stTable')[0].innerHTML = studentTr.join('');
 
 				$('.loading-container').fadeOut();
 
