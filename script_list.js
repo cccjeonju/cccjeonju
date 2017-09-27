@@ -263,7 +263,7 @@ $(function($){
 						studentTr[++idx_t] = '<input type="hidden" name="attend_time" value="';
 						studentTr[++idx_t] = (attendee[0].c[1] != null) ? attendee[0].c[1].f : attendee[0].c[4].f; 
 						studentTr[++idx_t] = '">\n';
-						studentTr[++idx_t] = '<input type="checkbox" name="students" value="'+attendee[0].c[3].v;+'"';
+						studentTr[++idx_t] = '<input type="checkbox" name="students" value="'+attendee[0].c[3].v+'"';
 						if(list_attend[i].c[1] != null) { //attendTime에 가록이 있을 때
 							studentTr[++idx_t] = ' checked><br>\n<button type="button" id="cancelBtn" name="cancel-button">취소</button';
 						}
