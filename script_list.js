@@ -244,7 +244,7 @@ $(function($){
 							return;
 						}
 
-						console.log('*** ' + (i+1) + '  ' + attendee[0].c[1].v + ' ' + attendee[0].c[3].v + ' ' + attendee[0].c[5].v);
+						console.log('*** ' + (i+1) + list_attend[i].c[3].v + ' ' + attendee[0].c[1].v + ' ' + attendee[0].c[3].v + ' ' + attendee[0].c[5].v);
 						//$('#stTable').append( $('<li><label><input type="radio" name="subject" value="' + attendee[0].c[4].v.toString() + '">[' + attendee[0].c[1].v.toString() + '] ' + attendee[0].c[6].v.toString() + ' / ' + attendee[0].c[5].v.toString() + '</label></li>') );
 						// attendee[].c[0] = timestamp
 						//			1] = name (student's)
@@ -396,11 +396,5 @@ $(function($){
 	$('#cancelBtn').click(function() {
 		alert('!');
 	});
-	
 
-	// --------------------------------------------------
-	// 추가 작업 지시서
-	// --------------------------------------------------
-	// 1. 회비 납부
-	// --------------------------------------------------
 });
