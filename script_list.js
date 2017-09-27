@@ -61,8 +61,8 @@ var handleClientLoad = function() {
 	      document.getElementById('gSignInWrapper').prepend(p);
 	      document.getElementById('email').value = email;
 	      document.getElementById('checker').value = name;
-	      document.getElementById('checkAll').style.display = 'block';
-	      document.getElementById('checkAll').disabled = false;
+	      //document.getElementById('checkAll').style.display = 'block';
+	      //document.getElementById('checkAll').disabled = false;
 	      for(var i=0; i<document.getElementsByName('students').length; i++) {
 	      	document.getElementsByName('students').style.display = 'block';
 	      	document.getElementsByName('students').disabled = false;
@@ -75,8 +75,8 @@ var handleClientLoad = function() {
 	      document.getElementById('gSignInWrapper').removeChild(document.getElementById('gSignInWrapper').firstChild);
 	      document.getElementById('email').value = "";
 	      document.getElementById('checker').value = "";
-	      document.getElementById('checkAll').style.display = 'none';
-	      document.getElementById('checkAll').disabled = true;
+	      //document.getElementById('checkAll').style.display = 'none';
+	      //document.getElementById('checkAll').disabled = true;
 	      for(var i=0; i<document.getElementsByName('students').length; i++) {
 	      	document.getElementsByName('students').style.display = 'none';
 	      	document.getElementsByName('students').disabled = true;
@@ -152,6 +152,7 @@ $(function($){
 		var subject_code = $('#subjectCode option:selected').val();
 		var index = $('#subjectCode option').index($('#subjectCode option:selected'))-1;
 		var ii = 0; // 현재 반의 인원
+		var feeTotal = 0;
 
 		var today;
 
@@ -210,8 +211,9 @@ $(function($){
 				// --------------------------------------------------
 				// 2-2. 해당 하는 날짜의 해당 과목 출석 체크한 사람의 정보를 가져옴
 				// --------------------------------------------------
-				$.each(list_attend, function(i, item) {
-					//console.log('** ' + (i+1) + '  ' + item.c[2].v + ' / ' + item.c[1].v);
+				//$.each(list_attend, function(i, item) {
+				for(var i=-1; i<total_attend; ++i) {
+					//console.log('** ' + (i+1) + '  ' + list_attend[i].c[2].v + ' / ' + list_attend[i].c[1].v);
 					//list_attend[].c[0] = no (row number)
 					//				c[1] = timestamp (attend time for student)
 					//				c[2] = phone (student's)
@@ -230,7 +232,7 @@ $(function($){
 				    	type: 'GET',
 				    	cache: false,
 				    	async: false,
-						url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_REGIST+'&tq=select+*+where+D+matches+\''+item.c[2].v+'\'' // phone number로 user 정보 가져오기
+						url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_REGIST+'&tq=select+*+where+D+matches+\''+list_attend[i].c[2].v+'\'' // phone number로 user 정보 가져오기
 					}).done(function(data2) {
 						var attendee = JSON.parse(data2.substring(data2.indexOf('(')+1, data2.indexOf(');'))).table.rows, // 문자열에서 불필요한 부분 제거하고 JSON 형식으로.
 							attendee_total = attendee.length; // 목록 수.
@@ -257,12 +259,12 @@ $(function($){
 						//			12]= application
 						//			13]= total fee
 						studentTr[++idx_t] = '<tr class="row' + ii%2 + '">\n';
-						studentTr[++idx_t] = '<td><input type="hidden" name="no" value="'+item.c[0].v+'">\n';
+						studentTr[++idx_t] = '<td><input type="hidden" name="no" value="'+list_attend[i].c[0].v+'">\n';
 						studentTr[++idx_t] = '<input type="hidden" name="attend_time" value="';
-						studentTr += (item.c[1] != null) ? item.c[1].f : item.c[4].f; 
+						studentTr += (list_attend[i].c[1] != null) ? list_attend[i].c[1].f : list_attend[i].c[4].f; 
 						studentTr[++idx_t] = '">\n';
 						studentTr[++idx_t] = '<input type="checkbox" name="students" value="'+attendee[0].c[3].v+'">';
-						if(item.c[1] != null) { //attendTime에 가록이 있을 때
+						if(list_attend[i].c[1] != null) { //attendTime에 가록이 있을 때
 							studentTr[++idx_t] = '<br>\n<button type="button" id="cancelBtn" name="cancel-button">취소</button>';
 						}
 						studentTr[++idx_t] = '</td>\n';
@@ -274,18 +276,25 @@ $(function($){
 						studentTr[++idx_t] = '<td>'+attendee[0].c[5].v.toString().substr(0,5)+'</td>\n';	// 소속
 						studentTr[++idx_t] = '<td>'+attendee[0].c[6].v.toString().substr(-2) +'</td>\n';	// 학번
 						studentTr[++idx_t] = '<td><input type="text" name="fee" class="fee" size="7" value="';
-						studentTr[++idx_t] = (item.c[6] != null) ? item.c[6].f : '0';
+						studentTr[++idx_t] = (list_attend[i].c[6] != null) ? list_attend[i].c[6].f : '0';
 						studentTr[++idx_t] = '">원</td>\n';	// 회비
 						studentTr[++idx_t] = '</tr>\n';
+
+						if(list_attend[i].c[6] != null) { feeTotal +=  list_attend[i].c[6].f; }
 
 					}).fail(function() {
 				    	alert('출석한 사용자의 정보를 읽어오는데 실패했습니다.');
 				    });
-				});
+				}
 
+				studentTr[++idx_t] = '<tr>';
+				studentTr[++idx_t] = '<td colspan="2">총 ' + ii + '명</td>';
+				studentTr[++idx_t] = '<td colspan="5">이름</td>';
+				studentTr[++idx_t] = '<td colspan="2">오늘 회비 ' + feeTotal + '원</td>';
+				studentTr[++idx_t] = '</tr>';
 				studentTr[++idx_t] = '</tbody>';
 				studentTr[++idx_t] = '</table>';
-				$('#stTable')[0].innerHTML = studentTr.join('');
+				$('#stTable').innerHTML = studentTr.join();
 
 				$('.loading-container').fadeOut();
 
