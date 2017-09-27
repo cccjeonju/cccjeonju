@@ -244,7 +244,7 @@ $(function($){
 							return;
 						}
 
-						console.log('*** ' + (i+1) + list_attend[i].c[3].v + ' ' + attendee[0].c[1].v + ' ' + attendee[0].c[3].v + ' ' + attendee[0].c[5].v);
+						//console.log('*** ' + (i+1) + ' ' + list_attend[i].c[3].v + ' ' + attendee[0].c[1].v + ' ' + attendee[0].c[3].v + ' ' + attendee[0].c[5].v);
 						//$('#stTable').append( $('<li><label><input type="radio" name="subject" value="' + attendee[0].c[4].v.toString() + '">[' + attendee[0].c[1].v.toString() + '] ' + attendee[0].c[6].v.toString() + ' / ' + attendee[0].c[5].v.toString() + '</label></li>') );
 						// attendee[].c[0] = timestamp
 						//			1] = name (student's)
@@ -291,8 +291,8 @@ $(function($){
 				}
 
 				studentTr[++idx_t] = '<tr class="row' + ii%2 + '">\n';
-				studentTr[++idx_t] = '<td colspan="2" style="text-align:right">총 ' + ii + '명</td>\n';
-				studentTr[++idx_t] = '<td colspan="7" style="text-align:right">오늘 회비 ' + Number(feeTotal).toLocaleString('en') + '원</td>\n';
+				studentTr[++idx_t] = '<td colspan="3" style="text-align:center">총 ' + ii + '명</td>\n';
+				studentTr[++idx_t] = '<td colspan="6" style="text-align:right">오늘 회비 ' + Number(feeTotal).toLocaleString('en') + '원</td>\n';
 				studentTr[++idx_t] = '</tr>\n';
 				studentTr[++idx_t] = '</tbody>\n';
 				studentTr[++idx_t] = '</table>\n';
