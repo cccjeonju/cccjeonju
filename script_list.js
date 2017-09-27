@@ -286,16 +286,16 @@ $(function($){
 						studentTr[++idx_t] = '</tr>\n';
 
 					}).fail(function() {
-				    	alert('출석한 사용자의 정보를 읽어오는데 실패했습니다.');
+				    	alert('출석한 사용자(' + list_attend[i].c[2].v + ')의 정보를 읽어오는데 실패했습니다.');
 				    });
 				}
 
-				studentTr[++idx_t] = '<tr>';
-				studentTr[++idx_t] = '<td colspan="2" style="text-align:right">총 ' + ii + '명</td>';
-				studentTr[++idx_t] = '<td colspan="7" style="text-align:right">오늘 회비 ' + Number(feeTotal).toLocalString('en') + '원</td>';
-				studentTr[++idx_t] = '</tr>';
-				studentTr[++idx_t] = '</tbody>';
-				studentTr[++idx_t] = '</table>';
+				studentTr[++idx_t] = '<tr class="row' + ii%2 + '">\n';
+				studentTr[++idx_t] = '<td colspan="2" style="text-align:right">총 ' + ii + '명</td>\n';
+				studentTr[++idx_t] = '<td colspan="7" style="text-align:right">오늘 회비 ' + Number(feeTotal).toLocalString('en') + '원</td>\n';
+				studentTr[++idx_t] = '</tr>\n';
+				studentTr[++idx_t] = '</tbody>\n';
+				studentTr[++idx_t] = '</table>\n';
 				//console.log(  );
 				$('#stTable').html( studentTr.join('') );
 
