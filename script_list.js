@@ -296,12 +296,10 @@ $(function($){
 					$('#attendBtn').removeAttr('disabled').show();
 					$('#checkAll').removeAttr('disabled').removeAttr('style');
 					$('input[name="students"]').removeAttr('disabled').show();
-					$('input[name="cancel-button"]').removeAttr('disabled').show();
 				} else {
 					$('#attendBtn').prop('disabled', true).hide();
 					$('#checkAll').prop('disabled', true).hide();
 					$('input[name="students"]').prop('disabled', true).hide();
-					$('input[name="cancel-button"]').prop('disabled', true).hide();
 				}
 
 			},
