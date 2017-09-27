@@ -259,9 +259,9 @@ $(function($){
 						//			12]= application
 						//			13]= total fee
 						studentTr[++idx_t] = '<tr class="row' + ii%2 + '">\n';
-						studentTr[++idx_t] = '<td><input type="hidden" name="no" value="'+attendee[0].c[0].v+'">\n';
+						studentTr[++idx_t] = '<td><input type="hidden" name="no" value="'+list_attend[i].c[0].v+'">\n';
 						studentTr[++idx_t] = '<input type="hidden" name="attend_time" value="';
-						studentTr[++idx_t] = (attendee[0].c[1] != null) ? attendee[0].c[1].f : attendee[0].c[4].f; 
+						studentTr[++idx_t] = (list_attend[i].c[1] != null) ? list_attend[i].c[1].f : list_attend[i].c[4].f; 
 						studentTr[++idx_t] = '">\n';
 						studentTr[++idx_t] = '<input type="checkbox" value="'+attendee[0].c[3].v+'" name="students"';
 						if(list_attend[i].c[1] != null) { //attendTime에 가록이 있을 때
