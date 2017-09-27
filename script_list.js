@@ -329,8 +329,9 @@ $(function($){
 		$('.loading-container').fadeIn();
 
 		var elements = $('input[name="students"]').filter(':checked');
+		var elem_length = elements.length;
 
-		if (elements.length < 1) {
+		if ( elem_length < 1) {
 			alert('출석 확인할 명단에 체크하고 "출석 확인"" 버튼을 누르세요.');
 			$('#attendBtn').removeAttr('disabled'); // 버튼 활성화 복귀
 			$('#checkAll').focus();
@@ -338,7 +339,7 @@ $(function($){
 			return false;
 		}
 
-		var result = confirm(elements.length + '명에 대하여 출석 확인을 하시겠습니까?');
+		var result = confirm( elem_length + '명에 대하여 출석 확인을 하시겠습니까?');
 		if ( !result ) {
 			$('#attendBtn').removeAttr('disabled'); // 버튼 활성화 복귀
 			$('#checkAll').focus();
@@ -350,7 +351,7 @@ $(function($){
 
 		//$('input[name="students"]').filter(':checked').each(function(aa, elements) {
 		
-		for( var aa = 0; aa < elements.length; aa++) {
+		for( var aa = 0; aa < elem_length; aa++) {
 			var index = elements.index('input[name="students"]');
 
 			$.ajax({
@@ -381,13 +382,11 @@ $(function($){
 		$('body').scrollTop(0);	// 페이지 맨 위로 이동
 		$('.loading-container').fadeOut();
 		$('#attendBtn').removeAttr('disabled'); // 버튼 활성화 복귀
-
 	});
 
 	// --------------------------------------------------
 	// 전체선택 소스
 	// --------------------------------------------------
-	var check_all = $('#checkAll');
 	$('#checkAll').click(function() {
 		if ( $('#checkAll').prop('checked') ) {
 			$('input[name="students"]').prop('checked', true);
