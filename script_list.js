@@ -354,9 +354,10 @@ $(function($){
 
 		//console.log($('input[name="students"]'));
 
-		$('input[name="students"]').filter(':checked').each(function(aa, elements) {
-		//for( var aa = 0; aa < $('input[name="students"]').prop('checked').length; aa++) {
-			var index = $(elements).index('input[name="students"]');
+		//$('input[name="students"]').filter(':checked').each(function(aa, elements) {
+		var elements = $('input[name="students"]').prop('checked');
+		for( var aa = 0; aa < elements.length; aa++) {
+			var index = elements.index('input[name="students"]');
 
 			$.ajax({
 				type: 'POST',
@@ -370,15 +371,16 @@ $(function($){
 					checker: $('#email').val()
 				},
 				success: function(data3) {
-					console.log(aa+1 + '. ' + $(elements).val() + '님 출석확인 완료');
+					//console.log(aa+1 + '. ' + $(elements).val() + '님 출석확인 완료');
+					console.log(aa+1 + '. ' + elements.val() + '님 출석확인 완료');
 					changeSubject();
 				},
 				error: function() {
 					alert('출석을 기록하는데 에러가 발생했습니다.');
 				}
 			});
-		//} //for( var aa
-		});
+		} //for( var aa
+
 		alert('출석 확인이 완료되었습니다.');
 		$('#checkAll').prop('checked', false);
 		$('input[name="students"]').prop('checked',false);
@@ -393,7 +395,7 @@ $(function($){
 	// --------------------------------------------------
 	$(':checkbox').click(function() {
 		// 출석확인 되어 있는 사람이 아닐 경우 아무 일도 일어나지 않음
-		alert(this);
+		//var n = this.filter(':unchecked')
 	});
 
 });
