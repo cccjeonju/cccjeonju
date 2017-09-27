@@ -94,7 +94,7 @@ $(function($){
 		manage_email = 'hiyen2001@gmail.com';
 
 	var checkerList = new Array();
-	
+
 	// --------------------------------------------------
 	// 1-1. 출석체크가 초기 실행되면 개설된 강의 목록을 읽어와야 함
 	// 1-2. 로딩이 끝나면 loadingbar fadeout 효과를 
@@ -266,9 +266,9 @@ $(function($){
 						studentTr[++idx_t] = '<td>'+attendee[0].c[5].v.substr(0,5)+'</td>\n';	// 소속
 						studentTr[++idx_t] = '<td>'+attendee[0].c[6].f.substr(-2) +'</td>\n';	// 학번
 						studentTr[++idx_t] = '<td><input type="text" name="fee" class="fee" size="7" value="';
-						if(attendee[0].c[13] != null) {
-							feeTotal +=  attendee[0].c[13].v;
-							studentTr[++idx_t] = attendee[0].c[13].f;
+						if(list_attend[i].c[6] != null) {
+							feeTotal += list_attend[i].c[6].v;
+							studentTr[++idx_t] = list_attend[i].c[6].f;
 						} else {
 							studentTr[++idx_t] = '0';
 						}
