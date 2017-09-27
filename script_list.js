@@ -212,7 +212,7 @@ $(function($){
 				// 2-2. 해당 하는 날짜의 해당 과목 출석 체크한 사람의 정보를 가져옴
 				// --------------------------------------------------
 				//$.each(list_attend, function(i, item) {
-				for(var i=-1; i<total_attend; ++i) {
+				for(var i=0; i<total_attend; ++i) {
 					//console.log('** ' + (i+1) + '  ' + list_attend[i].c[2].v + ' / ' + list_attend[i].c[1].v);
 					//list_attend[].c[0] = no (row number)
 					//				c[1] = timestamp (attend time for student)
