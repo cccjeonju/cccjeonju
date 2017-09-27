@@ -184,7 +184,7 @@ $(function($){
 
 				if (total_attend < 1) {
 					//$('.studentList').append( $('<tr><td colspan="9" class="blankTr">선택한 인원이 없습니다.</td></tr>') );
-					$('#stTable').innerHTML('<p>강의를 선택하시면 명단을 불러옵니다.</p>');
+					$('#stTable').html('<p>강의를 선택하시면 명단을 불러옵니다.</p>');
 					$('.loading-container').fadeOut();
 					return;
 				}
@@ -206,7 +206,7 @@ $(function($){
 				studentTr[++idx_t] = '<th>회비</th>';
 				studentTr[++idx_t] = '</tr>';
 				studentTr[++idx_t] = '</thead>';
-				studentTr[++idx_t] = '<tbody class=#stTable">';
+				studentTr[++idx_t] = '<tbody>';
 
 				// --------------------------------------------------
 				// 2-2. 해당 하는 날짜의 해당 과목 출석 체크한 사람의 정보를 가져옴
@@ -265,7 +265,7 @@ $(function($){
 						studentTr[++idx_t] = '">\n';
 						studentTr[++idx_t] = '<input type="checkbox" value="'+attendee[0].c[3].v+'" name="students"';
 						if(list_attend[i].c[1] != null) { //attendTime에 가록이 있을 때
-							studentTr[++idx_t] = ' checked><br>\n<button type="button" id="cancelBtn" name="cancel-button">취소</button';
+							studentTr[++idx_t] = ' checked';
 						}
 						studentTr[++idx_t] = '></td>\n';
 						studentTr[++idx_t] = '<td>'+(++ii)+'</td>\n';
@@ -393,8 +393,9 @@ $(function($){
 	// --------------------------------------------------
 	// 4-1. 출석 취소 기능
 	// --------------------------------------------------
-	$('#cancelBtn').click(function() {
-		alert('!');
+	$('input[name="students"]').click(function() {
+		// 출석확인 되어 있는 사람이 아닐 경우 아무 일도 일어나지 않음
+
 	});
 
 });
