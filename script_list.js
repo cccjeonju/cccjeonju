@@ -295,7 +295,7 @@ $(function($){
 				studentTr[++idx_t] = '</tbody>';
 				studentTr[++idx_t] = '</table>';
 				//console(studentTr.toString());
-				$('#stTable').innerHTML = studentTr.toString();
+				$('#stTable').html( studentTr.toString() );
 
 				$('.loading-container').fadeOut();
 
