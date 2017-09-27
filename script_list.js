@@ -337,7 +337,7 @@ $(function($){
 					checker: $('#email').val()
 				},
 				success: function(data3) {
-					console.log(aa+1 + ' ' + $('input[name="students"]:eq('+ $(elements).val() +')').val() + '님 출석확인 완료');
+					console.log(aa+1 + '. ' + $(elements).val() + '님 출석확인 완료');
 					changeSubject();
 				},
 				error: function() {
