@@ -355,7 +355,7 @@ $(function($){
 		//console.log($('input[name="students"]'));
 
 		//$('input[name="students"]').filter(':checked').each(function(aa, elements) {
-		var elements = $('input[name="students"]').prop('checked');
+		var elements = $('input[name="students"]').filter(':checked');
 		for( var aa = 0; aa < elements.length; aa++) {
 			var index = elements.index('input[name="students"]');
 
