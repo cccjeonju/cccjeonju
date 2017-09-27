@@ -1,5 +1,3 @@
-document.getElementById('now_date').valueAsDate = new Date();
-
 var clientId = '62990643006-squj2admavms41d94p4gkn3ef256dfn9.apps.googleusercontent.com';
 
 var authorizeButton = document.getElementById('authorize-button');
@@ -80,6 +78,8 @@ var handleClientLoad = function() {
 	  }
 	});
 }
+
+document.getElementById('now_date').valueAsDate = new Date();
 
 $(function($){
 
