@@ -259,12 +259,12 @@ $(function($){
 						//			12]= application
 						//			13]= total fee
 						studentTr[++idx_t] = '<tr class="row' + ii%2 + '">\n';
-						studentTr[++idx_t] = '<td><input type="hidden" name="no" value="'+list_attend[i].c[0].v+'">\n';
+						studentTr[++idx_t] = '<td><input type="hidden" name="no" value="'+attendee[0].c[0].v+'">\n';
 						studentTr[++idx_t] = '<input type="hidden" name="attend_time" value="';
-						studentTr += (list_attend[i].c[1] != null) ? list_attend[i].c[1].f : list_attend[i].c[4].f; 
+						studentTr += (attendee[0].c[1] != null) ? attendee[0].c[1].f : attendee[0].c[4].f; 
 						studentTr[++idx_t] = '">\n';
 						studentTr[++idx_t] = '<input type="checkbox" name="students" value="'+attendee[0].c[3].v+'">';
-						if(list_attend[i].c[1] != null) { //attendTime에 가록이 있을 때
+						if(attendee[0].c[1] != null) { //attendTime에 가록이 있을 때
 							studentTr[++idx_t] = '<br>\n<button type="button" id="cancelBtn" name="cancel-button">취소</button>';
 						}
 						studentTr[++idx_t] = '</td>\n';
@@ -276,11 +276,11 @@ $(function($){
 						studentTr[++idx_t] = '<td>'+attendee[0].c[5].v.toString().substr(0,5)+'</td>\n';	// 소속
 						studentTr[++idx_t] = '<td>'+attendee[0].c[6].v.toString().substr(-2) +'</td>\n';	// 학번
 						studentTr[++idx_t] = '<td><input type="text" name="fee" class="fee" size="7" value="';
-						studentTr[++idx_t] = (list_attend[i].c[6] != null) ? list_attend[i].c[6].f : '0';
+						studentTr[++idx_t] = (attendee[0].c[6] != null) ? attendee[0].c[6].f : '0';
 						studentTr[++idx_t] = '">원</td>\n';	// 회비
 						studentTr[++idx_t] = '</tr>\n';
 
-						if(list_attend[i].c[6] != null) { feeTotal +=  list_attend[i].c[6].f; }
+						if(attendee[0].c[6] != null) { feeTotal +=  attendee[0].c[6].f; }
 
 					}).fail(function() {
 				    	alert('출석한 사용자의 정보를 읽어오는데 실패했습니다.');
