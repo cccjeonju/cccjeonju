@@ -79,8 +79,6 @@ var handleClientLoad = function() {
 	});
 }
 
-document.getElementById('now_date').valueAsDate = new Date();
-
 $(function($){
 
 	var KEY_SPREADSHEET = '1PHN8N0nY7YLw5NlYTp9VqSvqOHdgsvR2W8BfAZ8AtY4',	// Spreadsheet Key
@@ -95,6 +93,7 @@ $(function($){
 
 	var checkerList = new Array();
 
+	$('#now_date').valueAsDate = new Date();
 	// --------------------------------------------------
 	// 1-1. 출석체크가 초기 실행되면 개설된 강의 목록을 읽어와야 함
 	// 1-2. 로딩이 끝나면 loadingbar fadeout 효과를 
