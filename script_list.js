@@ -96,14 +96,6 @@ $(function($){
 	var checkerList = new Array();
 
 	// --------------------------------------------------
-	// 전체선택 소스
-	// --------------------------------------------------
-	$('#checkAll').click(function(){
-		if ( $('#checkAll').prop('checked') ) $('input[name="students"]').prop('checked', true);
-		else $('input[name="students"]').prop('checked',false);
-	});
-
-	// --------------------------------------------------
 	// 1-1. 출석체크가 초기 실행되면 개설된 강의 목록을 읽어와야 함
 	// 1-2. 로딩이 끝나면 loadingbar fadeout 효과를 
 	// --------------------------------------------------
@@ -336,7 +328,9 @@ $(function($){
 		$('#attendBtn').prop('disabled', true); // 버튼 비활성화
 		$('.loading-container').fadeIn();
 
-		if ($('input[name="students"]:checked').length < 1) {
+		var elements = $('input[name="students"]').filter(':checked');
+
+		if (elements.length < 1) {
 			alert('출석 확인할 명단에 체크하고 "출석 확인"" 버튼을 누르세요.');
 			$('#attendBtn').removeAttr('disabled'); // 버튼 활성화 복귀
 			$('#checkAll').focus();
@@ -344,7 +338,7 @@ $(function($){
 			return false;
 		}
 
-		var result = confirm($('input[name="students"]').filter(':checked').length + '명에 대하여 출석 확인을 하시겠습니까?');
+		var result = confirm(elements.length + '명에 대하여 출석 확인을 하시겠습니까?');
 		if ( !result ) {
 			$('#attendBtn').removeAttr('disabled'); // 버튼 활성화 복귀
 			$('#checkAll').focus();
@@ -355,7 +349,7 @@ $(function($){
 		//console.log($('input[name="students"]'));
 
 		//$('input[name="students"]').filter(':checked').each(function(aa, elements) {
-		var elements = $('input[name="students"]').filter(':checked');
+		
 		for( var aa = 0; aa < elements.length; aa++) {
 			var index = elements.index('input[name="students"]');
 
@@ -388,6 +382,18 @@ $(function($){
 		$('.loading-container').fadeOut();
 		$('#attendBtn').removeAttr('disabled'); // 버튼 활성화 복귀
 
+	});
+
+	// --------------------------------------------------
+	// 전체선택 소스
+	// --------------------------------------------------
+	var check_all = $('#checkAll');
+	$('#checkAll').click(function() {
+		if ( $('#checkAll').prop('checked') ) {
+			$('input[name="students"]').prop('checked', true);
+		} else {
+			$('input[name="students"]').prop('checked',false);
+		}
 	});
 
 	// --------------------------------------------------
