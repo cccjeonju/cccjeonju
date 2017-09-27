@@ -276,11 +276,14 @@ $(function($){
 						studentTr[++idx_t] = '<td>'+attendee[0].c[5].v.substr(0,5)+'</td>\n';	// 소속
 						studentTr[++idx_t] = '<td>'+attendee[0].c[6].f.substr(-2) +'</td>\n';	// 학번
 						studentTr[++idx_t] = '<td><input type="text" name="fee" class="fee" size="7" value="';
-						studentTr[++idx_t] = (attendee[0].c[6] != null) ? attendee[0].c[6].f : '0';
+						if(attendee[0].c[13] != null) {
+							feeTotal +=  attendee[0].c[13].v;
+							studentTr[++idx_t] = attendee[0].c[13].f;
+						} else {
+							studentTr[++idx_t] = '0';
+						}
 						studentTr[++idx_t] = '">원</td>\n';	// 회비
 						studentTr[++idx_t] = '</tr>\n';
-
-						if(attendee[0].c[6] != null) { feeTotal +=  attendee[0].c[6].f; }
 
 					}).fail(function() {
 				    	alert('출석한 사용자의 정보를 읽어오는데 실패했습니다.');
@@ -288,9 +291,8 @@ $(function($){
 				}
 
 				studentTr[++idx_t] = '<tr>';
-				studentTr[++idx_t] = '<td colspan="2">총 ' + ii + '명</td>';
-				studentTr[++idx_t] = '<td colspan="5">이름</td>';
-				studentTr[++idx_t] = '<td colspan="2">오늘 회비 ' + feeTotal + '원</td>';
+				studentTr[++idx_t] = '<td colspan="2" style="text-align:right">총 ' + ii + '명</td>';
+				studentTr[++idx_t] = '<td colspan="7" style="text-align:right">오늘 회비 ' + feeTotal + '원</td>';
 				studentTr[++idx_t] = '</tr>';
 				studentTr[++idx_t] = '</tbody>';
 				studentTr[++idx_t] = '</table>';
