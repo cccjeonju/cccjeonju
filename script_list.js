@@ -167,7 +167,7 @@ $(function($){
 				studentTr[++idx_t] = '<table>';
 				studentTr[++idx_t] = '<thead>';
 				studentTr[++idx_t] = '<tr>';
-				studentTr[++idx_t] = '<th><input type="checkbox" id="checkAll" disabled><!--전체선택--></th>';
+				studentTr[++idx_t] = '<th><input type="checkbox" id="selectAll" disabled><!--전체선택--></th>';
 				studentTr[++idx_t] = '<th>no</th>';
 				studentTr[++idx_t] = '<th>이름</th>';
 				studentTr[++idx_t] = '<th>순장</th>';
@@ -248,11 +248,11 @@ $(function($){
 				// 출석 확인 버튼 생성
 				if ( $('#email').val() == checkerList[index].email || $('#email').val() == checkerList[index].assist || $('#email').val() == manage_email || $('#email').val() == admin_email ) {
 					$('#attendBtn').removeAttr('disabled').show();
-					$('#checkAll').removeAttr('disabled').removeAttr('style');
+					$('#selectAll').removeAttr('disabled').removeAttr('style');
 					$('input[name="students"]').removeAttr('disabled').show();
 				} else {
 					$('#attendBtn').prop('disabled', true).hide();
-					$('#checkAll').prop('disabled', true).hide();
+					$('#selectAll').prop('disabled', true).hide();
 					$('input[name="students"]').prop('disabled', true).hide();
 				}
 
@@ -286,7 +286,7 @@ $(function($){
 		if ( elem_length < 1) {
 			alert('출석 확인할 명단에 체크하고 "출석 확인"" 버튼을 누르세요.');
 			$('#attendBtn').removeAttr('disabled'); // 버튼 활성화 복귀
-			$('#checkAll').focus();
+			$('#selectAll').focus();
 			$('.loading-container').fadeOut();
 			return false;
 		}
@@ -294,7 +294,7 @@ $(function($){
 		var result = confirm( elem_length + '명에 대하여 출석 확인을 하시겠습니까?');
 		if ( !result ) {
 			$('#attendBtn').removeAttr('disabled'); // 버튼 활성화 복귀
-			$('#checkAll').focus();
+			$('#selectAll').focus();
 			$('.loading-container').fadeOut();
 			return false;
 		}
@@ -329,7 +329,7 @@ $(function($){
 		} //for( var aa
 
 		alert('출석 확인이 완료되었습니다.');
-		$('#checkAll').prop('checked', false);
+		$('#selectAll').prop('checked', false);
 		$('input[name="students"]').prop('checked',false);
 		$('body').scrollTop(0);	// 페이지 맨 위로 이동
 		$('.loading-container').fadeOut();
@@ -337,23 +337,11 @@ $(function($){
 	});
 
 	// --------------------------------------------------
-	// 전체선택 소스
-	// --------------------------------------------------
-	//$('#checkAll').click(function() {
-	var cAll = function() {
-		if ( $('#checkAll').prop('checked') ) {
-			$('input[name="students"]').prop('checked', true);
-		} else {
-			$('input[name="students"]').prop('checked',false);
-		}
-	//});
-	};
-	$('#checkAll').on('click', cAll);
-
-	// --------------------------------------------------
 	// 4-1. 출석 취소 기능
 	// --------------------------------------------------
 	//$('input[name="students"]').click(function() {
+	$(document).on('click', 'input[name="students"]', function(){
+		alert('!!');
 		// 출석확인 되어 있는 사람이 아닐 경우 아무 일도 일어나지 않음
 		//var n = this.filter(':unchecked')
 
@@ -373,6 +361,20 @@ $(function($){
 			// checker = ''
 			// fee 는 그대로
 
-	//});
+	});
+
+	// --------------------------------------------------
+	// 전체선택 소스
+	// --------------------------------------------------
+	var checkAll = function() {
+		//console.log('check All');
+		if ( $('#selectAll').prop('checked') ) {
+			$('input[name="students"]').prop('checked', true);
+		} else {
+			$('input[name="students"]').prop('checked',false);
+		}
+	};
+	$(document).on('click', '#selectAll', checkAll);
+	//$('#selectAll').on('click', checkAll);
 
 });
