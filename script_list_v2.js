@@ -208,7 +208,7 @@ $(function(){
 					studentTr[++idx_t] = (list_attend[i].c[1] != null) ? list_attend[i].c[1].f : list_attend[i].c[4].f; 
 					studentTr[++idx_t] = '">\n';
 					if(list_attend[i].c[1] != null) { //attendTime에 가록이 있을 때
-						studentTr[++idx_t] = '<input type="hidden" name="whoischecker" value="'+ list_attend[i].c[5].v +'">\n';
+						studentTr[++idx_t] = '<input type="hidden" name="whoischecker" value="'+list_attend[i].c[5].v+'">\n';
 						studentTr[++idx_t] = '<input type="checkbox" value="'+phoneNumber+'" name="students" checked';
 					} else {
 						studentTr[++idx_t] = '<input type="hidden" name="whoischecker" value="">\n';
