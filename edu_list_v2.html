@@ -8,12 +8,12 @@
 </head>
 <body>
 	<main>
-		<h1>전주CCC 순장교육 출석부</h1>
+		<h1>전주CCC 순장교육 출석부 (갱신용)</h1>
 		<div id="gSignInWrapper">
 			<button id="authorize-button" style="display: none;">로그인</button>
 			<button id="signout-button" style="display: none;">로그아웃</button>
 		</div>
-  		<input type="hidden" id="checker"> <input type="hidden" id="email">
+  		<input type="hidden" id="checker"> <input type="hidden" id="email" value="cccjeonju@gmail.com">
 		<p class="guide">1. 자신의 강의를 선택하시면 출석한 학생들 명단을 읽어옵니다.<br>
 		2. 실제 출석한 학생의 이름 옆에 있는 박스에 <span style="font-weight:bold;text-decoration:underline;">체크</span> 해주세요.<br>
 		3. 맨 아래에 있는 <span style="font-weight:bold;text-decoration:underline;">출석 확인</span>을 클릭하시면 출석처리가 완료됩니다.<br>
@@ -39,9 +39,9 @@
 	<div class="loading-container">
 		<div class="loader">Loading...</div>
 	</div>
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="script_list.js"></script>
-    <script src="https://apis.google.com/js/platform.js" async defer onload="this.onload=function(){};handleClientLoad()" onreadystatechange="if (this.readyState === 'complete') this.onload()"></script>
+	<script src="test/jquery-3.1.1.min.js"></script>
+	<script src="script_list_v2.js"></script>
+	<!--script src="https://apis.google.com/js/platform.js" async defer onload="this.onload=function(){};handleClientLoad()" onreadystatechange="if (this.readyState === 'complete') this.onload()"></script-->
 	<script>
 		var clientId = '62990643006-squj2admavms41d94p4gkn3ef256dfn9.apps.googleusercontent.com';
 
@@ -125,6 +125,6 @@
 		}
 
 		document.getElementById('now_date').valueAsDate = new Date();
-</script>
+	</script>
 </body>
 </html>

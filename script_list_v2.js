@@ -1,4 +1,4 @@
-$(function($){
+$(function(){
 
 	var KEY_SPREADSHEET = '1PHN8N0nY7YLw5NlYTp9VqSvqOHdgsvR2W8BfAZ8AtY4',	// Spreadsheet Key
 		GID_SHEET_REGIST = '132886731',			// 등록부
@@ -18,8 +18,8 @@ $(function($){
 	// 1-1. 출석체크가 초기 실행되면 개설된 강의 목록을 읽어와야 함
 	// --------------------------------------------------
 	$.ajax({
-		url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_SUBJECT
-		//url: 'test/json_subject_list.txt'
+		//url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_SUBJECT
+		url: 'test/json_subject_list.txt'
 	}).done(function (data) {
 		var subject_list = JSON.parse(data.substring(data.indexOf('(')+1, data.indexOf(');'))).table.rows, // 문자열에서 불필요한 부분 제거하고 JSON 형식으로.
 			sum = subject_list.length; // 목록 수.
@@ -39,8 +39,8 @@ $(function($){
 		    //console.log(i+1 + '  ' + subject_list[i].c[5].v + ' / ' + subject_list[i].c[4].v + ' / ' + subject_list[i].c[6].v);
 		    var opt = '<option value="' + subject_list[i].c[4].v + '">';
 		    	opt += '[' + subject_list[i].c[1].v + '] '
-		    if( subject_list[i].c[2] != null ) { 
-		    	opt += subject_list[i].c[2].v + ' ' + subject_list[i].c[3].v + ' '; 
+		    if( subject_list[i].c[2] != null ) {
+		    	opt += subject_list[i].c[2].v + ' ' + subject_list[i].c[3].v + ' ';
 		    }
 		    opt += subject_list[i].c[6].v + ' / ' + subject_list[i].c[5].v + '</option>\n';
 		    $('#subjectCode').append( $(opt) );
@@ -48,7 +48,7 @@ $(function($){
 		    checkerList[i] = new Object();
 		    checkerList[i].code = subject_list[i].c[4].v;
 		    checkerList[i].name = subject_list[i].c[6].v;
-		    if(subject_list[i].c[7] != null) checkerList[i].email  = subject_list[i].c[7].v;
+		    if(subject_list[i].c[7] != null) checkerList[i].email= subject_list[i].c[7].v;
 		    if(subject_list[i].c[8] != null) checkerList[i].assist = subject_list[i].c[8].v;
 		}
 	}).fail(function () {
@@ -71,8 +71,8 @@ $(function($){
 		attendee_fee = {};
 
 	$.ajax({
-		url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_REGIST
-		//url: 'test/json_regist_list.txt'
+		//url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_REGIST
+		url: 'test/json_regist_list.txt'
 	}).done(function (data) {
 			attendee_list = JSON.parse(data.substring(data.indexOf('(')+1, data.indexOf(');'))).table.rows, // 문자열에서 불필요한 부분 제거하고 JSON 형식으로.
 			sum = attendee_list.length;
@@ -146,8 +146,8 @@ $(function($){
 		$.ajax({
 			type: 'GET',
 			// 선택한 과목 중 오늘 날짜에 해당하는 레코드를 가져옴. C column(phone)로 정렬해서
-			url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_ATTEND+'&tq=select+*+where+D+matches+\''+subject_code+'\'+and+E+<=+dateTime+\''+today+' 23:59:59\'+and+E+>=+dateTime+\''+today+' 00:00:00\'+order+by+C',
-			//url: 'test/json_JE1-G11_today.txt',
+			//url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_ATTEND+'&tq=select+*+where+D+matches+\''+subject_code+'\'+and+E+<=+dateTime+\''+today+' 23:59:59\'+and+E+>=+dateTime+\''+today+' 00:00:00\'+order+by+C',
+			url: 'test/json_JE1-G11_today.txt',
 			success: function (data1) {
 				var list_attend = JSON.parse(data1.substring(data1.indexOf('(')+1, data1.indexOf(');'))).table.rows, // 문자열에서 불필요한 부분 제거하고 JSON 형식으로.
 					total_attend = list_attend.length; // 목록 수.
@@ -167,7 +167,7 @@ $(function($){
 				studentTr[++idx_t] = '<table>';
 				studentTr[++idx_t] = '<thead>';
 				studentTr[++idx_t] = '<tr>';
-				studentTr[++idx_t] = '<th><input type="checkbox" id="checkAll" disabled><!--전체선택--></th>';
+				studentTr[++idx_t] = '<th><input type="checkbox" id="selectAll" disabled><!--전체선택--></th>';
 				studentTr[++idx_t] = '<th>no</th>';
 				studentTr[++idx_t] = '<th>이름</th>';
 				studentTr[++idx_t] = '<th>순장</th>';
@@ -208,7 +208,7 @@ $(function($){
 					studentTr[++idx_t] = (list_attend[i].c[1] != null) ? list_attend[i].c[1].f : list_attend[i].c[4].f; 
 					studentTr[++idx_t] = '">\n';
 					if(list_attend[i].c[1] != null) { //attendTime에 가록이 있을 때
-						studentTr[++idx_t] = '<input type="hidden" name="whoischecker" value="'+  +'">\n';
+						studentTr[++idx_t] = '<input type="hidden" name="whoischecker" value="'+ list_attend[i].c[5].v +'">\n';
 						studentTr[++idx_t] = '<input type="checkbox" value="'+phoneNumber+'" name="students" checked';
 					} else {
 						studentTr[++idx_t] = '<input type="hidden" name="whoischecker" value="">\n';
@@ -248,11 +248,10 @@ $(function($){
 				// 출석 확인 버튼 생성
 				if ( $('#email').val() == checkerList[index].email || $('#email').val() == checkerList[index].assist || $('#email').val() == manage_email || $('#email').val() == admin_email ) {
 					$('#attendBtn').removeAttr('disabled').show();
-					$('#checkAll').removeAttr('disabled').removeAttr('style');
+					$('#selectAll').removeAttr('disabled').removeAttr('style');
 					$('input[name="students"]').removeAttr('disabled').show();
-				} else {
-					$('#attendBtn').prop('disabled', true).hide();
-					$('#checkAll').prop('disabled', true).hide();
+				} else {				$heck('#attendBtn').prop('disabled', true).hide();
+	//				$('#selectAll').prop('disabled', true).hide();
 					$('input[name="students"]').prop('disabled', true).hide();
 				}
 
@@ -284,17 +283,15 @@ $(function($){
 		var elem_length = elements.length;
 
 		if ( elem_length < 1) {
-			alert('출석 확인할 명단에 체크하고 "출석 확인"" 버튼을 누르세요.');
-			$('#attendBtn').removeAttr('disabled'); // 버튼 활성화 복귀
-			$('#checkAll').focus();
+			alert('출석 확인할 명단에 체크하고 "출석 확인"" 버튼을 누르세요.');		$('heck#attendBtn').removeAttr('disabled'); // 버튼 활성화 복귀
+	//		$('#selectAll').focus();
 			$('.loading-container').fadeOut();
 			return false;
 		}
 
 		var result = confirm( elem_length + '명에 대하여 출석 확인을 하시겠습니까?');
-		if ( !result ) {
-			$('#attendBtn').removeAttr('disabled'); // 버튼 활성화 복귀
-			$('#checkAll').focus();
+		if ( !result ) {		$('heck#attendBtn').removeAttr('disabled'); // 버튼 활성화 복귀
+	//		$('#selectAll').focus();
 			$('.loading-container').fadeOut();
 			return false;
 		}
@@ -327,33 +324,21 @@ $(function($){
 				}
 			});
 		} //for( var aa
-
-		alert('출석 확인이 완료되었습니다.');
-		$('#checkAll').prop('checked', false);
+	alerheckt('출석 확인이 완료되었습니다.');
+	//	$('#selectAll').prop('checked', false);
 		$('input[name="students"]').prop('checked',false);
 		$('body').scrollTop(0);	// 페이지 맨 위로 이동
 		$('.loading-container').fadeOut();
 		$('#attendBtn').removeAttr('disabled'); // 버튼 활성화 복귀
 	});
 
-	// --------------------------------------------------
-	// 전체선택 소스
-	// --------------------------------------------------
-	//$('#checkAll').click(function() {
-	var cAll = function() {
-		if ( $('#checkAll').prop('checked') ) {
-			$('input[name="students"]').prop('checked', true);
-		} else {
-			$('input[name="students"]').prop('checked',false);
-		}
-	//});
-	};
-	$('#checkAll').on('click', cAll);
 
 	// --------------------------------------------------
 	// 4-1. 출석 취소 기능
 	// --------------------------------------------------
 	//$('input[name="students"]').click(function() {
+	$(document).on('click', 'input[name="students"]', function(){
+		alert('!!');
 		// 출석확인 되어 있는 사람이 아닐 경우 아무 일도 일어나지 않음
 		//var n = this.filter(':unchecked')
 
@@ -373,6 +358,20 @@ $(function($){
 			// checker = ''
 			// fee 는 그대로
 
-	//});
+	});
+
+	// --------------------------------------------------
+	// 전체선택 소스
+	// --------------------------------------------------
+	var checkAll = function() {
+		//console.log('check All');
+		if ( $('#selectAll').prop('checked') ) {
+			$('input[name="students"]').prop('checked', true);
+		} else {
+			$('input[name="students"]').prop('checked',false);
+		}
+	};
+	$(document).on('click', '#selectAll', checkAll);
+	//$('#selectAll').on('click', checkAll);
 
 });
