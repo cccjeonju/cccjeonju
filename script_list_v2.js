@@ -254,6 +254,7 @@ $(function(){
 					$('#selectAll').prop('disabled', true).hide();
 					$('input[name="students"]').prop('disabled', true).hide();
 				}
+				attendBtn_ok = false; // 콜백 중지 ajaxStop()
 			},
 			error: function () {
 				alert('출석 명단을 읽어오는데 문제가 발생했습니다.');
@@ -360,16 +361,8 @@ $(function(){
 			});
 		});
 
-		if( isViewOk==true ) {
-			alert('출석 확인이 완료되었습니다.');
-			$('#selectAll').prop('checked', false);
-			$('input[name="students"]').prop('checked',false);
-			$('body').scrollTop(0);	// 페이지 맨 위로 이동
-			$('.loading-container').fadeOut();
-			$('#attendBtn').removeAttr('disabled'); // 버튼 활성화 복귀
-
-			changeSubject();
-		}
+		attendBtn_ok = true;
+		//changeSubject();
 	});
 
 
@@ -452,11 +445,20 @@ $(function(){
 	// --------------------------------------------------
 	// 로딩 대기를 위한 콜백 설정
 	// --------------------------------------------------
-	var isViewOk;
+	var attendBtn_ok;
 	$(document).ajaxStart(function(){
-		isViewOk=false;
+		attendBtn_ok = false;
 	}).ajaxStop(function(){
-		isViewOk=true;
+		if(attendBtn_ok==true) {
+			changeSubject();
+			
+			alert('출석 확인이 완료되었습니다.');
+			$('#selectAll').prop('checked', false);
+			$('input[name="students"]').prop('checked',false);
+			$('body').scrollTop(0);	// 페이지 맨 위로 이동
+			$('.loading-container').fadeOut();
+			$('#attendBtn').removeAttr('disabled'); // 버튼 활성화 복귀
+		}
 	});
 
 });
