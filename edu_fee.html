@@ -3,46 +3,41 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="initial-scale=1">
-	<title>전주CCC 순장교육 출석부 (강사용)</title>
+	<title>전주CCC 순장교육 회비 납부 (강사용)</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
 	<main>
-		<h1>전주CCC 순장교육 출석부</h1>
+		<h1>전주CCC 순장교육 회비 납부</h1>
 		<div id="gSignInWrapper">
 			<button id="authorize-button" style="display: none;">로그인</button>
 			<button id="signout-button" style="display: none;">로그아웃</button>
 		</div>
   		<input type="hidden" id="checker"> <input type="hidden" id="email">
-		<p class="guide">1. 자신의 강의를 선택하시면 출석한 학생들 명단을 읽어옵니다.<br>
-		2. 실제 출석한 학생의 이름 옆에 있는 박스에 <span style="font-weight:bold;text-decoration:underline;">체크</span> 해주세요.<br>
-		3. 맨 아래에 있는 <span style="font-weight:bold;text-decoration:underline;">출석 확인</span>을 클릭하시면 출석처리가 완료됩니다.<br>
-		4. 출석 확인은 다시 수정하실 수 있습니다.<br>
-		5. 회비납부는 아래와 같이 처리하셔야 합니다.<br></p>
-		
-		<h2> 강의 선택 </h2>
-		<p class="date">강의 일자: <input type="date" id="now_date"> <button type="button" id="up_date">일자 적용</button></p>
-		<select id="subjectCode">
-			<option>강의를 선택하세요</option>
-		</select>
-		<input type="hidden" id="teacher"><input type="hidden" id="assist">
-		<div id="stTable"><p>강의를 선택하시면 명단을 불러옵니다.</p></div>
-		<p><button type="button" id="attendBtn" style="display:none;" disabled>출석 확인</button></p>
+		<p class="guide">1. 학생의 이름을 입력하여 나오는 명단 중 해당 학생을 선택하세요.<br>
+		2. 납부하는 회비를 입력하고 '회비 납부' 버튼을 누르세요.</p>
+		<h2>이름</h2>
+		<input type="text" id="whois">
+		<button type="button" id="checkIdBtn">명단 검색</button>
+		<div id="stTable"></div>
+
+		<h2> 회비</h2>
+		<input type="number" id="fee">
+		<p><button type="button" id="submitBtn">회비 납부 처리</button></p>
 
 		<ul class="copyright">
 			<li>Copyright &copy; 2017 Heejin Lee</li>
 			<li><a href="https://goo.gl/forms/EwN5b6HKiXI3XQ6v1">오류 신고</a></li>
 			<li><a href="edu_attend.html">학생용 출석부</a></li>
-			<li><a href="edu_fee.html" style="color:#fff !important" title="회비 납부">회비 납부</a></li>
+			<li><a href="edu_list.html">강사용 출석부</a></li>
 		</ul>
-
 	</main>
 	<div class="loading-container">
 		<div class="loader">Loading...</div>
 	</div>
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="script_list.js"></script>
-    <script src="https://apis.google.com/js/platform.js" async defer onload="this.onload=function(){};handleClientLoad()" onreadystatechange="if (this.readyState === 'complete') this.onload()"></script>
+	<script src="test/jquery-3.1.1.min.js"></script>
+	<script src="script_fee.js"></script>
+    <!--script src="https://apis.google.com/js/platform.js" async defer onload="this.onload=function(){};handleClientLoad()" onreadystatechange="if (this.readyState === 'complete') this.onload()"></script-->
 	<script>
 		var clientId = '62990643006-squj2admavms41d94p4gkn3ef256dfn9.apps.googleusercontent.com';
 
@@ -124,8 +119,6 @@
 			  }
 			});
 		}
-
-		document.getElementById('now_date').valueAsDate = new Date();
 </script>
 </body>
 </html>
