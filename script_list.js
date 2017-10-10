@@ -7,8 +7,8 @@ $(function(){
 	var WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbyOpp8Fl9V5DAd_ZjsDSI12z7oQLOLufI3HfipWxiUMvngxeOIq/exec',	// 출석부에 기록하기 위한 웹 앱
 		SHEET_NAME_CONFIRM = '출석부';
 
-	var admin_email = 'cccjeonju@gmail.com',
-		manage_email = 'hiyen2001@gmail.com';
+	var EMAIL_ADMIN  = 'cccjeonju@gmail.com',
+		EMAIL_MANAGE = 'hiyen2001@gmail.com';
 
 	// --------------------------------------------------
 	// 1-1. 출석체크가 초기 실행되면 개설된 강의 목록을 읽어와야 함
@@ -131,7 +131,7 @@ $(function(){
 		var today;
 
 		// 관리자일 경우 날짜를 조정할 수 있도록 함
-		if ($('#email').val() == manage_email || $('#email').val() == admin_email ) {
+		if ($('#email').val() == EMAIL_MANAGE || $('#email').val() == EMAIL_ADMIN ) {
 			today = $('#now_date').val();
 			$('#now_date').removeAttr('readonly');
 			$('#up_date').css('display','inline-block');
@@ -245,7 +245,7 @@ $(function(){
 				$('.loading-container').fadeOut();
 
 				// 출석 확인 버튼 생성
-				if ( $('#email').val() == checkerList[index].email || $('#email').val() == checkerList[index].assist || $('#email').val() == manage_email || $('#email').val() == admin_email ) {
+				if ( $('#email').val() == checkerList[index].email || $('#email').val() == checkerList[index].assist || $('#email').val() == EMAIL_MANAGE || $('#email').val() == EMAIL_ADMIN ) {
 					$('#attendBtn').removeAttr('disabled').show();
 					$('#selectAll').removeAttr('disabled').removeAttr('style');
 					$('input[name="students"]').removeAttr('disabled').show();
