@@ -307,9 +307,35 @@ $(function(){
 		elements.each(function(aa, element) {
 			var index = elements.index(this);
 
+			var whoischecker = $('input[name="whoischecker"]:eq('+index+')').val(),
+				attend_time,
+				timestamp,
+				checker, 
+				consoleMsg;
+
+			// 체크가 되어 있는지 확인하여 진행
 			if ( elements.eq(index).is(':checked') == false ) {
 				//console.log('Pass : ' + index + '. ' + attendee_name[elements.eq(index).val()] );
-				return true; //continue
+				//return true; //continue
+
+				// 출석이 되어있으면 출석 취소 기능
+				var whoischecker = $('input[name="whoischecker"]:eq('+index+')').val();
+				if( whoischecker == null || whoischecker == '') return true; // continue
+
+				attend_time = '';
+				timestamp = $('input[name="attend_time"]:eq('+index+')').val();
+				checker = '';
+
+				consoleMsg = '취소 처리';
+
+			} else {
+
+				attend_time = $('input[name="attend_time"]:eq('+index+')').val();
+				timestamp = '';
+				checker = $('#email').val();
+
+				consoleMsg = '체크 확인';
+
 			}
 
 			$.ajax({
@@ -317,19 +343,21 @@ $(function(){
 				url: WEB_APP_URL + '?sheet_name=' + SHEET_NAME_CONFIRM,
 				data: {
 					no: $('input[name="no"]:eq('+index+')').val(),
-					attendTime: $('input[name="attend_time"]:eq('+index+')').val(),
+					attendTime: attend_time,
 					phone: $('input[name="students"]:eq('+index+')').val(),
-					fee: $('input[name="fee"]:eq('+index+')').val(),
 					subject: $('#subjectCode option:selected').val(),
-					checker: $('#email').val()
+					Timestamp: timestamp,
+					checker: checker,
+					fee: $('input[name="fee"]:eq('+index+')').val()
 				},
 				success: function() {
-					console.log((aa++) + '. ' + $(element).val() + '님 출석확인 완료 (index=' + index + ')');
+					console.log((aa++) + '. ' + $(element).val() + '님 출석 ' + consoleMsg);
 				},
 				error: function() {
-					alert('출석을 기록하는데 에러가 발생했습니다.');
+					alert(consoleMsg + ' 출석을 기록하는데 에러가 발생했습니다.');
 				}
 			});
+
 		});
 
 		alert('출석 확인이 완료되었습니다.');
