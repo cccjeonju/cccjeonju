@@ -318,7 +318,7 @@ $(function(){
 				},
 				success: function() {
 					//console.log(index+1 + '. ' + $(elements).val() + '님 출석확인 완료');
-					console.log(aa+1 + '. ' + $(element).val() + '님 출석확인 완료');
+					console.log(aa+1 + '. ' + $(element).val() + '님 출석확인 완료 (index=' + index + ')');
 				},
 				error: function() {
 					alert('출석을 기록하는데 에러가 발생했습니다.');
