@@ -278,14 +278,26 @@ $(function(){
 		$('#attendBtn').prop('disabled', true); // 버튼 비활성화
 		$('.loading-container').fadeIn();
 
+		var elements = $('input[name="students"]');
+
 		var elem_length = $('input[name="students"]:checked').length;
 
-		if ( elem_length < 1) {
-			alert('출석 확인할 명단에 체크하고 "출석 확인"" 버튼을 누르세요.');
-			$('#attendBtn').removeAttr('disabled'); // 버튼 활성화 복귀
-			$('#selectAll').focus();
-			$('.loading-container').fadeOut();
-			return false; // break
+		if ( elem_length < 1 ) {
+			var whoisck, checksum=0;
+			for(var i=0; i<elements.length; i++) {
+				whoisck = $('input[name="whoischecker"]:eq('+i+')').val();
+				if( whoisck != null && whoisck != '' ) {
+				checksum = 1;
+				return true; // continue
+				}
+			}
+			if (checksum==0) {
+				alert('출석 확인할 명단에 체크하고 "출석 확인"" 버튼을 누르세요.');
+				$('#attendBtn').removeAttr('disabled'); // 버튼 활성화 복귀
+				$('#selectAll').focus();
+				$('.loading-container').fadeOut();
+				return false; // break
+			}
 		}
 
 		var result = confirm( elem_length + '명에 대하여 출석 확인을 하시겠습니까?');
@@ -317,15 +329,15 @@ $(function(){
 				var whoischecker = $('input[name="whoischecker"]:eq('+index+')').val();
 				if( whoischecker == null || whoischecker == '' ) return true; // continue
 
-				checker = '';
+				checker 	= '';
 				attend_time = '';
-				timestamp = $('input[name="attend_time"]:eq('+index+')').val();
-				consoleMsg = '취소 처리';
+				timestamp 	= $('input[name="attend_time"]:eq('+index+')').val();
+				consoleMsg 	= '취소 처리';
 			} else {
-				timestamp = '';
+				timestamp 	= '';
 				attend_time = $('input[name="attend_time"]:eq('+index+')').val();
-				checker = $('#email').val();
-				consoleMsg = '체크 확인';
+				checker 	= $('#email').val();
+				consoleMsg 	= '체크 확인';
 			}
 
 			$.ajax({
@@ -344,7 +356,7 @@ $(function(){
 					console.log((index+1) + '. ' + $(element).val() + '님 출석 ' + consoleMsg);
 				},
 				error: function() {
-					alert(consoleMsg + ': no=' + (index+1) + ' 출석을 기록하는데 에러가 발생했습니다.');
+					console.log(consoleMsg + ': no=' + (index+1) + ' 출석을 기록하는데 에러가 발생했습니다.');
 					return true; //continue
 				}
 			});
