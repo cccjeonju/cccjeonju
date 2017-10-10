@@ -344,7 +344,10 @@ $(function(){
 	$(document).on('click', 'input[name="students"]', function(){
 
 		//var n = $('input[name="students"]:not(:checked)');
-		if( $('input[name="students"]').is(':checked') ) return true; // continue;
+		if( $(this).is(':checked') == true ) {
+			//alert('checked');
+			return true; // continue
+		}
 		
 		// 출석확인 되어 있는 사람이 아닐 경우 아무 일도 일어나지 않음
 		var index = $('input[name="students"]').index(this);
