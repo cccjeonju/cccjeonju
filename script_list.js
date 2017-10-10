@@ -289,8 +289,7 @@ $(function(){
 				whoisck = $('input[name="whoischecker"]:eq('+i+')').val();
 				if( whoisck != null && whoisck != '' ) {
 					checksum = 1;
-					i = elements.length;
-					return true; // continue
+					i = elements.length;	// continue
 				}
 			}
 			if (checksum==0) {
@@ -452,7 +451,7 @@ $(function(){
 	}).ajaxStop(function(){
 		if(attendBtn_ok==true) {
 			changeSubject();
-			
+
 			alert('출석 확인이 완료되었습니다.');
 			$('#selectAll').prop('checked', false);
 			$('input[name="students"]').prop('checked',false);

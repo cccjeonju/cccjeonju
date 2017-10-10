@@ -289,8 +289,7 @@ $(function(){
 				whoisck = $('input[name="whoischecker"]:eq('+i+')').val();
 				if( whoisck != null && whoisck != '' ) {
 					checksum = 1;
-					i = elements.length;
-					return true; // continue
+					i = elements.length;	// continue
 				}
 			}
 			if (checksum==0) {
