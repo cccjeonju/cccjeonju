@@ -10,6 +10,8 @@ $(function(){
 	var EMAIL_ADMIN  = 'cccjeonju@gmail.com',
 		EMAIL_MANAGE = 'hiyen2001@gmail.com';
 
+	var checkerList = {};
+
 	// --------------------------------------------------
 	// 1-1. 출석체크가 초기 실행되면 개설된 강의 목록을 읽어와야 함
 	// --------------------------------------------------
@@ -22,8 +24,6 @@ $(function(){
 
 			//console.log('* SHEET DATA URL - https://docs.google.com/spreadsheets/d/1PHN8N0nY7YLw5NlYTp9VqSvqOHdgsvR2W8BfAZ8AtY4/edit?usp=sharing'); // 구글 스프레드시트 URL.
 			console.log('* 전체 강의 수: ' + sum + '개');
-
-			var checkerList = {};
 
 			for (var i = 0; i < sum; i++) { // 전체 강의 목록을 콘솔에 출력. 
 				// subject_list[].c[1] = 필수/선택
@@ -71,8 +71,8 @@ $(function(){
 		attendee_fee = {};
 
 	$.ajax({
-		url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_REGIST,
-		//url: 'test/json_regist_list.txt',
+		//url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_REGIST,
+		url: 'test/json_regist_list.txt',
 		success: function (data) {
 			var attendee_list = JSON.parse(data.substring(data.indexOf('(')+1, data.indexOf(');'))).table.rows, // 문자열에서 불필요한 부분 제거하고 JSON 형식으로.
 				sum = attendee_list.length;
