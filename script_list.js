@@ -378,8 +378,6 @@ $(function(){
 	//$('input[name="students"]').click(function() {
 	$(document).on('click', 'input[name="students"]', function(){
 
-		$('.loading-container').fadeIn();
-
 		//var n = $('input[name="students"]:not(:checked)');
 		if( $(this).is(':checked') == true ) {
 			//alert('checked');
@@ -402,10 +400,15 @@ $(function(){
 		}
 		// 기존 출석확인이 아니면 return true;
 
+		$('.loading-container').fadeIn();
+
 		// 기존 출석확인자면 취소 루틴 실행
 		var msg = confirm( attendee_name[phoneNumber] + '님의 출석 확인을 취소하시겠습니까?' );
 			// 취소할 것인지 묻기
-		if (!msg) return false; // brake
+		if (!msg) {
+			$('.loading-container').fadeOut();
+			return false; // brake
+		}
 
 		// $.ajax
 		// no를 기준으로
