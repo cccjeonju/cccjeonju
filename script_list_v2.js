@@ -288,7 +288,7 @@ $(function(){
 				whoisck = $('input[name="whoischecker"]:eq('+i+')').val();
 				if( whoisck != null && whoisck != '' ) {
 				checksum = 1;
-				return true; // continue
+				return false; // break
 				}
 			}
 			if (checksum==0) {
@@ -364,10 +364,10 @@ $(function(){
 		$('#selectAll').prop('checked', false);
 		$('input[name="students"]').prop('checked',false);
 		$('body').scrollTop(0);	// 페이지 맨 위로 이동
-		$('.loading-container').fadeOut();
+		$('.loading-container').fadeOut().delay(2000).changeSubject();
 		$('#attendBtn').removeAttr('disabled'); // 버튼 활성화 복귀
 
-		changeSubject();
+		//changeSubject();
 	});
 
 
