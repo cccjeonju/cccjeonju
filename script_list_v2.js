@@ -316,9 +316,9 @@ $(function(){
 					subject: $('#subjectCode option:selected').val(),
 					checker: $('#email').val()
 				},
-				success: function(data3) {
+				success: function() {
 					//console.log(index+1 + '. ' + $(elements).val() + '님 출석확인 완료');
-					console.log(aa+1 + '. ' + $(this).val() + '님 출석확인 완료');
+					console.log(aa+1 + '. ' + $(element).val() + '님 출석확인 완료');
 					changeSubject();
 				},
 				error: function() {
