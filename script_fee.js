@@ -96,7 +96,7 @@ $(function($){
 	// 2) 버튼 비활성화 (중복 등록 방지)
 	//
 	// 3) 출석부 시트에 등록 (timestamp, phone, attendTime)
-	//    나머지 column은 spreadsheet 안에서 함수로 가져다 쓸 것 (중복데이터 최소화)
+	
 	$('#submitBtn').click(function(){
 
 		var phoneNumber = $('input[name="phone"]:checked').val();
