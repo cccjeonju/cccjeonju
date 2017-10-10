@@ -155,6 +155,7 @@ $(function($){
 				alert( $('#st_name').text() + '님의 회비 ' + fee + '원 납부 처리가 정상적으로 실행 되었습니다.' );
 
 				$('#submitBtn').removeAttr('disabled');
+				$('#whois').val('');
 				$('#fee').val('');
 				$('#stTable').empty();
 				$('input:radio[name="phone"]').prop('checked', false);
