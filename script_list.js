@@ -1,4 +1,4 @@
-$(function($){
+$(function(){
 
 	var KEY_SPREADSHEET = '1PHN8N0nY7YLw5NlYTp9VqSvqOHdgsvR2W8BfAZ8AtY4',	// Spreadsheet Key
 		GID_SHEET_REGIST = '132886731',			// 등록부
@@ -39,8 +39,8 @@ $(function($){
 		    //console.log(i+1 + '  ' + subject_list[i].c[5].v + ' / ' + subject_list[i].c[4].v + ' / ' + subject_list[i].c[6].v);
 		    var opt = '<option value="' + subject_list[i].c[4].v + '">';
 		    	opt += '[' + subject_list[i].c[1].v + '] '
-		    if( subject_list[i].c[2] != null ) { 
-		    	opt += subject_list[i].c[2].v + ' ' + subject_list[i].c[3].v + ' '; 
+		    if( subject_list[i].c[2] != null ) {
+		    	opt += subject_list[i].c[2].v + ' ' + subject_list[i].c[3].v + ' ';
 		    }
 		    opt += subject_list[i].c[6].v + ' / ' + subject_list[i].c[5].v + '</option>\n';
 		    $('#subjectCode').append( $(opt) );
@@ -48,7 +48,7 @@ $(function($){
 		    checkerList[i] = new Object();
 		    checkerList[i].code = subject_list[i].c[4].v;
 		    checkerList[i].name = subject_list[i].c[6].v;
-		    if(subject_list[i].c[7] != null) checkerList[i].email  = subject_list[i].c[7].v;
+		    if(subject_list[i].c[7] != null) checkerList[i].email= subject_list[i].c[7].v;
 		    if(subject_list[i].c[8] != null) checkerList[i].assist = subject_list[i].c[8].v;
 		}
 	}).fail(function () {
@@ -158,7 +158,7 @@ $(function($){
 					//$('.studentList').append( $('<tr><td colspan="9" class="blankTr">선택한 인원이 없습니다.</td></tr>') );
 					$('#stTable').html('<p>해당 강의를 선택한 인원이 없습니다.</p>');
 					$('.loading-container').fadeOut();
-					return;
+					return false; // break
 				}
 
 				var studentTr = new Array();
@@ -199,7 +199,7 @@ $(function($){
 					// 한 날에 여러번 같은 핸드폰 번호가 있으면 나타나지 않게 함
 					if( i<(total_attend-1) && phoneNumber == list_attend[i+1].c[2].v ) {
 						console.log('중복 출석 체크한 사람의 앞의 것을 건너뜁니다. ' + phoneNumber);
-						return true;
+						return true; // continue
 					}
 
 					studentTr[++idx_t] = '<tr class="row' + ii%2 + '">\n';
@@ -207,7 +207,7 @@ $(function($){
 					studentTr[++idx_t] = '<input type="hidden" name="attend_time" value="';
 					studentTr[++idx_t] = (list_attend[i].c[1] != null) ? list_attend[i].c[1].f : list_attend[i].c[4].f; 
 					studentTr[++idx_t] = '">\n';
-					if(list_attend[i].c[1] != null) { //attendTime에 가록이 있을 때
+					if(list_attend[i].c[1] != null) { //attendTime 에 가록이 있을 때
 						studentTr[++idx_t] = '<input type="hidden" name="whoischecker" value="'+list_attend[i].c[5].v+'">\n';
 						studentTr[++idx_t] = '<input type="checkbox" value="'+phoneNumber+'" name="students" checked';
 					} else {
@@ -288,7 +288,7 @@ $(function($){
 			$('#attendBtn').removeAttr('disabled'); // 버튼 활성화 복귀
 			$('#selectAll').focus();
 			$('.loading-container').fadeOut();
-			return false;
+			return false; // break
 		}
 
 		var result = confirm( elem_length + '명에 대하여 출석 확인을 하시겠습니까?');
@@ -296,7 +296,7 @@ $(function($){
 			$('#attendBtn').removeAttr('disabled'); // 버튼 활성화 복귀
 			$('#selectAll').focus();
 			$('.loading-container').fadeOut();
-			return false;
+			return false; // break
 		}
 
 		//console.log($('input[name="students"]'));
@@ -336,23 +336,35 @@ $(function($){
 		$('#attendBtn').removeAttr('disabled'); // 버튼 활성화 복귀
 	});
 
+
 	// --------------------------------------------------
 	// 4-1. 출석 취소 기능
 	// --------------------------------------------------
 	//$('input[name="students"]').click(function() {
 	$(document).on('click', 'input[name="students"]', function(){
-		alert('!!');
-		// 출석확인 되어 있는 사람이 아닐 경우 아무 일도 일어나지 않음
-		//var n = this.filter(':unchecked')
 
+		var n = $('input[name="students"]:not(:checked)');
+		
+		// 출석확인 되어 있는 사람이 아닐 경우 아무 일도 일어나지 않음
+		var index = $('input[name="students"]').index(this);
+		var no = $('input[name="no"]:eq('+index+')').val(),
+			whoischecker = $('input[name="whoischecker"]:eq('+index+')').val(),
+			phoneNumber = $('input[name="students"]:eq('+index+')').val();
+		//var mm = 'no='+no+', attend_time='+attend_time+', whoischecker='+whoischecker;
+		//	mm += ', phoneNumber='+phoneNumber+', name='+attendee_name[phoneNumber];
+		//console.log(mm);
+		
 		// uncheck 될 때, 기존 출석확인이 되어있는지 검사 input[name="whoischecker"]:eq(index)
+		if( whoischecker == null || whoischecker == '') {
+			return false; // break
+		}
 
 		// 기존 출석확인이 아니면 return true;
 
 		// 기존 출석확인자면 취소 루틴 실행
-
+		var msg = confirm( attendee_name[phoneNumber] + '님의 출석 확인을 취소하시겠습니까?' );
 			// 취소할 것인지 묻기
-			// html 요소에서 이름 가져오기
+		if (!msg) return false; // brake
 
 			// $.ajax
 			// no를 기준으로
@@ -360,6 +372,29 @@ $(function($){
 			// attendTime = ''
 			// checker = ''
 			// fee 는 그대로
+		$.ajax({
+				type: 'POST',
+				url: WEB_APP_URL + '?sheet_name=' + SHEET_NAME_CONFIRM,
+				data: {
+					no: no,
+					attendTime: '',
+					phone: phoneNumber,
+					subject: $('#subjectCode option:selected').val(),
+					Timestamp: $('input[name="attend_time"]:eq('+index+')').val(),
+					checker: '',
+					fee: $('input[name="fee"]:eq('+index+')').val()
+				},
+				success: function() {
+					//console.log(aa+1 + '. ' + $(elements).val() + '님 출석확인 완료');
+					console.log(attendee_name[phoneNumber] + '님 출석 취소');
+					alert(attendee_name[phoneNumber] + '님의 출석 확인이 취소되었습니다.');
+					changeSubject();
+				},
+				error: function() {
+					alert('출석을 기록하는데 에러가 발생했습니다.');
+				}
+			});
+
 
 	});
 
