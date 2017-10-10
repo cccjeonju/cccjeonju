@@ -319,7 +319,6 @@ $(function(){
 				success: function() {
 					//console.log(index+1 + '. ' + $(elements).val() + '님 출석확인 완료');
 					console.log(aa+1 + '. ' + $(element).val() + '님 출석확인 완료');
-					changeSubject();
 				},
 				error: function() {
 					alert('출석을 기록하는데 에러가 발생했습니다.');
@@ -334,6 +333,9 @@ $(function(){
 		$('body').scrollTop(0);	// 페이지 맨 위로 이동
 		$('.loading-container').fadeOut();
 		$('#attendBtn').removeAttr('disabled'); // 버튼 활성화 복귀
+
+		changeSubject();
+
 	});
 
 
