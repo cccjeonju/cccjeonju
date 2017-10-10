@@ -287,8 +287,8 @@ $(function(){
 			for(var i=0; i<elements.length; i++) {
 				whoisck = $('input[name="whoischecker"]:eq('+i+')').val();
 				if( whoisck != null && whoisck != '' ) {
-				checksum = 1;
-				return false; // break
+					checksum = 1;
+					return false; // break
 				}
 			}
 			if (checksum==0) {
@@ -309,8 +309,6 @@ $(function(){
 		}
 
 		//console.log($('input[name="students"]'));
-		var elements = $('input[name="students"]');
-
 		elements.each(function(index, element) {
 			//var index = elements.index(this);
 
@@ -362,14 +360,16 @@ $(function(){
 			});
 		});
 
-		alert('출석 확인이 완료되었습니다.');
-		$('#selectAll').prop('checked', false);
-		$('input[name="students"]').prop('checked',false);
-		$('body').scrollTop(0);	// 페이지 맨 위로 이동
-		$('.loading-container').fadeOut().delay(2000).changeSubject();
-		$('#attendBtn').removeAttr('disabled'); // 버튼 활성화 복귀
+		if( isViewOk==true ) {
+			alert('출석 확인이 완료되었습니다.');
+			$('#selectAll').prop('checked', false);
+			$('input[name="students"]').prop('checked',false);
+			$('body').scrollTop(0);	// 페이지 맨 위로 이동
+			$('.loading-container').fadeOut();
+			$('#attendBtn').removeAttr('disabled'); // 버튼 활성화 복귀
 
-		//changeSubject();
+			changeSubject();
+		}
 	});
 
 
@@ -425,7 +425,7 @@ $(function(){
 				fee: $('input[name="fee"]:eq('+index+')').val()
 			},
 			success: function() {
-				console.log(attendee_name[phoneNumber] + '님 출석 취소');
+				//console.log(attendee_name[phoneNumber] + '님 출석 취소');
 				alert(attendee_name[phoneNumber] + '님의 출석 확인이 취소되었습니다.');
 				changeSubject();
 			},
@@ -448,4 +448,15 @@ $(function(){
 	};
 	$(document).on('click', '#selectAll', checkAll);
 	//$('#selectAll').on('click', checkAll);
+
+	// --------------------------------------------------
+	// 로딩 대기를 위한 콜백 설정
+	// --------------------------------------------------
+	var isViewOk;
+	$(document).ajaxStart(function(){
+		isViewOk=false;
+	}).ajaxStop(function(){
+		isViewOk=true;
+	});
+
 });
