@@ -314,7 +314,6 @@ $(function(){
 
 			$.ajax({
 				type: 'POST',
-				async: false,
 				url: WEB_APP_URL + '?sheet_name=' + SHEET_NAME_CONFIRM,
 				data: {
 					no: $('input[name="no"]:eq('+index+')').val(),
