@@ -344,7 +344,7 @@ $(function(){
 					console.log((index+1) + '. ' + $(element).val() + '님 출석 ' + consoleMsg);
 				},
 				error: function() {
-					alert(consoleMsg + ': index=' + index + ' 출석을 기록하는데 에러가 발생했습니다.');
+					alert(consoleMsg + ': no=' + (index+1) + ' 출석을 기록하는데 에러가 발생했습니다.');
 					return true; //continue
 				}
 			});
