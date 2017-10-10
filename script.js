@@ -82,7 +82,7 @@ $(function($){
 				msg += students[0].c[3].v + '<br>';	// phone
 				msg += students[0].c[4].v.toString().substr(0,1) + '학년 / ';
 				msg += students[0].c[5].v + ' ';	// campu
-				msg += students[0].c[6].v.toString().substr(-2) + '학번 / 회비: ';
+				msg += students[0].c[6].v.toString().substr(-2) + '학번 / 회비(어제): ';
 				msg += students[0].c[13].f + '\n';
 				$('output>a').html(msg).removeAttr('href');
 				$('input[name="phoneCheck"]').val(students[0].c[3].v.toString().substr(-4));

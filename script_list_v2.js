@@ -316,7 +316,6 @@ $(function(){
 			var whoischecker = $('input[name="whoischecker"]:eq('+index+')').val(),
 				attend_time,
 				timestamp,
-				checker, 
 				consoleMsg;
 
 			// 체크가 되어 있는지 확인하여 진행
@@ -328,14 +327,12 @@ $(function(){
 				var whoischecker = $('input[name="whoischecker"]:eq('+index+')').val();
 				if( whoischecker == null || whoischecker == '' ) return true; // continue
 
-				checker 	= '';
 				attend_time = '';
 				timestamp 	= $('input[name="attend_time"]:eq('+index+')').val();
 				consoleMsg 	= '취소 처리';
 			} else {
 				timestamp 	= '';
 				attend_time = $('input[name="attend_time"]:eq('+index+')').val();
-				checker 	= $('#email').val();
 				consoleMsg 	= '체크 확인';
 			}
 
@@ -348,7 +345,7 @@ $(function(){
 					phone: $('input[name="students"]:eq('+index+')').val(),
 					subject: $('#subjectCode option:selected').val(),
 					Timestamp: timestamp,
-					checker: checker,
+					checker: $('#email').val(),
 					fee: $('input[name="fee"]:eq('+index+')').val()
 				},
 				success: function() {
@@ -425,7 +422,7 @@ $(function(){
 				phone: phoneNumber,
 				subject: $('#subjectCode option:selected').val(),
 				Timestamp: $('input[name="attend_time"]:eq('+index+')').val(),
-				checker: '',
+				checker: $('#email').val(),
 				fee: $('input[name="fee"]:eq('+index+')').val()
 			},
 			success: function() {
