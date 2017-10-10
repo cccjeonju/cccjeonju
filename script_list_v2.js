@@ -302,9 +302,8 @@ $(function(){
 		//console.log($('input[name="students"]'));
 
 		//$('input[name="students"]').filter(':checked').each(function(aa, elements) {
-		
-		for( var aa = 0; aa < elem_length; aa++) {
-			var index = elements.index('input[name="students"]');
+		for( var index = 0; index < elem_length; index++) {
+			//var index = elements.index('input[name="students"]');
 
 			$.ajax({
 				type: 'POST',
@@ -318,15 +317,15 @@ $(function(){
 					checker: $('#email').val()
 				},
 				success: function(data3) {
-					//console.log(aa+1 + '. ' + $(elements).val() + '님 출석확인 완료');
-					console.log(aa+1 + '. ' + elements.val() + '님 출석확인 완료');
+					//console.log(index+1 + '. ' + $(elements).val() + '님 출석확인 완료');
+					console.log(index+1 + '. ' + elements.val() + '님 출석확인 완료');
 					changeSubject();
 				},
 				error: function() {
 					alert('출석을 기록하는데 에러가 발생했습니다.');
 				}
 			});
-		} //for( var aa
+		} //for( var index
 
 		alert('출석 확인이 완료되었습니다.');
 		$('#selectAll').prop('checked', false);
@@ -390,7 +389,6 @@ $(function(){
 					fee: $('input[name="fee"]:eq('+index+')').val()
 				},
 				success: function() {
-					//console.log(aa+1 + '. ' + $(elements).val() + '님 출석확인 완료');
 					console.log(attendee_name[phoneNumber] + '님 출석 취소');
 					alert(attendee_name[phoneNumber] + '님의 출석 확인이 취소되었습니다.');
 					changeSubject();
