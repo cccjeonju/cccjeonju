@@ -210,6 +210,7 @@ $(function(){
 					if(list_attend[i].c[1] != null) { //attendTime 에 가록이 있을 때
 						studentTr[++idx_t] = '<input type="hidden" name="whoischecker" value="'+list_attend[i].c[5].v+'">\n';
 						studentTr[++idx_t] = '<input type="checkbox" value="'+phoneNumber+'" name="students" checked';
+						feeTotal += list_attend[i].c[6].v;
 					} else {
 						studentTr[++idx_t] = '<input type="hidden" name="whoischecker" value="">\n';
 						studentTr[++idx_t] = '<input type="checkbox" value="'+phoneNumber+'" name="students"';
@@ -224,7 +225,6 @@ $(function(){
 					studentTr[++idx_t] = '<td>'+attendee_year[phoneNumber].substr(-2) +'</td>\n';	// 학번
 					studentTr[++idx_t] = '<td><input type="text" name="fee" class="fee" size="7" value="';
 					if(list_attend[i].c[6] != null) {
-						feeTotal += list_attend[i].c[6].v;
 						studentTr[++idx_t] = list_attend[i].c[6].f;
 					} else {
 						studentTr[++idx_t] = '0';
@@ -301,9 +301,9 @@ $(function(){
 
 		//console.log($('input[name="students"]'));
 
-		//$('input[name="students"]').filter(':checked').each(function(aa, elements) {
-		for( var index = 0; index < elem_length; index++) {
-			//var index = elements.index('input[name="students"]');
+		elements.each(function(aa, element) {
+		//for( var index = 0; index < elem_length; index++) {
+			var index = elements.index(this);
 
 			$.ajax({
 				type: 'POST',
@@ -318,14 +318,14 @@ $(function(){
 				},
 				success: function(data3) {
 					//console.log(index+1 + '. ' + $(elements).val() + '님 출석확인 완료');
-					console.log(index+1 + '. ' + elements.val() + '님 출석확인 완료');
+					console.log(aa+1 + '. ' + $(this).val() + '님 출석확인 완료');
 					changeSubject();
 				},
 				error: function() {
 					alert('출석을 기록하는데 에러가 발생했습니다.');
 				}
 			});
-		} //for( var index
+		} //for( var aa
 
 		alert('출석 확인이 완료되었습니다.');
 		$('#selectAll').prop('checked', false);
