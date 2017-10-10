@@ -124,6 +124,7 @@ $(function(){
 		var index = $('#subjectCode option').index($('#subjectCode option:selected'))-1;
 		var ii = 0; // 현재 반의 인원
 		var feeTotal = 0;
+		var numTotal = 0;
 
 		var today;
 
@@ -210,7 +211,8 @@ $(function(){
 					if(list_attend[i].c[1] != null) { //attendTime 에 가록이 있을 때
 						studentTr[++idx_t] = '<input type="hidden" name="whoischecker" value="'+list_attend[i].c[5].v+'">\n';
 						studentTr[++idx_t] = '<input type="checkbox" value="'+phoneNumber+'" name="students" checked';
-						feeTotal += list_attend[i].c[6].v;						
+						feeTotal += list_attend[i].c[6].v;
+						numTotal++;
 					} else {
 						studentTr[++idx_t] = '<input type="hidden" name="whoischecker" value="">\n';
 						studentTr[++idx_t] = '<input type="checkbox" value="'+phoneNumber+'" name="students"';
@@ -235,7 +237,7 @@ $(function(){
 				}
 
 				studentTr[++idx_t] = '<tr class="row' + ii%2 + '">\n';
-				studentTr[++idx_t] = '<td colspan="3" style="text-align:center">총 <strong>' + ii + '</strong> 명</td>\n';
+				studentTr[++idx_t] = '<td colspan="3" style="text-align:center"><strong>' + Number(numTotal).toLocaleString('en') + '</strong> 명 확인</td>\n';
 				studentTr[++idx_t] = '<td colspan="6" style="text-align:right">오늘 회비 <strong>' + Number(feeTotal).toLocaleString('en') + '</strong> 원</td>\n';
 				studentTr[++idx_t] = '</tr>\n';
 				studentTr[++idx_t] = '</tbody>\n';
