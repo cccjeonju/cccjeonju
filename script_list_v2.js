@@ -360,7 +360,8 @@ $(function(){
 		
 		// uncheck 될 때, 기존 출석확인이 되어있는지 검사 input[name="whoischecker"]:eq(index)
 		if( whoischecker == null || whoischecker == '') {
-			return false; // break
+			console.log('기존에 출석확인이 되어있지 않습니다.');
+			return true; // continue
 		}
 
 		// 기존 출석확인이 아니면 return true;
