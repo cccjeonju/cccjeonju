@@ -199,7 +199,7 @@ $(function(){
 
 					// 한 날에 여러번 같은 핸드폰 번호가 있으면 나타나지 않게 함
 					if( i<(total_attend-1) && phoneNumber == list_attend[i+1].c[2].v ) {
-						console.log('중복 출석 체크한 사람의 앞의 것을 건너뜁니다. ' + phoneNumber);
+						console.log('중복 출석 체크한 사람의 앞의 것을 건너뜁니다. ' + attendee_name[phoneNumber] + ' ' + phoneNumber);
 						return true; // continue
 					}
 
@@ -282,8 +282,7 @@ $(function(){
 		$('#attendBtn').prop('disabled', true); // 버튼 비활성화
 		$('.loading-container').fadeIn();
 
-		var elements = $('input[name="students"]').filter(':checked');
-		var elem_length = elements.length;
+		var elem_length = $('input[name="students"]:checked').length;
 
 		if ( elem_length < 1) {
 			alert('출석 확인할 명단에 체크하고 "출석 확인"" 버튼을 누르세요.');
@@ -303,12 +302,19 @@ $(function(){
 
 		//console.log($('input[name="students"]'));
 
+		var elements = $('input[name="students"]');
+
 		elements.each(function(aa, element) {
-		//for( var aa = 0; aa < elem_length; aa++) {
 			var index = elements.index(this);
+
+			if ( elements.eq(index).is(':checked') == false ) {
+				//console.log('Pass : ' + index + '. ' + attendee_name[elements.eq(index).val()] );
+				return true; //continue
+			}
 
 			$.ajax({
 				type: 'POST',
+				async: false,
 				url: WEB_APP_URL + '?sheet_name=' + SHEET_NAME_CONFIRM,
 				data: {
 					no: $('input[name="no"]:eq('+index+')').val(),
@@ -319,14 +325,12 @@ $(function(){
 					checker: $('#email').val()
 				},
 				success: function() {
-					//console.log(index+1 + '. ' + $(elements).val() + '님 출석확인 완료');
-					console.log(aa+1 + '. ' + $(element).val() + '님 출석확인 완료 (index=' + index + ')');
+					console.log((aa++) + '. ' + $(element).val() + '님 출석확인 완료 (index=' + index + ')');
 				},
 				error: function() {
 					alert('출석을 기록하는데 에러가 발생했습니다.');
 				}
 			});
-		} //for( var aa
 		});
 
 		alert('출석 확인이 완료되었습니다.');
