@@ -146,7 +146,7 @@ $(function(){
 		$.ajax({
 			type: 'GET',
 			// 선택한 과목 중 오늘 날짜에 해당하는 레코드를 가져옴. C column(phone)로 정렬해서
-			//url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_ATTEND+'&tq=select+*+where+D+matches+\''+subject_code+'\'+and+E+<=+dateTime+\''+today+' 23:59:59\'+and+E+>=+dateTime+\''+today+' 00:00:00\'+order+by+C',
+			//url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_ATTEND+'&tq=select+*+where+D+matches+\''+subject_code+'\'+and+E+<=+dateTime+\''+today+' 23:59:59\'+and+E+>=+dateTime+\''+today+' 00:00:00\'',//+order+by+C',
 			url: 'test/json_JE1-G11_today.txt',
 			success: function (data1) {
 				var list_attend = JSON.parse(data1.substring(data1.indexOf('(')+1, data1.indexOf(');'))).table.rows, // 문자열에서 불필요한 부분 제거하고 JSON 형식으로.
@@ -343,7 +343,8 @@ $(function(){
 	//$('input[name="students"]').click(function() {
 	$(document).on('click', 'input[name="students"]', function(){
 
-		var n = $('input[name="students"]:not(:checked)');
+		//var n = $('input[name="students"]:not(:checked)');
+		if( $('input[name="students"]').is(':checked') ) return true; // continue;
 		
 		// 출석확인 되어 있는 사람이 아닐 경우 아무 일도 일어나지 않음
 		var index = $('input[name="students"]').index(this);
