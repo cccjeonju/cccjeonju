@@ -6,7 +6,7 @@ $(function($){
 		SHEET_NAME_ATTEND = '출석부';
 
 	$('.loading-container').fadeOut();
-	
+
 	// --------------------------------------------------
 	// 1. 이름으로 등록자 명단 검색
 	// --------------------------------------------------
@@ -63,20 +63,20 @@ $(function($){
 				//				12]= application
 				//				13]= total fee _____(f값)
 				for(var i=0; i<total; i++) {
-					studentTr[++idx_t] = '<tr class="row' + ii%2 + '">\n';
-					studentTr[++idx_t] = '<td><input type="radio" value="'+students[i].c[3].v+'" name="phone"></td>\n';
-					studentTr[++idx_t] = '<td>'+(++ii)+'</td>\n';
-					studentTr[++idx_t] = '<td>'+students[i].c[1].v+'</td>\n';	// 이름
-					studentTr[++idx_t] = '<td>'+students[i].c[8].v+'</td>\n';	// 호칭
-					studentTr[++idx_t] = '<td>'+students[i].c[2].v.substr(0,1)+'</td>\n';	// 성별
-					studentTr[++idx_t] = '<td>'+students[i].c[4].v.substr(0,1)+'</td>\n';	// 학년
-					studentTr[++idx_t] = '<td>'+students[i].c[5].v.substr(0,5)+'</td>\n';	// 소속
-					studentTr[++idx_t] = '<td>'+students[i].c[6].f.substr(-2) +'</td>\n';	// 학번
-					studentTr[++idx_t] = '<td>'+students[i].c[13].f+'">원</td>\n';	// 회비
-					studentTr[++idx_t] = '</tr>\n';
+					studentTr[++idx] = '<tr class="row' + ii%2 + '">\n';
+					studentTr[++idx] = '<td><input type="radio" value="'+students[i].c[3].v+'" name="phone"></td>\n';
+					studentTr[++idx] = '<td>'+(++ii)+'</td>\n';
+					studentTr[++idx] = '<td>'+students[i].c[1].v+'</td>\n';	// 이름
+					studentTr[++idx] = '<td>'+students[i].c[8].v+'</td>\n';	// 호칭
+					studentTr[++idx] = '<td>'+students[i].c[2].v.substr(0,1)+'</td>\n';	// 성별
+					studentTr[++idx] = '<td>'+students[i].c[4].v.substr(0,1)+'</td>\n';	// 학년
+					studentTr[++idx] = '<td>'+students[i].c[5].v.substr(0,5)+'</td>\n';	// 소속
+					studentTr[++idx] = '<td>'+students[i].c[6].f.substr(-2) +'</td>\n';	// 학번
+					studentTr[++idx] = '<td>'+students[i].c[13].f+'">원</td>\n';	// 회비
+					studentTr[++idx] = '</tr>\n';
 				}
-				studentTr[++idx_t] = '</tbody>\n';
-				studentTr[++idx_t] = '</table>\n';
+				studentTr[++idx] = '</tbody>\n';
+				studentTr[++idx] = '</table>\n';
 				$('#stTable').html( studentTr.join('') );
 
 				$('.loading-container').fadeOut();
