@@ -326,6 +326,7 @@ $(function(){
 				}
 			});
 		} //for( var aa
+		});
 
 		alert('출석 확인이 완료되었습니다.');
 		$('#selectAll').prop('checked', false);
