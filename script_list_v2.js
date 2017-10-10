@@ -361,6 +361,12 @@ $(function(){
 			});
 		});
 
+		alert('출석 확인이 완료되었습니다.');
+		$('#selectAll').prop('checked', false);
+		$('input[name="students"]').prop('checked',false);
+		$('body').scrollTop(0);	// 페이지 맨 위로 이동
+		$('#attendBtn').removeAttr('disabled'); // 버튼 활성화 복귀
+
 		attendBtn_ok = true;
 		//changeSubject();
 	});
@@ -454,13 +460,7 @@ $(function(){
 	}).ajaxStop(function(){
 		if(attendBtn_ok==true) {
 			changeSubject();
-
-			alert('출석 확인이 완료되었습니다.');
-			$('#selectAll').prop('checked', false);
-			$('input[name="students"]').prop('checked',false);
-			$('body').scrollTop(0);	// 페이지 맨 위로 이동
 			$('.loading-container').fadeOut();
-			$('#attendBtn').removeAttr('disabled'); // 버튼 활성화 복귀
 		}
 	});
 
