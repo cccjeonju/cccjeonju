@@ -10,49 +10,49 @@ $(function(){
 	var admin_email = 'cccjeonju@gmail.com',
 		manage_email = 'hiyen2001@gmail.com';
 
-	var attendee_list = new Array();	// 등록자 정보 - 전체
-
-	var checkerList = new Array();
-
 	// --------------------------------------------------
 	// 1-1. 출석체크가 초기 실행되면 개설된 강의 목록을 읽어와야 함
 	// --------------------------------------------------
 	$.ajax({
-		//url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_SUBJECT
-		url: 'test/json_subject_list.txt'
-	}).done(function (data) {
-		var subject_list = JSON.parse(data.substring(data.indexOf('(')+1, data.indexOf(');'))).table.rows, // 문자열에서 불필요한 부분 제거하고 JSON 형식으로.
-			sum = subject_list.length; // 목록 수.
+		//url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_SUBJECT,
+		url: 'test/json_subject_list.txt',
+		success: function (data) {
+			var subject_list = JSON.parse(data.substring(data.indexOf('(')+1, data.indexOf(');'))).table.rows, // 문자열에서 불필요한 부분 제거하고 JSON 형식으로.
+				sum = subject_list.length; // 목록 수.
 
-		//console.log('* SHEET DATA URL - https://docs.google.com/spreadsheets/d/1PHN8N0nY7YLw5NlYTp9VqSvqOHdgsvR2W8BfAZ8AtY4/edit?usp=sharing'); // 구글 스프레드시트 URL.
-		console.log('* 전체 강의 수: ' + sum + '개');
+			//console.log('* SHEET DATA URL - https://docs.google.com/spreadsheets/d/1PHN8N0nY7YLw5NlYTp9VqSvqOHdgsvR2W8BfAZ8AtY4/edit?usp=sharing'); // 구글 스프레드시트 URL.
+			console.log('* 전체 강의 수: ' + sum + '개');
 
-		for (var i = 0; i < sum; i++) { // 전체 강의 목록을 콘솔에 출력. 
-			// subject_list[].c[1] = 필수/선택
-			//				 .c[2] = 학년
-			//				 .c[3] = 필수영역 (G/D/I)
-			//				 .c[4] = 강의코드
-			//				 .c[5] = 강의명
-			//				 .c[6] = 강의자명
-			//				 .c[7] = 강의자 email
-			//				 .c[8] = 보조자 email
-		    //console.log(i+1 + '  ' + subject_list[i].c[5].v + ' / ' + subject_list[i].c[4].v + ' / ' + subject_list[i].c[6].v);
-		    var opt = '<option value="' + subject_list[i].c[4].v + '">';
-		    	opt += '[' + subject_list[i].c[1].v + '] '
-		    if( subject_list[i].c[2] != null ) {
-		    	opt += subject_list[i].c[2].v + ' ' + subject_list[i].c[3].v + ' ';
-		    }
-		    opt += subject_list[i].c[6].v + ' / ' + subject_list[i].c[5].v + '</option>\n';
-		    $('#subjectCode').append( $(opt) );
+			var checkerList = {};
 
-		    checkerList[i] = new Object();
-		    checkerList[i].code = subject_list[i].c[4].v;
-		    checkerList[i].name = subject_list[i].c[6].v;
-		    if(subject_list[i].c[7] != null) checkerList[i].email= subject_list[i].c[7].v;
-		    if(subject_list[i].c[8] != null) checkerList[i].assist = subject_list[i].c[8].v;
+			for (var i = 0; i < sum; i++) { // 전체 강의 목록을 콘솔에 출력. 
+				// subject_list[].c[1] = 필수/선택
+				//				 .c[2] = 학년
+				//				 .c[3] = 필수영역 (G/D/I)
+				//				 .c[4] = 강의코드
+				//				 .c[5] = 강의명
+				//				 .c[6] = 강의자명
+				//				 .c[7] = 강의자 email
+				//				 .c[8] = 보조자 email
+				//console.log(i+1 + '  ' + subject_list[i].c[5].v + ' / ' + subject_list[i].c[4].v + ' / ' + subject_list[i].c[6].v);
+				var opt = '<option value="' + subject_list[i].c[4].v + '">';
+					opt += '[' + subject_list[i].c[1].v + '] '
+				if( subject_list[i].c[2] != null ) {
+					opt += subject_list[i].c[2].v + ' ' + subject_list[i].c[3].v + ' ';
+				}
+				opt += subject_list[i].c[6].v + ' / ' + subject_list[i].c[5].v + '</option>\n';
+				$('#subjectCode').append( $(opt) );
+
+				checkerList[i] = new Object();
+				checkerList[i].code = subject_list[i].c[4].v;
+				checkerList[i].name = subject_list[i].c[6].v;
+				if(subject_list[i].c[7] != null) checkerList[i].email= subject_list[i].c[7].v;
+				if(subject_list[i].c[8] != null) checkerList[i].assist = subject_list[i].c[8].v;
+			}
+		},
+		error: function () {
+			alert('1. 데이터 불러오기 실패. 아마도 jQuery CDN 또는 일시적인 구글 API 문제.');
 		}
-	}).fail(function () {
-		alert('1. 데이터 불러오기 실패. 아마도 jQuery CDN 또는 일시적인 구글 API 문제.');
 	});
 
 	// --------------------------------------------------
@@ -71,15 +71,15 @@ $(function(){
 		attendee_fee = {};
 
 	$.ajax({
-		//url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_REGIST
-		url: 'test/json_regist_list.txt'
-	}).done(function (data) {
-			attendee_list = JSON.parse(data.substring(data.indexOf('(')+1, data.indexOf(');'))).table.rows, // 문자열에서 불필요한 부분 제거하고 JSON 형식으로.
-			sum = attendee_list.length;
+		url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_REGIST,
+		//url: 'test/json_regist_list.txt',
+		success: function (data) {
+			var attendee_list = JSON.parse(data.substring(data.indexOf('(')+1, data.indexOf(');'))).table.rows, // 문자열에서 불필요한 부분 제거하고 JSON 형식으로.
+				sum = attendee_list.length;
 
-		console.log('* 전체 등록자 수: ' + sum + '개');
+			console.log('* 전체 등록자 수: ' + sum + '개');
 
-		// phone number를 index로 사용하도록 배열 정보 업데이트
+			// phone number를 index로 사용하도록 배열 정보 업데이트
 			// attendee[].c[0] = timestamp _____(f값)
 			//			1] = name (student's)
 			//			2] = sex
@@ -93,23 +93,25 @@ $(function(){
 			//			12]= application
 			//			13]= total fee _____(f값)
 
-		for(var i=0; i<sum; i++) {
-			attendee_name[attendee_list[i].c[3].v] = attendee_list[i].c[1].v;
-			attendee_sex[attendee_list[i].c[3].v]  = attendee_list[i].c[2].v;
-			attendee_grade[attendee_list[i].c[3].v]= attendee_list[i].c[4].v;
-			attendee_campus[attendee_list[i].c[3].v]=attendee_list[i].c[5].v;
-			attendee_year[attendee_list[i].c[3].v] = attendee_list[i].c[6].f;
-			attendee_register[attendee_list[i].c[3].v]=attendee_list[i].c[7].v;
-			attendee_title[attendee_list[i].c[3].v]= attendee_list[i].c[8].v;
-			attendee_apply[attendee_list[i].c[3].v]= attendee_list[i].c[12].v;
-			attendee_fee[attendee_list[i].c[3].v]  = attendee_list[i].c[13].f;
+			for(var i=0; i<sum; i++) {
+				attendee_name[attendee_list[i].c[3].v] = attendee_list[i].c[1].v;
+				attendee_sex[attendee_list[i].c[3].v]  = attendee_list[i].c[2].v;
+				attendee_grade[attendee_list[i].c[3].v]= attendee_list[i].c[4].v;
+				attendee_campus[attendee_list[i].c[3].v]=attendee_list[i].c[5].v;
+				attendee_year[attendee_list[i].c[3].v] = attendee_list[i].c[6].f;
+				attendee_register[attendee_list[i].c[3].v]=attendee_list[i].c[7].v;
+				attendee_title[attendee_list[i].c[3].v]= attendee_list[i].c[8].v;
+				attendee_apply[attendee_list[i].c[3].v]= attendee_list[i].c[12].v;
+				attendee_fee[attendee_list[i].c[3].v]  = attendee_list[i].c[13].f;
+			}
+
+			// 로딩바 제거
+			$('.loading-container').fadeOut(); // 로딩바 제거.
+
+		},
+		error: function () {
+			alert('2. 데이터 불러오기 실패. 아마도 jQuery CDN 또는 일시적인 구글 API 문제.');
 		}
-
-		// 로딩바 제거
-		$('.loading-container').fadeOut(); // 로딩바 제거.
-
-	}).fail(function () {
-		alert('2. 데이터 불러오기 실패. 아마도 jQuery CDN 또는 일시적인 구글 API 문제.');
 	});
 
 	// --------------------------------------------------
@@ -226,14 +228,9 @@ $(function(){
 					studentTr[++idx_t] = '<td>'+attendee_campus[phoneNumber].substr(0,5)+'</td>\n';	// 소속
 					studentTr[++idx_t] = '<td>'+attendee_year[phoneNumber].substr(-2) +'</td>\n';	// 학번
 					studentTr[++idx_t] = '<td><input type="text" name="fee" class="fee" size="7" value="';
-					if(list_attend[i].c[6] != null) {
-						studentTr[++idx_t] = list_attend[i].c[6].f;
-					} else {
-						studentTr[++idx_t] = '0';
-					}
+					studentTr[++idx_t] = (list_attend[i].c[6] != null) ? list_attend[i].c[6].f : '0';
 					studentTr[++idx_t] = '">원</td>\n';	// 회비
 					studentTr[++idx_t] = '</tr>\n';
-
 				}
 
 				studentTr[++idx_t] = '<tr class="row' + ii%2 + '">\n';
@@ -257,7 +254,6 @@ $(function(){
 					$('#selectAll').prop('disabled', true).hide();
 					$('input[name="students"]').prop('disabled', true).hide();
 				}
-
 			},
 			error: function () {
 				alert('출석 명단을 읽어오는데 문제가 발생했습니다.');
@@ -301,11 +297,10 @@ $(function(){
 		}
 
 		//console.log($('input[name="students"]'));
-
 		var elements = $('input[name="students"]');
 
-		elements.each(function(aa, element) {
-			var index = elements.index(this);
+		elements.each(function(index, element) {
+			//var index = elements.index(this);
 
 			var whoischecker = $('input[name="whoischecker"]:eq('+index+')').val(),
 				attend_time,
@@ -322,20 +317,15 @@ $(function(){
 				var whoischecker = $('input[name="whoischecker"]:eq('+index+')').val();
 				if( whoischecker == null || whoischecker == '' ) return true; // continue
 
+				checker = '';
 				attend_time = '';
 				timestamp = $('input[name="attend_time"]:eq('+index+')').val();
-				checker = '';
-
 				consoleMsg = '취소 처리';
-
 			} else {
-
-				attend_time = $('input[name="attend_time"]:eq('+index+')').val();
 				timestamp = '';
+				attend_time = $('input[name="attend_time"]:eq('+index+')').val();
 				checker = $('#email').val();
-
 				consoleMsg = '체크 확인';
-
 			}
 
 			$.ajax({
@@ -351,13 +341,13 @@ $(function(){
 					fee: $('input[name="fee"]:eq('+index+')').val()
 				},
 				success: function() {
-					console.log((aa+1) + '. ' + $(element).val() + '님 출석 ' + consoleMsg);
+					console.log((index+1) + '. ' + $(element).val() + '님 출석 ' + consoleMsg);
 				},
 				error: function() {
-					alert(consoleMsg + ' 출석을 기록하는데 에러가 발생했습니다.');
+					alert(consoleMsg + ': index=' + index + ' 출석을 기록하는데 에러가 발생했습니다.');
+					return true; //continue
 				}
 			});
-
 		});
 
 		alert('출석 확인이 완료되었습니다.');
@@ -368,7 +358,6 @@ $(function(){
 		$('#attendBtn').removeAttr('disabled'); // 버튼 활성화 복귀
 
 		changeSubject();
-
 	});
 
 
@@ -398,7 +387,6 @@ $(function(){
 			console.log('기존에 출석확인이 되어있지 않습니다.');
 			return true; // continue
 		}
-
 		// 기존 출석확인이 아니면 return true;
 
 		// 기존 출석확인자면 취소 루틴 실행
@@ -406,35 +394,33 @@ $(function(){
 			// 취소할 것인지 묻기
 		if (!msg) return false; // brake
 
-			// $.ajax
-			// no를 기준으로
-			// attendTime -> Timestamp
-			// attendTime = ''
-			// checker = ''
-			// fee 는 그대로
+		// $.ajax
+		// no를 기준으로
+		// attendTime -> Timestamp
+		// attendTime = ''
+		// checker = ''
+		// fee 는 그대로
 		$.ajax({
-				type: 'POST',
-				url: WEB_APP_URL + '?sheet_name=' + SHEET_NAME_CONFIRM,
-				data: {
-					no: no,
-					attendTime: '',
-					phone: phoneNumber,
-					subject: $('#subjectCode option:selected').val(),
-					Timestamp: $('input[name="attend_time"]:eq('+index+')').val(),
-					checker: '',
-					fee: $('input[name="fee"]:eq('+index+')').val()
-				},
-				success: function() {
-					console.log(attendee_name[phoneNumber] + '님 출석 취소');
-					alert(attendee_name[phoneNumber] + '님의 출석 확인이 취소되었습니다.');
-					changeSubject();
-				},
-				error: function() {
-					alert('출석을 기록하는데 에러가 발생했습니다.');
-				}
-			});
-
-
+			type: 'POST',
+			url: WEB_APP_URL + '?sheet_name=' + SHEET_NAME_CONFIRM,
+			data: {
+				no: no,
+				attendTime: '',
+				phone: phoneNumber,
+				subject: $('#subjectCode option:selected').val(),
+				Timestamp: $('input[name="attend_time"]:eq('+index+')').val(),
+				checker: '',
+				fee: $('input[name="fee"]:eq('+index+')').val()
+			},
+			success: function() {
+				console.log(attendee_name[phoneNumber] + '님 출석 취소');
+				alert(attendee_name[phoneNumber] + '님의 출석 확인이 취소되었습니다.');
+				changeSubject();
+			},
+			error: function() {
+				alert('출석을 기록하는데 에러가 발생했습니다.');
+			}
+		});
 	});
 
 	// --------------------------------------------------
@@ -450,5 +436,4 @@ $(function(){
 	};
 	$(document).on('click', '#selectAll', checkAll);
 	//$('#selectAll').on('click', checkAll);
-
 });
