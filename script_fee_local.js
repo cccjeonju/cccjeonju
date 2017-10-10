@@ -16,8 +16,8 @@ $(function($){
 
 		$.ajax({
 			// 이름과 같은 열을 가져옴
-			//url: 'test/json_search_names.txt',
-			url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_REGIST+'&tq=select+*+where+B+matches+\''+whois_name+'\'',
+			url: 'test/json_search_names.txt',
+			//url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_REGIST+'&tq=select+*+where+B+matches+\''+whois_name+'\'',
 			success: function (data) {
 				var students = JSON.parse(data.substring(data.indexOf('(')+1, data.indexOf(');'))).table.rows, // 문자열에서 불필요한 부분 제거하고 JSON 형식으로.
 					total = students.length; // 목록 수.
