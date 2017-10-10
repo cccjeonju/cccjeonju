@@ -372,6 +372,8 @@ $(function(){
 	//$('input[name="students"]').click(function() {
 	$(document).on('click', 'input[name="students"]', function(){
 
+		$('.loading-container').fadeIn();
+
 		//var n = $('input[name="students"]:not(:checked)');
 		if( $(this).is(':checked') == true ) {
 			//alert('checked');
@@ -420,7 +422,8 @@ $(function(){
 			success: function() {
 				//console.log(attendee_name[phoneNumber] + '님 출석 취소');
 				alert(attendee_name[phoneNumber] + '님의 출석 확인이 취소되었습니다.');
-				changeSubject();
+				//changeSubject();
+				attendBtn_ok = true;
 			},
 			error: function() {
 				alert('출석을 기록하는데 에러가 발생했습니다.');
