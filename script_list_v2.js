@@ -314,13 +314,13 @@ $(function(){
 				consoleMsg;
 
 			// 체크가 되어 있는지 확인하여 진행
-			if ( elements.eq(index).is(':checked') == false ) {
+			if ( elements.eq(index).is(':checked') == false ) { // 체크가 안 되어 있다면
 				//console.log('Pass : ' + index + '. ' + attendee_name[elements.eq(index).val()] );
 				//return true; //continue
 
 				// 출석이 되어있으면 출석 취소 기능
 				var whoischecker = $('input[name="whoischecker"]:eq('+index+')').val();
-				if( whoischecker == null || whoischecker == '') return true; // continue
+				if( whoischecker == null || whoischecker == '' ) return true; // continue
 
 				attend_time = '';
 				timestamp = $('input[name="attend_time"]:eq('+index+')').val();
@@ -351,7 +351,7 @@ $(function(){
 					fee: $('input[name="fee"]:eq('+index+')').val()
 				},
 				success: function() {
-					console.log((aa++) + '. ' + $(element).val() + '님 출석 ' + consoleMsg);
+					console.log((aa+1) + '. ' + $(element).val() + '님 출석 ' + consoleMsg);
 				},
 				error: function() {
 					alert(consoleMsg + ' 출석을 기록하는데 에러가 발생했습니다.');
