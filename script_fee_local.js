@@ -82,6 +82,13 @@ $(function($){
 
 				$('.loading-container').fadeOut();
 
+				// 회비 납부 버튼 생성
+				if ( $('#email').val() == checkerList[index].email || $('#email').val() == checkerList[index].assist || $('#email').val() == EMAIL_ASSIST || $('#email').val() == EMAIL_MANAGE || $('#email').val() == EMAIL_ADMIN ) {
+					$('#submitBtn').removeAttr('disabled').show();
+				} else {
+					$('#submitBtn').prop('disabled', true).hide();
+				}
+				
 			},
 			error: function(){
 				alert('등록자 검색 실패');

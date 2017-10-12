@@ -8,7 +8,8 @@ $(function(){
 		SHEET_NAME_CONFIRM = '출석부';
 
 	var EMAIL_ADMIN  = 'cccjeonju@gmail.com',
-		EMAIL_MANAGE = 'hiyen2001@gmail.com';
+		EMAIL_MANAGE = 'hiyen2001@gmail.com',	// 교육팀장
+		EMAIL_ASSIST = '@gmail.com';	// 교육순장
 
 	var checkerList = {};
 
@@ -131,7 +132,8 @@ $(function(){
 		var today;
 
 		// 관리자일 경우 날짜를 조정할 수 있도록 함
-		if ($('#email').val() == EMAIL_MANAGE || $('#email').val() == EMAIL_ADMIN ) {
+		var myemail = $('#email').val();
+		if (myemail == EMAIL_ADMIN || myemail == EMAIL_MANAGE || myemail == EMAIL_ASSIST ) {
 			today = $('#now_date').val();
 			$('#now_date').removeAttr('readonly');
 			$('#up_date').css('display','inline-block');
@@ -245,7 +247,7 @@ $(function(){
 				$('.loading-container').fadeOut();
 
 				// 출석 확인 버튼 생성
-				if ( $('#email').val() == checkerList[index].email || $('#email').val() == checkerList[index].assist || $('#email').val() == EMAIL_MANAGE || $('#email').val() == EMAIL_ADMIN ) {
+				if ( myemail == checkerList[index].email || myemail == checkerList[index].assist || myemail == EMAIL_MANAGE || myemail == EMAIL_ADMIN ) {
 					$('#attendBtn').removeAttr('disabled').show();
 					$('#selectAll').removeAttr('disabled').removeAttr('style');
 					$('input[name="students"]').removeAttr('disabled').show();

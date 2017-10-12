@@ -5,6 +5,10 @@ $(function($){
 	var WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbyOpp8Fl9V5DAd_ZjsDSI12z7oQLOLufI3HfipWxiUMvngxeOIq/exec',	// 출석부에 기록하기 위한 웹 앱
 		SHEET_NAME_ATTEND = '출석부';
 
+	var EMAIL_ADMIN  = 'cccjeonju@gmail.com',
+		EMAIL_MANAGE = 'hiyen2001@gmail.com',	// 교육팀장
+		EMAIL_ASSIST = '@gmail.com';	// 교육순장
+
 	$('.loading-container').fadeOut();
 
 	// --------------------------------------------------
@@ -81,6 +85,13 @@ $(function($){
 				$('#stTable').html( studentTr.join('') );
 
 				$('.loading-container').fadeOut();
+
+				// 회비 납부 버튼 생성
+				if ( $('#email').val() == checkerList[index].email || $('#email').val() == checkerList[index].assist || $('#email').val() == EMAIL_ASSIST || $('#email').val() == EMAIL_MANAGE || $('#email').val() == EMAIL_ADMIN ) {
+					$('#submitBtn').removeAttr('disabled').show();
+				} else {
+					$('#submitBtn').prop('disabled', true).hide();
+				}
 
 			},
 			error: function(){
