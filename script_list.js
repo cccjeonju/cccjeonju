@@ -9,7 +9,7 @@ $(function(){
 
 	var EMAIL_ADMIN  = 'cccjeonju@gmail.com',
 		EMAIL_MANAGE = 'hiyen2001@gmail.com',	// 교육팀장
-		EMAIL_ASSIST = '@gmail.com';	// 교육순장
+		EMAIL_ASSIST = 'melon0908@gmail.com';	// 교육순장
 
 	var checkerList = {};
 
