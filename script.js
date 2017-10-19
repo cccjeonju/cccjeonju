@@ -85,8 +85,8 @@ $(function($){
 				msg += students[0].c[6].v.toString().substr(-2) + '학번 / 회비(어제까지): ';
 				msg += students[0].c[13].f + '원\n';
 				$('output>a').html(msg).removeAttr('href');
-				$('input[name="phoneCheck"]').val(students[0].c[3].v.toString().substr(-4));
-				$('input[name="studentName"]').val(students[0].c[1].v);
+				$('input[name="phoneCheck"]').val(students[0].c[4].v.toString().substr(-4));
+				$('input[name="studentName"]').val(students[0].c[2].v);
 				$('#fee_total').text(students[0].c[13].f);
 			}
 
