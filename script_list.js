@@ -13,6 +13,18 @@ $(function(){
 
 	var checkerList = {};
 
+	// (등록부) 시트 필드 정보 변수
+	var attendee_name 	= {},
+		attendee_sex 	= {},
+		attendee_grade 	= {},
+		attendee_campus = {},
+		attendee_year 	= {},
+		attendee_regist = {},
+		attendee_title 	= {},
+		attendee_apply 	= {},
+		attendee_fee 	= {};
+
+
 	// --------------------------------------------------
 	// 1-1. 출석체크가 초기 실행되면 개설된 강의 목록을 읽어와야 함
 	// --------------------------------------------------
@@ -61,16 +73,6 @@ $(function(){
 	// 1-3. 로딩이 끝나면 loadingbar fadeout
 	// --------------------------------------------------
 
-	var attendee_name = {},
-		attendee_sex = {},
-		attendee_grade = {},
-		attendee_campus = {},
-		attendee_year = {},
-		attendee_register = {},
-		attendee_title = {},
-		attendee_apply = {},
-		attendee_fee = {};
-
 	$.ajax({
 		url: 'https://docs.google.com/spreadsheets/d/'+KEY_SPREADSHEET+'/gviz/tq?gid='+GID_SHEET_REGIST,
 		//url: 'test/json_regist_list.txt',
@@ -81,26 +83,22 @@ $(function(){
 			console.log('* 전체 등록자 수: ' + sum + '개');
 
 			// phone number를 index로 사용하도록 배열 정보 업데이트
-			// attendee[].c[0] = timestamp _____(f값)
-			//			1] = name (student's)
-			//			2] = sex
-			//			3] = phone
-			//			4] = grade
-			//			5] = campus name
-			//			6] = starting year _____(f값)
-			//			7] = register
-			//			8] = title (soonjang)
-			//			9] = 11/9 subject, [10]=11/16, [11]=11/23
-			//			12]= application
-			//			13]= total fee _____(f값)
-
 			for(var i=0; i<sum; i++) {
-				attendee_name[attendee_list[i].c[3].v] = attendee_list[i].c[1].v;
-				attendee_sex[attendee_list[i].c[3].v]  = attendee_list[i].c[2].v;
-				attendee_grade[attendee_list[i].c[3].v]= attendee_list[i].c[4].v;
+
+				// -----------------------------------
+				// 변수할당 (등록부 시트 필드 순서대로)
+				// -----------------------------------
+				// attendee[].c[0] = timestamp _____(f값)
+				//			6] = starting year _____(f값)
+				//			9] = 11/9 subject, [10]=11/16, [11]=11/23
+				//			13]= total fee _____(f값)
+				attendee_grade[attendee_list[i].c[3].v]= attendee_list[i].c[1].v;
+				attendee_name[attendee_list[i].c[3].v] = attendee_list[i].c[2].v;
+				attendee_sex[attendee_list[i].c[3].v]  = attendee_list[i].c[3].v;
+				// phone - c[4]
 				attendee_campus[attendee_list[i].c[3].v]=attendee_list[i].c[5].v;
 				attendee_year[attendee_list[i].c[3].v] = attendee_list[i].c[6].f;
-				attendee_register[attendee_list[i].c[3].v]=attendee_list[i].c[7].v;
+				attendee_regist[attendee_list[i].c[3].v]=attendee_list[i].c[7].v;
 				attendee_title[attendee_list[i].c[3].v]= attendee_list[i].c[8].v;
 				attendee_apply[attendee_list[i].c[3].v]= attendee_list[i].c[12].v;
 				attendee_fee[attendee_list[i].c[3].v]  = attendee_list[i].c[13].f;

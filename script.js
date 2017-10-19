@@ -6,6 +6,17 @@ $(function($){
 	var WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbyOpp8Fl9V5DAd_ZjsDSI12z7oQLOLufI3HfipWxiUMvngxeOIq/exec',	// 출석부에 기록하기 위한 웹 앱
 		SHEET_NAME_ATTEND = '출석부';
 
+	// (등록부) 시트 필드 정보 변수
+	var attendee_name,
+		attendee_sex,
+		attendee_grade,
+		attendee_campus,
+		attendee_year,
+		attendee_regist,
+		attendee_title,
+		attendee_apply,
+		attendee_fee;
+
 	// --------------------------------------------------
 	// 1-1. 출석체크가 초기 실행되면 개설된 강의 목록을 읽어와야 함
 	// 1-2. 로딩이 끝나면 loadingbar fadeout 효과를 
@@ -69,21 +80,40 @@ $(function($){
 			} else if (total>1) {
 				alert('동일 아이디 발생! 관리자에게 문의해주시기 바랍니다.');
 			} else {
-				var msg = students[0].c[2].v;			// name
-					msg += ' ' + students[0].c[4].v;	// phone
-					msg += ' ' + students[0].c[8].v;	// title (soonjang)
-					msg += ' (' + students[0].c[5].v;	// campus
-					msg += ' ' + students[0].c[6].v.toString().substr(-2) + '학번)';
-					msg += ' ' + students[0].c[1].v.toString().substr(0,1) + '학년';
-					msg += ' / 등록비: ' + students[0].c[13].f;
+
+				// -----------------------------------
+				// 변수할당 (등록부 시트 필드 순서대로)
+				// -----------------------------------
+				attendee_grade 	= students[0].c[1].v,
+				attendee_name 	= students[0].c[2].v,
+				attendee_sex 	= students[0].c[3].v,
+				// phone = c[4]
+				attendee_campus = students[0].c[5].v,
+				attendee_year 	= students[0].c[6].f,
+				attendee_regist = students[0].c[7].v,
+				attendee_title 	= students[0].c[8].v,
+				attendee_apply 	= students[0].c[12].v,
+				attendee_fee 	= students[0].c[13].f;
+				// -----------------------------------
+
+				var msg  =       attendee_name;			// name
+					msg += ' ' + phoneNumber;	// phone
+					msg += ' ' + attendee_title;	// title (soonjang)
+					msg += ' ('+ attendee_campus;	// campus
+					msg += ' ' + attendee_year.substr(-2) + '학번)';
+					msg += ' ' + attendee_grade.substr(0,1) + '학년';
+					msg += ' / 등록비: ' + attendee_fee;
+
 				console.log(msg);
-				msg = students[0].c[2].v + ' ';		// name
-				msg	+= students[0].c[8].v + '님 ';	// title (soonjang)
-				msg += students[0].c[4].v + '<br>';	// phone
-				msg += students[0].c[1].v.toString().substr(0,1) + '학년 / ';
-				msg += students[0].c[5].v + ' ';	// campus
-				msg += students[0].c[6].v.toString().substr(-2) + '학번 / 회비(어제까지): ';
-				msg += students[0].c[13].f + '원\n';
+
+				msg  = attendee_name + ' ';		// name
+				msg	+= attendee_title + '님 ';	// title (soonjang)
+				msg += phoneNumber + '<br>';	// phone
+				msg += attendee_grade.substr(0,1) + '학년 / ';
+				msg += attendee_campus + ' ';	// campus
+				msg += attendee_year.substr(-2) + '학번 / 회비(어제까지): ';
+				msg += attendee_fee + '원\n';
+
 				$('output>a').html(msg).removeAttr('href');
 				$('input[name="phoneCheck"]').val(students[0].c[4].v.toString().substr(-4));
 				$('input[name="studentName"]').val(students[0].c[2].v);
