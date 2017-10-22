@@ -223,7 +223,7 @@ $(function(){
 						studentTr[++idx_t] = '<input type="checkbox" value="'+phoneNumber+'" name="students"';
 					}
 					studentTr[++idx_t] = '></td>\n';
-					studentTr[++idx_t] = '<td><button type="button" name="delete" value="'+(++ii)+'"></td>\n';
+					studentTr[++idx_t] = '<td><button type="button" name="delete" value="'+phoneNumber+'">'+(++ii)+'</td>\n';
 					studentTr[++idx_t] = '<td>'+attendee_name[phoneNumber]+'</td>\n';	// 이름
 					studentTr[++idx_t] = '<td>'+attendee_title[phoneNumber]+'</td>\n';	// 호칭
 					studentTr[++idx_t] = '<td>'+attendee_sex[phoneNumber].substr(0,1)+'</td>\n';	// 성별
@@ -447,7 +447,7 @@ $(function(){
 		
 		// 출석확인 되어 있는 사람이 아닐 경우 아무 일도 일어나지 않음
 		var index = $('input[name="delete"]').index(this);
-		var phoneNumber = $('input[name="students"]:eq('+index+')').val();
+		var phoneNumber = $(this).val();
 		
 		$('.loading-container').fadeIn();
 
