@@ -93,6 +93,10 @@ $(function(){
 				//			6] = starting year _____(f값)
 				//			9] = 11/9 subject, [10]=11/16, [11]=11/23
 				//			13]= total fee _____(f값)
+
+				// 반복 등록한 사람이 있을 경우 건너뜀 (수작업 - 구글스프레드시트)
+				if( attendee_list[i].c[4]==null ) return true; // continue;
+
 				phoneNumber = attendee_list[i].c[4].v;
 
 				attendee_grade[phoneNumber]= attendee_list[i].c[1].v;
@@ -201,9 +205,6 @@ $(function(){
 					//				c[4] = checktime (check time for teacher) lastest
 					//				c[5] = checker (teacher's email)
 					//				c[6] = fee (student's / just today)
-
-					// 반복 등록한 사람이 있을 경우 건너뜀 (수작업 - 구글스프레드시트)
-					if( list_attend[i].c[2]==null ) return true; // continue;
 
  					phoneNumber = list_attend[i].c[2].v;
 
