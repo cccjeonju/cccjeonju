@@ -443,7 +443,7 @@ $(function(){
 	// --------------------------------------------------
 	// 4-2. 출석자 삭제 기능
 	// --------------------------------------------------
-	$(document).on('click', 'input[name="delete"]', function(){
+	$(document).on('click', 'button[name="delete"]', function(){
 		
 		// 출석확인 되어 있는 사람이 아닐 경우 아무 일도 일어나지 않음
 		var index = $('input[name="delete"]').index(this);
