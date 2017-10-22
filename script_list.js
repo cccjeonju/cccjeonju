@@ -208,12 +208,6 @@ $(function(){
 
  					phoneNumber = list_attend[i].c[2].v;
 
-					// 한 날에 여러번 같은 핸드폰 번호가 있으면 나타나지 않게 함 (order by 를 없앴기 때문에 작동하지 않음)
-					//if( i<(total_attend-1) && phoneNumber == list_attend[i+1].c[2].v ) {
-					//	console.log('중복 출석 체크한 사람의 앞의 것을 건너뜁니다. ' + attendee_name[phoneNumber] + ' ' + phoneNumber);
-					//	return true; // continue
-					//}
-
 					studentTr[++idx_t] = '<tr class="row' + ii%2 + '">\n';
 					studentTr[++idx_t] = '<td><input type="hidden" name="no" value="'+list_attend[i].c[0].v+'">\n';
 					studentTr[++idx_t] = '<input type="hidden" name="attend_time" value="';
@@ -229,7 +223,7 @@ $(function(){
 						studentTr[++idx_t] = '<input type="checkbox" value="'+phoneNumber+'" name="students"';
 					}
 					studentTr[++idx_t] = '></td>\n';
-					studentTr[++idx_t] = '<td>'+(++ii)+'</td>\n';
+					studentTr[++idx_t] = '<td><button type="button" name="delete" value="'+(++ii)+'"></td>\n';
 					studentTr[++idx_t] = '<td>'+attendee_name[phoneNumber]+'</td>\n';	// 이름
 					studentTr[++idx_t] = '<td>'+attendee_title[phoneNumber]+'</td>\n';	// 호칭
 					studentTr[++idx_t] = '<td>'+attendee_sex[phoneNumber].substr(0,1)+'</td>\n';	// 성별
@@ -441,7 +435,56 @@ $(function(){
 				attendBtn_ok = true;
 			},
 			error: function() {
-				alert('출석을 기록하는데 에러가 발생했습니다.');
+				alert('출석 확인 취소 중 에러 발생');
+			}
+		});
+	});
+
+	// --------------------------------------------------
+	// 4-2. 출석자 삭제 기능
+	// --------------------------------------------------
+	$(document).on('click', 'input[name="delete"]', function(){
+		
+		// 출석확인 되어 있는 사람이 아닐 경우 아무 일도 일어나지 않음
+		var index = $('input[name="delete"]').index(this);
+		var phoneNumber = $('input[name="students"]:eq('+index+')').val();
+		
+		$('.loading-container').fadeIn();
+
+		// 기존 출석확인자면 취소 루틴 실행
+		var msg = confirm( attendee_name[phoneNumber] + '님의 출석 체크를 삭제하시겠습니까?' );
+		// 사용자 확인
+		if (!msg) {
+			$('.loading-container').fadeOut();
+			return false; // brake
+		}
+
+		// $.ajax
+		// no를 기준으로
+		// attendTime -> Timestamp
+		// attendTime = ''
+		// checker = ''
+		// fee 는 그대로
+		$.ajax({
+			type: 'POST',
+			url: WEB_APP_URL + '?sheet_name=' + SHEET_NAME_CONFIRM,
+			data: {
+				no: $('input[name="no"]:eq('+index+')').val(),
+				attendTime: '',
+				phone: phoneNumber,
+				subject: '',
+				Timestamp: $('input[name="attend_time"]:eq('+index+')').val(),
+				checker: $('#email').val(),
+				fee: $('input[name="fee"]:eq('+index+')').val()
+			},
+			success: function() {
+				//console.log(attendee_name[phoneNumber] + '님 출석 취소');
+				alert(attendee_name[phoneNumber] + '님의 출석 체크가 삭제되었습니다.');
+				//changeSubject();
+				attendBtn_ok = true;
+			},
+			error: function() {
+				alert('출석 체크 삭제 루틴 중 에러 발생');
 			}
 		});
 	});
