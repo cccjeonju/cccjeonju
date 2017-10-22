@@ -82,6 +82,7 @@ $(function(){
 
 			console.log('* 전체 등록자 수: ' + sum + '개');
 
+			var phoneNumber;
 			// phone number를 index로 사용하도록 배열 정보 업데이트
 			for(var i=0; i<sum; i++) {
 
@@ -92,16 +93,18 @@ $(function(){
 				//			6] = starting year _____(f값)
 				//			9] = 11/9 subject, [10]=11/16, [11]=11/23
 				//			13]= total fee _____(f값)
-				attendee_grade[attendee_list[i].c[3].v]= attendee_list[i].c[1].v;
-				attendee_name[attendee_list[i].c[3].v] = attendee_list[i].c[2].v;
-				attendee_sex[attendee_list[i].c[3].v]  = attendee_list[i].c[3].f;
+				phoneNumber = attendee_list[i].c[4].v;
+
+				attendee_grade[phoneNumber]= attendee_list[i].c[1].v;
+				attendee_name[phoneNumber] = attendee_list[i].c[2].v;
+				attendee_sex[phoneNumber]  = attendee_list[i].c[3].v;
 				// phone - c[4]
-				attendee_campus[attendee_list[i].c[3].v]=attendee_list[i].c[5].v;
-				attendee_year[attendee_list[i].c[3].v] = attendee_list[i].c[6].f;
-				attendee_regist[attendee_list[i].c[3].v]=attendee_list[i].c[7].v;
-				attendee_title[attendee_list[i].c[3].v]= attendee_list[i].c[8].v;
-				attendee_apply[attendee_list[i].c[3].v]= attendee_list[i].c[12].v;
-				attendee_fee[attendee_list[i].c[3].v]  = attendee_list[i].c[13].f;
+				attendee_campus[phoneNumber]=attendee_list[i].c[5].v;
+				attendee_year[phoneNumber] = attendee_list[i].c[6].f;
+				attendee_regist[phoneNumber]=attendee_list[i].c[7].v;
+				attendee_title[phoneNumber]= attendee_list[i].c[8].v;
+				attendee_apply[phoneNumber]= attendee_list[i].c[12].v;
+				attendee_fee[phoneNumber]  = attendee_list[i].c[13].f;
 // ----------------------------------------------------------------------
 			}
 
@@ -184,6 +187,7 @@ $(function(){
 				studentTr[++idx_t] = '</thead>';
 				studentTr[++idx_t] = '<tbody>';
 
+				var phoneNumber;
 				// --------------------------------------------------
 				// 2-2. 해당 하는 날짜의 해당 과목 출석 체크한 사람의 정보를 가져옴
 				// --------------------------------------------------
@@ -198,7 +202,7 @@ $(function(){
 					//				c[5] = checker (teacher's email)
 					//				c[6] = fee (student's / just today)
  					
- 					var phoneNumber = list_attend[i].c[2].v;
+ 					phoneNumber = list_attend[i].c[2].v;
 
 					// 한 날에 여러번 같은 핸드폰 번호가 있으면 나타나지 않게 함
 					if( i<(total_attend-1) && phoneNumber == list_attend[i+1].c[2].v ) {
@@ -224,10 +228,10 @@ $(function(){
 					studentTr[++idx_t] = '<td>'+(++ii)+'</td>\n';
 					studentTr[++idx_t] = '<td>'+attendee_name[phoneNumber]+'</td>\n';	// 이름
 					studentTr[++idx_t] = '<td>'+attendee_title[phoneNumber]+'</td>\n';	// 호칭
-					studentTr[++idx_t] = '<td>'+attendee_sex[phoneNumber].toString().substr(0,1)+'</td>\n';	// 성별
-					studentTr[++idx_t] = '<td>'+attendee_grade[phoneNumber].toString().substr(0,1)+'</td>\n';	// 학년
-					studentTr[++idx_t] = '<td>'+attendee_campus[phoneNumber].toString().substr(0,5)+'</td>\n';	// 소속
-					studentTr[++idx_t] = '<td>'+attendee_year[phoneNumber].toString().substr(-2) +'</td>\n';	// 학번
+					studentTr[++idx_t] = '<td>'+attendee_sex[phoneNumber].substr(0,1)+'</td>\n';	// 성별
+					studentTr[++idx_t] = '<td>'+attendee_grade[phoneNumber].substr(0,1)+'</td>\n';	// 학년
+					studentTr[++idx_t] = '<td>'+attendee_campus[phoneNumber].substr(0,5)+'</td>\n';	// 소속
+					studentTr[++idx_t] = '<td>'+attendee_year[phoneNumber].substr(-2) +'</td>\n';	// 학번
 					studentTr[++idx_t] = '<td><input type="text" name="fee" class="fee" size="7" value="';
 					studentTr[++idx_t] = (list_attend[i].c[6] != null) ? list_attend[i].c[6].f : '0';
 					studentTr[++idx_t] = '">원</td>\n';	// 회비
