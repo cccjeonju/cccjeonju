@@ -208,12 +208,11 @@ $(function(){
 
  					phoneNumber = list_attend[i].c[2].v;
 
-					// 한 날에 여러번 같은 핸드폰 번호가 있으면 나타나지 않게 함
-					if( i<(total_attend-1) && phoneNumber == list_attend[i+1].c[2].v ) {
-						console.log('중복 출석 체크한 사람의 앞의 것을 건너뜁니다. ' + attendee_name[phoneNumber] + ' ' + phoneNumber);
-						i++;
-						return true; // continue
-					}
+					// 한 날에 여러번 같은 핸드폰 번호가 있으면 나타나지 않게 함 (order by 를 없앴기 때문에 작동하지 않음)
+					//if( i<(total_attend-1) && phoneNumber == list_attend[i+1].c[2].v ) {
+					//	console.log('중복 출석 체크한 사람의 앞의 것을 건너뜁니다. ' + attendee_name[phoneNumber] + ' ' + phoneNumber);
+					//	return true; // continue
+					//}
 
 					studentTr[++idx_t] = '<tr class="row' + ii%2 + '">\n';
 					studentTr[++idx_t] = '<td><input type="hidden" name="no" value="'+list_attend[i].c[0].v+'">\n';
