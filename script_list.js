@@ -201,7 +201,10 @@ $(function(){
 					//				c[4] = checktime (check time for teacher) lastest
 					//				c[5] = checker (teacher's email)
 					//				c[6] = fee (student's / just today)
- 					
+
+					// 반복 등록한 사람이 있을 경우 건너뜀 (수작업 - 구글스프레드시트)
+					if( list_attend[i].c[2]==null ) return true; // continue;
+
  					phoneNumber = list_attend[i].c[2].v;
 
 					// 한 날에 여러번 같은 핸드폰 번호가 있으면 나타나지 않게 함
