@@ -81,9 +81,9 @@ $(function($){
 				alert('동일 아이디 발생! 관리자에게 문의해주시기 바랍니다.');
 			} else {
 
-				// -----------------------------------
-				// 변수할당 (등록부 시트 필드 순서대로)
-				// -----------------------------------
+// ----------------------------------------------------------------------
+// 변수할당 (등록부 시트 필드 순서대로)
+// ----------------------------------------------------------------------
 				attendee_grade 	= students[0].c[1].v,
 				attendee_name 	= students[0].c[2].v,
 				attendee_sex 	= students[0].c[3].v,
@@ -94,15 +94,16 @@ $(function($){
 				attendee_title 	= students[0].c[8].v,
 				attendee_apply 	= students[0].c[12].v,
 				attendee_fee 	= students[0].c[13].f;
-				// -----------------------------------
+// ----------------------------------------------------------------------
 
-				var msg  =       attendee_name;			// name
-					msg += ' ' + phoneNumber;	// phone
-					msg += ' ' + attendee_title;	// title (soonjang)
-					msg += ' ('+ attendee_campus;	// campus
-					msg += ' ' + attendee_year.substr(-2) + '학번)';
-					msg += ' ' + attendee_grade.substr(0,1) + '학년';
-					msg += ' / 등록비: ' + attendee_fee;
+				var msg  = attendee_name + ' ';		// name
+					msg += phoneNumber + ' ';		// phone
+					msg += attendee_title + ' (';	// title (soonjang)
+					msg += attendee_campus + ' ';	// campus
+					msg += attendee_year.substr(-2) + '학번) ';
+					msg += attendee_grade.substr(0,1) + '학년 / ';
+					msg += '등록비: ';
+					msg += attendee_fee;
 
 				console.log(msg);
 

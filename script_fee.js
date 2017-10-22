@@ -9,6 +9,17 @@ $(function($){
 		EMAIL_MANAGE = 'hiyen2001@gmail.com',	// 교육팀장
 		EMAIL_ASSIST = 'melon0908@gmail.com';	// 교육순장
 
+	// (등록부) 시트 필드 정보 변수
+	var attendee_name,
+		attendee_sex,
+		attendee_grade,
+		attendee_campus,
+		attendee_year,
+		attendee_regist,
+		attendee_title,
+		attendee_apply,
+		attendee_fee;
+
 	$('.loading-container').fadeOut();
 
 	// --------------------------------------------------
@@ -55,29 +66,39 @@ $(function($){
 				studentTr[++idx] = '</thead>';
 				studentTr[++idx] = '<tbody>';
 
-				// students[].c[0] = timestamp _____(f값)
-				//				1] = name (student's)
-				//				2] = sex
-				//				3] = phone
-				//				4] = grade
-				//				5] = campus name
-				//				6] = starting year _____(f값)
-				//				7] = register
-				//				8] = title (soonjang)
-				//				9] = 11/9 subject, [10]=11/16, [11]=11/23
-				//				12]= application
-				//				13]= total fee _____(f값)
+				var phoneNumber;
 				for(var i=0; i<total; i++) {
+
+// ----------------------------------------------------------------------
+// 변수할당 (등록부 시트 필드 순서대로)
+// ----------------------------------------------------------------------
+					// students[].c[0] = timestamp _____(f값)
+					//				6] = starting year _____(f값)
+					//				9] = 11/9 subject, [10]=11/16, [11]=11/23
+					//				13]= total fee _____(f값)
+					phoneNumber  	= students[i].c[4].v,
+
+					attendee_grade 	= students[i].c[1].v,
+					attendee_name 	= students[i].c[2].v,
+					attendee_sex 	= students[i].c[3].v,
+					attendee_campus = students[i].c[5].v,
+					attendee_year 	= students[i].c[6].f,
+					attendee_regist = students[i].c[7].v,
+					attendee_title 	= students[i].c[8].v,
+					attendee_apply 	= students[i].c[12].v,
+					attendee_fee 	= students[i].c[13].f;
+// ----------------------------------------------------------------------
+
 					studentTr[++idx] = '<tr class="row' + ii%2 + '">\n';
-					studentTr[++idx] = '<td><input type="radio" value="'+students[i].c[3].v+'" name="phone"></td>\n';
+					studentTr[++idx] = '<td><input type="radio" value="'+attendee_phone+'" name="phone"></td>\n';
 					studentTr[++idx] = '<td>'+(++ii)+'</td>\n';
-					studentTr[++idx] = '<td><span id="st_name">'+students[i].c[1].v+'</span></td>\n';	// 이름
-					studentTr[++idx] = '<td>'+students[i].c[8].v+'</td>\n';	// 호칭
-					studentTr[++idx] = '<td>'+students[i].c[2].v.substr(0,1)+'</td>\n';	// 성별
-					studentTr[++idx] = '<td>'+students[i].c[4].v.substr(0,1)+'</td>\n';	// 학년
-					studentTr[++idx] = '<td>'+students[i].c[5].v.substr(0,5)+'</td>\n';	// 소속
-					studentTr[++idx] = '<td>'+students[i].c[6].f.substr(-2) +'</td>\n';	// 학번
-					studentTr[++idx] = '<td>'+students[i].c[13].f+'원</td>\n';	// 회비
+					studentTr[++idx] = '<td><span id="st_name">'+attendee_name+'</span></td>\n';	// 이름
+					studentTr[++idx] = '<td>'+attendee_title+'</td>\n';	// 호칭
+					studentTr[++idx] = '<td>'+attendee_sex.substr(0,1)+'</td>\n';	// 성별
+					studentTr[++idx] = '<td>'+attendee_grade.substr(0,1)+'</td>\n';	// 학년
+					studentTr[++idx] = '<td>'+attendee_campus.substr(0,5)+'</td>\n';	// 소속
+					studentTr[++idx] = '<td>'+attendee_year.substr(-2) +'</td>\n';	// 학번
+					studentTr[++idx] = '<td>'+attendee_fee+'원</td>\n';	// 회비
 					studentTr[++idx] = '</tr>\n';
 				}
 				studentTr[++idx] = '</tbody>\n';
@@ -86,8 +107,9 @@ $(function($){
 
 				$('.loading-container').fadeOut();
 
+				var myemail = $('#email').val();
 				// 회비 납부 버튼 생성
-				if ( $('#email').val() == checkerList[index].email || $('#email').val() == checkerList[index].assist || $('#email').val() == EMAIL_ASSIST || $('#email').val() == EMAIL_MANAGE || $('#email').val() == EMAIL_ADMIN ) {
+				if (  myemail == checkerList[index].email || myemail == checkerList[index].assist || myemail == EMAIL_ASSIST || myemail == EMAIL_MANAGE || myemail == EMAIL_ADMIN ) {
 					$('#submitBtn').removeAttr('disabled').show();
 				} else {
 					$('#submitBtn').prop('disabled', true).hide();
