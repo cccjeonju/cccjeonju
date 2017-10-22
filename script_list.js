@@ -94,7 +94,7 @@ $(function(){
 				//			13]= total fee _____(f값)
 				attendee_grade[attendee_list[i].c[3].v]= attendee_list[i].c[1].v;
 				attendee_name[attendee_list[i].c[3].v] = attendee_list[i].c[2].v;
-				attendee_sex[attendee_list[i].c[3].v]  = attendee_list[i].c[3].v;
+				attendee_sex[attendee_list[i].c[3].v]  = attendee_list[i].c[3].f;
 				// phone - c[4]
 				attendee_campus[attendee_list[i].c[3].v]=attendee_list[i].c[5].v;
 				attendee_year[attendee_list[i].c[3].v] = attendee_list[i].c[6].f;
@@ -224,10 +224,10 @@ $(function(){
 					studentTr[++idx_t] = '<td>'+(++ii)+'</td>\n';
 					studentTr[++idx_t] = '<td>'+attendee_name[phoneNumber]+'</td>\n';	// 이름
 					studentTr[++idx_t] = '<td>'+attendee_title[phoneNumber]+'</td>\n';	// 호칭
-					studentTr[++idx_t] = '<td>'+attendee_sex[phoneNumber].substr(0,1)+'</td>\n';	// 성별
-					studentTr[++idx_t] = '<td>'+attendee_grade[phoneNumber].substr(0,1)+'</td>\n';	// 학년
-					studentTr[++idx_t] = '<td>'+attendee_campus[phoneNumber].substr(0,5)+'</td>\n';	// 소속
-					studentTr[++idx_t] = '<td>'+attendee_year[phoneNumber].substr(-2) +'</td>\n';	// 학번
+					studentTr[++idx_t] = '<td>'+attendee_sex[phoneNumber].toString().substr(0,1)+'</td>\n';	// 성별
+					studentTr[++idx_t] = '<td>'+attendee_grade[phoneNumber].toString().substr(0,1)+'</td>\n';	// 학년
+					studentTr[++idx_t] = '<td>'+attendee_campus[phoneNumber].toString().substr(0,5)+'</td>\n';	// 소속
+					studentTr[++idx_t] = '<td>'+attendee_year[phoneNumber].toString().substr(-2) +'</td>\n';	// 학번
 					studentTr[++idx_t] = '<td><input type="text" name="fee" class="fee" size="7" value="';
 					studentTr[++idx_t] = (list_attend[i].c[6] != null) ? list_attend[i].c[6].f : '0';
 					studentTr[++idx_t] = '">원</td>\n';	// 회비
