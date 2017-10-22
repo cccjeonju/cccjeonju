@@ -446,7 +446,7 @@ $(function(){
 	$(document).on('click', 'button[name="delete"]', function(){
 		
 		// 출석확인 되어 있는 사람이 아닐 경우 아무 일도 일어나지 않음
-		var index = $('input[name="delete"]').index(this);
+		var index = $('button[name="delete"]').index(this);
 		var phoneNumber = $(this).val();
 		
 		$('.loading-container').fadeIn();
