@@ -95,7 +95,7 @@ $(function(){
 				//			13]= total fee _____(f값)
 
 				// 반복 등록한 사람이 있을 경우 건너뜀 (수작업 - 구글스프레드시트)
-				if( attendee_list[i].c[4]==null ) return true; // continue;
+				if( attendee_list[i].c[4]==null ) continue;
 
 				phoneNumber = attendee_list[i].c[4].v;
 
